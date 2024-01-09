@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FintechGrupo10.Domain\FintechGrupo10.Domain.csproj" />
+    <ProjectReference Include="..\FintechGrupo10.Infrastructure\FintechGrupo10.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
