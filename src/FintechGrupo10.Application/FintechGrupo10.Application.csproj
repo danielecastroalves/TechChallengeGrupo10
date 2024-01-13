@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FintechGrupo10.Domain\FintechGrupo10.Domain.csproj" />
-    <ProjectReference Include="..\FintechGrupo10.Infrastructure\FintechGrupo10.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

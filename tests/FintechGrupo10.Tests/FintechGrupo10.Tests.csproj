@@ -23,10 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FintechGrupo10.Application\FintechGrupo10.Application.csproj" />
-    <ProjectReference Include="..\FintechGrupo10.Domain\FintechGrupo10.Domain.csproj" />
-    <ProjectReference Include="..\FintechGrupo10.Infrastructure\FintechGrupo10.Infrastructure.csproj" />
-    <ProjectReference Include="..\TechChallengeFase1\FintechGrupo10.WebApi.csproj" />
+    <ProjectReference Include="..\..\src\FintechGrupo10.Application\FintechGrupo10.Application.csproj" />
+    <ProjectReference Include="..\..\src\FintechGrupo10.Domain\FintechGrupo10.Domain.csproj" />
+    <ProjectReference Include="..\..\src\FintechGrupo10.Infrastructure\FintechGrupo10.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\FintechGrupo10.WebApi\FintechGrupo10.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

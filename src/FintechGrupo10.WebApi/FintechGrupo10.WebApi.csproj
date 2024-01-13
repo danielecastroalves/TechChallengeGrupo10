@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FintechGrupo10.Application\FintechGrupo10.Application.csproj" />
+    <ProjectReference Include="..\FintechGrupo10.Infrastructure\FintechGrupo10.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
