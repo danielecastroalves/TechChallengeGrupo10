@@ -7,12 +7,12 @@
         public DateTime DataAtualizacao { get; set; }
         public bool Ativo { get; set; }
 
-        protected EntidadeBase() 
+        protected EntidadeBase()
         {
             Id = Guid.NewGuid();
             Ativo = true;
             SetDataInsercao();
-            SetDataAtualizacao();        
+            SetDataAtualizacao();
         }
 
         public void SetDataInsercao()
@@ -37,5 +37,5 @@
             Ativo = false;
             SetDataAtualizacao();
         }
-    }    
+    }
 }
