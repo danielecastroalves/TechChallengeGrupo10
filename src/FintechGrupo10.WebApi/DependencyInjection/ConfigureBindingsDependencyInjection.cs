@@ -17,6 +17,8 @@ namespace FintechGrupo10.WebApi.DependencyInjection
         {
             // Mongo
             ConfigureBindingsMongo(services, configuration);
+
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
         }
 
         public static void ConfigureBindingsMongo
@@ -41,7 +43,6 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             //Configure Mongo Repositories
 
             //Configure Mongo Serializer
-
         }
     }
 }
