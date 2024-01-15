@@ -8,7 +8,7 @@ namespace FintechGrupo10.Infrastructure.Mongo.Repositorios
 {
     public class RepositorioBase<TEntidade> : IRepositorio<TEntidade> where TEntidade : EntidadeBase
     {
-        private readonly IMongoContext _context;
+        protected readonly IMongoContext _context;
 
         public RepositorioBase(IMongoContext context)
         {
