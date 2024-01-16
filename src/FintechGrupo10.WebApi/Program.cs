@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var key = Encoding.ASCII.GetBytes(builder.Configuration.GetValue<char[]>("Autenticacao:Secret")!);
+var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("Autenticacao").GetValue<string>("Secret")!);
 
 builder.Services
     .AddAuthentication(x =>
