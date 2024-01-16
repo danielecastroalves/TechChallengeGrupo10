@@ -1,4 +1,5 @@
 ﻿using FintechGrupo10.Application.Recursos.Login;
+using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,9 @@ namespace FintechGrupo10.WebApi.Controllers;
 
 [ApiController]
 [Route("login")]
-public class LoginController : ControllerBase
+public class LoginController : CommonController
 {
-    private readonly IMediator _mediator;
-
-    public LoginController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
+    public LoginController(IMediator mediator) : base(mediator) { }
 
     [HttpPost]
     public async Task<ActionResult<string>> Authenticar(
