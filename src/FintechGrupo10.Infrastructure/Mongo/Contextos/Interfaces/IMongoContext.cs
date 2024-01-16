@@ -11,7 +11,7 @@ namespace FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces
 
         IMongoCollection<T> GetCollection<T>(string? name = null);
 
-        IMongoCollection<Cliente> Cliente { get; }
+        IMongoCollection<ClienteEntity> Cliente { get; }
         IMongoCollection<Pergunta> Pergunta { get; }
     }
 }

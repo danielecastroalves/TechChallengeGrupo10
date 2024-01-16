@@ -13,7 +13,7 @@ namespace FintechGrupo10.Infrastructure.Mongo.Contextos
 
         public int DefaultTtlDays { get; set; }
 
-        public IMongoCollection<Cliente> Cliente => GetCollection<Cliente>("Cliente");
+        public IMongoCollection<ClienteEntity> Cliente => GetCollection<ClienteEntity>("Cliente");
 
         public IMongoCollection<Pergunta> Pergunta => GetCollection<Pergunta>("Pergunta");
 
