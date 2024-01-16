@@ -8,9 +8,7 @@ namespace FintechGrupo10.Infrastructure.Mongo.Repositorios;
 
 public class UsuarioRepositorio : RepositorioBase<Usuario>, IUsuarioRepositorio
 {
-    public UsuarioRepositorio(IMongoContext context) : base(context)
-    {
-    }
+    public UsuarioRepositorio(IMongoContext context) : base(context) { }
 
     public async Task<Usuario> ObterPorLoginESenhaAsync(
         string login,
