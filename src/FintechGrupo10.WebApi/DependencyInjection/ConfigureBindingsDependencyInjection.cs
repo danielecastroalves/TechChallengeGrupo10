@@ -19,6 +19,7 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             ConfigureBindingsMongo(services, configuration);
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+            //services.AddMediatR(new AssemblyReference().GetAssembly());
         }
 
         public static void ConfigureBindingsMongo
