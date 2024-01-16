@@ -9,6 +9,6 @@ namespace FintechGrupo10.Domain.Entidades
         public string ValorMinimo { get; set; } = null!;
         public string TaxaAdministracao { get; set; } = null!;
         public string RiscoProduto { get; set; } = null!;
-        public ClientProfile PerfilProduto { get; set; }
+        //public ClientProfile PerfilProduto { get; set; }
     }
 }
