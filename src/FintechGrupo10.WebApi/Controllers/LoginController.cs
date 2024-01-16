@@ -20,6 +20,6 @@ public class LoginController : ControllerBase
         [FromBody] LoginRequest request,
         CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request!, cancellationToken);
+        return await _mediator.Send(request, cancellationToken);
     }
 }
