@@ -2,7 +2,7 @@
 
 namespace FintechGrupo10.Domain.Entidades
 {
-    public class Cliente : EntidadeBase
+    public class ClienteEntity : Usuario
     {
         public string NomeCliente { get; set; } = null!;
         public string Documento { get; set; } = null!;
@@ -12,4 +12,3 @@ namespace FintechGrupo10.Domain.Entidades
         public PerfilInvestimento PerfilInvestimento { get; set; }
     }
 }
-   

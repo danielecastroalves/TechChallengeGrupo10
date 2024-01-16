@@ -1,10 +1,14 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+﻿using FintechGrupo10.Application;
+using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Domain.Entidades;
+using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Application.Comum.Servicos;
 using FintechGrupo10.Infrastructure.Mongo.Contextos;
 using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
 using FintechGrupo10.Infrastructure.Mongo.Repositorios;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
+using MediatR;
 using FintechGrupo10.Infrastructure.Services;
 using FintechGrupo10.Infrastructure.Servicos;
 using System.Diagnostics.CodeAnalysis;
@@ -12,7 +16,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
     [ExcludeFromCodeCoverage]
-    public class ConfigureBindingsDependencyInjection
+    public static class ConfigureBindingsDependencyInjection
     {
         public static void RegisterBindings
         (
@@ -22,6 +26,10 @@ namespace FintechGrupo10.WebApi.DependencyInjection
         {
             // Mongo
             ConfigureBindingsMongo(services, configuration);
+
+            // MediatR
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMediatR(new AssemblyReference().GetAssembly());
         }
 
         public static void ConfigureBindingsMongo
@@ -44,6 +52,8 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             services.AddSingleton<IMongoContext, MongoContext>();
 
             //Configure Mongo Repositories
+            services.AddScoped<IRepositorio<ClienteEntity>, RepositorioBase<ClienteEntity>>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
             services.AddScoped<IPerguntasInvestimentoRepositorio, PerguntasInvestimentoRepositorio>();
 
