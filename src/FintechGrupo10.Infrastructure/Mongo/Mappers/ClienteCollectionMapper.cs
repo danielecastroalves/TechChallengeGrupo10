@@ -7,7 +7,7 @@ namespace FintechGrupo10.Infrastructure.Mongo.Mappers
     {
         public static void MapeamentoMongoCollection()
         {
-            BsonClassMap.RegisterClassMap<Cliente>(cm =>
+            BsonClassMap.RegisterClassMap<ClienteEntity>(cm =>
             {
                 cm.AutoMap();
                 cm.SetIgnoreExtraElements(true);

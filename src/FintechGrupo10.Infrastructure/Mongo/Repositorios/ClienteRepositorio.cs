@@ -14,9 +14,9 @@ namespace FintechGrupo10.Infrastructure.Mongo.Repositorios
 
         public async Task<bool> AtualizaPerfilInvestimento(string documento, PerfilInvestimento perfil)
         {
-            var atualizaPerfil = Builders<Cliente>.Update.Set(x => x.PerfilInvestimento, perfil);
+            var atualizaPerfil = Builders<ClienteEntity>.Update.Set(x => x.PerfilInvestimento, perfil);
 
-            var filtro = Builders<Cliente>.Filter.Eq(z => z.Documento, documento);
+            var filtro = Builders<ClienteEntity>.Filter.Eq(z => z.Documento, documento);
 
             var resultado = await _mongoContext.Cliente.UpdateOneAsync(filtro, atualizaPerfil);
 
