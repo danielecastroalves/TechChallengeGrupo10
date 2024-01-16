@@ -1,13 +1,15 @@
-﻿using FintechGrupo10.Infrastructure.Mongo.Contextos;
+﻿using FintechGrupo10.Application;
+using FintechGrupo10.Infrastructure.Mongo.Contextos;
 using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
+using MediatR;
 using System.Diagnostics.CodeAnalysis;
 
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
     [ExcludeFromCodeCoverage]
-    public class ConfigureBindingsDependencyInjection
+    public static class ConfigureBindingsDependencyInjection
     {
         public static void RegisterBindings
         (
@@ -18,8 +20,9 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             // Mongo
             ConfigureBindingsMongo(services, configuration);
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
-            //services.AddMediatR(new AssemblyReference().GetAssembly());
+            // MediatR
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMediatR(new AssemblyReference().GetAssembly());
         }
 
         public static void ConfigureBindingsMongo
