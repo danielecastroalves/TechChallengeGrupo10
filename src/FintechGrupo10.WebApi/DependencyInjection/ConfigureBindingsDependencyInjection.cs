@@ -1,6 +1,9 @@
 ﻿using FintechGrupo10.Application;
+using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Domain.Entidades;
 using FintechGrupo10.Infrastructure.Mongo.Contextos;
 using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
+using FintechGrupo10.Infrastructure.Mongo.Repositorios;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
 using MediatR;
@@ -45,6 +48,8 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             services.AddSingleton<IMongoContext, MongoContext>();
 
             //Configure Mongo Repositories
+            services.AddScoped<IRepositorio<ClienteEntity>, RepositorioBase<ClienteEntity>>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             //Configure Mongo Serializer
         }
