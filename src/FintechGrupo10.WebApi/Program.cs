@@ -15,24 +15,24 @@ builder.Services.AddSwaggerGen();
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("Autenticacao").GetValue<string>("Secret")!);
 
-builder.Services
-    .AddAuthentication(x =>
-    {
-        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(x =>
-    {
-        x.RequireHttpsMetadata = false;
-        x.SaveToken = true;
-        x.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
-    });
+//builder.Services
+//    .AddAuthentication(x =>
+//    {
+//        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//    })
+//    .AddJwtBearer(x =>
+//    {
+//        x.RequireHttpsMetadata = false;
+//        x.SaveToken = true;
+//        x.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuerSigningKey = true,
+//            IssuerSigningKey = new SymmetricSecurityKey(key),
+//            ValidateIssuer = false,
+//            ValidateAudience = false
+//        };
+//    });
 
 // DependencyInjections
 ConfigureBindingsDependencyInjection.RegisterBindings(builder.Services, builder.Configuration);

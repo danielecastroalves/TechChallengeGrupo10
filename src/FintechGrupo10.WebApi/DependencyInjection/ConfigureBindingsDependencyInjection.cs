@@ -1,6 +1,8 @@
 ﻿using FintechGrupo10.Application;
 using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Domain.Entidades;
+using FintechGrupo10.Infrastructure.Autenticacao.Token;
+using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
 using FintechGrupo10.Infrastructure.Mongo.Contextos;
 using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
 using FintechGrupo10.Infrastructure.Mongo.Repositorios;
@@ -26,6 +28,9 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             // MediatR
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMediatR(new AssemblyReference().GetAssembly());
+
+            // Services
+            services.AddScoped<ITokenService, TokenService>();
         }
 
         public static void ConfigureBindingsMongo
