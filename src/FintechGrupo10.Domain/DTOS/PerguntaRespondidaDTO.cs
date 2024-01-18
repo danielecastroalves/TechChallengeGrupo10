@@ -2,7 +2,7 @@
 {
     public class PerguntaRespondidaDTO
     {
-        public int IdPergunta { get; set; }
-        public int IdResposta { get; set; }
+        public Guid IdPergunta { get; set; }
+        public Guid IdResposta { get; set; }
     }
 }

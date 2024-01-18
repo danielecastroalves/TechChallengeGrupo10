@@ -15,13 +15,13 @@ namespace FintechGrupo10.WebApi.Controllers
     {
         public PerguntasInvestimentoController(IMediator mediator) : base(mediator) { }
 
-        [HttpGet("perguntas-investimento")]
+        [HttpGet("busca-perguntas")]
         public async Task<IActionResult> GetQuestions()
         {
             return Ok(await _mediator.Send(new GetPerguntasInvestimentoRequest(), CancellationToken.None));
         }
 
-        [HttpPost("cria-perguntas-investimento")]
+        [HttpPost("cria-pergunta")]
         public async Task<IActionResult> CreateQuestion([FromBody] CriarPerguntasInvestimentoRequest request,
             CancellationToken cancellationToken)
         {
@@ -30,7 +30,7 @@ namespace FintechGrupo10.WebApi.Controllers
             return Ok(await _mediator.Send(request, cancellationToken));
         }
 
-        [HttpPost("responde-perguntas-investimento")]
+        [HttpPost("responde-perguntas")]
         public async Task<IActionResult> AnswerQuestions([FromBody] ResponderPerguntasInvestimentoRequest request,
             CancellationToken cancellationToken)
         {
@@ -39,7 +39,7 @@ namespace FintechGrupo10.WebApi.Controllers
             return Ok(await _mediator.Send(request, cancellationToken));
         }
 
-        [HttpDelete("deleta-pergunta-investimento")]
+        [HttpDelete("deleta-pergunta")]
         public async Task<IActionResult> DeleteQuestions([FromBody][Required] DeletaPerguntaRequest request,
             CancellationToken cancellationToken)
         {
