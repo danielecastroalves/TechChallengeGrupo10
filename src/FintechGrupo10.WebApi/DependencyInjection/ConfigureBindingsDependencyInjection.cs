@@ -1,17 +1,15 @@
 ﻿using FintechGrupo10.Application;
 using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Domain.Entidades;
-using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Application.Comum.Servicos;
 using FintechGrupo10.Infrastructure.Mongo.Contextos;
 using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
 using FintechGrupo10.Infrastructure.Mongo.Repositorios;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
 using MediatR;
-using FintechGrupo10.Infrastructure.Services;
-using FintechGrupo10.Infrastructure.Servicos;
 using System.Diagnostics.CodeAnalysis;
+using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
+using FintechGrupo10.Infrastructure.Autenticacao.Token;
 
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
@@ -54,14 +52,14 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             //Configure Mongo Repositories
             services.AddScoped<IRepositorio<ClienteEntity>, RepositorioBase<ClienteEntity>>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-            services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
-            services.AddScoped<IPerguntasInvestimentoRepositorio, PerguntasInvestimentoRepositorio>();
+            //services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
+            services.AddScoped<IRepositorio<Pergunta>, RepositorioBase<Pergunta>>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             //Configure Mongo Serializer
 
             //Configure Services
-            services.AddScoped<IPerfilInvestimentoServico, PerfilInvestimentoServico>();
-            services.AddScoped<IPerguntasInvestimentoServico, PerguntasInvestimentoServico>();
+            services.AddScoped<ITokenService, TokenService>();
         }
     }
 }

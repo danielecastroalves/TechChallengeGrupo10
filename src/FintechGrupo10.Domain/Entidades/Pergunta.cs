@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FintechGrupo10.Domain.Entidades
+﻿namespace FintechGrupo10.Domain.Entidades
 {
-    public class Pergunta
+    public class Pergunta : EntidadeBase
     {
         public string Titulo { get; set; } = null!;
         public List<Resposta> Resposta  { get; set; }

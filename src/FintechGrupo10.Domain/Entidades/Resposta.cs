@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FintechGrupo10.Domain.Entidades
+﻿namespace FintechGrupo10.Domain.Entidades
 {
     public class Resposta
     {
-        public int Id { get; set; }
         public string Descricao { get; set; }
         public int Pontuacao { get; set; }
     }

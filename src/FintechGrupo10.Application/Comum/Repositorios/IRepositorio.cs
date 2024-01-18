@@ -35,5 +35,11 @@ namespace FintechGrupo10.Application.Comum.Repositorios
             TEntidade entity,
             CancellationToken cancellationToken = default
         );
+
+        Task<bool> DeletarPorIdAsync
+        (
+           Guid id,
+           CancellationToken cancellationToken = default
+        );
     }
 }

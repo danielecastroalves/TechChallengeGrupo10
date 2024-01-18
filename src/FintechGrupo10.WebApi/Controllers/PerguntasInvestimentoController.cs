@@ -1,23 +1,51 @@
-﻿using FintechGrupo10.Application.Comum.Servicos;
+﻿using FintechGrupo10.Application.Recursos.PerguntasInvestimento.BuscarPerguntas;
+using FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunta;
+using FintechGrupo10.Application.Recursos.PerguntasInvestimento.DeletaPergunta;
+using FintechGrupo10.Application.Recursos.PerguntasInvestimento.ResponderPerguntas;
+using FintechGrupo10.WebApi.Controllers.Comum;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace FintechGrupo10.WebApi.Controllers
 {
     [ApiController]
     [Route("PerguntasDeInvestimento")]
-    public class PerguntasInvestimentoController : ControllerBase
+    public class PerguntasInvestimentoController : CommonController
     {
-        private readonly IPerguntasInvestimentoServico _perguntasInvestimentoServico;
+        public PerguntasInvestimentoController(IMediator mediator) : base(mediator) { }
 
-        public PerguntasInvestimentoController(IPerguntasInvestimentoServico perguntasInvestimentoServico)
+        [HttpGet("perguntas-investimento")]
+        public async Task<IActionResult> GetQuestions()
         {
-            _perguntasInvestimentoServico = perguntasInvestimentoServico;
+            return Ok(await _mediator.Send(new GetPerguntasInvestimentoRequest(), CancellationToken.None));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> BuscaPerguntasDeInvestimento()
+        [HttpPost("cria-perguntas-investimento")]
+        public async Task<IActionResult> CreateQuestion([FromBody] CriarPerguntasInvestimentoRequest request,
+            CancellationToken cancellationToken)
         {
-            return Ok(await _perguntasInvestimentoServico.BuscaPerguntasInvestimento());
+            if(request == null) throw new ArgumentNullException(nameof(request));
+
+            return Ok(await _mediator.Send(request, cancellationToken));
+        }
+
+        [HttpPost("responde-perguntas-investimento")]
+        public async Task<IActionResult> AnswerQuestions([FromBody] ResponderPerguntasInvestimentoRequest request,
+            CancellationToken cancellationToken)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            return Ok(await _mediator.Send(request, cancellationToken));
+        }
+
+        [HttpDelete("deleta-pergunta-investimento")]
+        public async Task<IActionResult> DeleteQuestions([FromBody][Required] DeletaPerguntaRequest request,
+            CancellationToken cancellationToken)
+        {
+            if (request == null) throw new ArgumentNullException(nameof(request));
+
+            return Ok(await _mediator.Send(request, cancellationToken));
         }
     }
 }
