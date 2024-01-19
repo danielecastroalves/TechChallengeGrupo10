@@ -4,7 +4,7 @@ using MediatR;
 
 namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunta
 {
-    internal class CriarPerguntasInvestimentoHandler : IRequestHandler<CriarPerguntasInvestimentoRequest, Guid>
+    public class CriarPerguntasInvestimentoHandler : IRequestHandler<CriarPerguntasInvestimentoRequest, Guid>
     {
         private readonly IRepositorio<Pergunta> _repositorio;
 
