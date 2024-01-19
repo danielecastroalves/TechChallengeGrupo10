@@ -10,6 +10,8 @@ using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
 using MediatR;
 using System.Diagnostics.CodeAnalysis;
+using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
+using FintechGrupo10.Infrastructure.Autenticacao.Token;
 
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
@@ -55,8 +57,14 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             //Configure Mongo Repositories
             services.AddScoped<IRepositorio<ClienteEntity>, RepositorioBase<ClienteEntity>>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            //services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
+            services.AddScoped<IRepositorio<Pergunta>, RepositorioBase<Pergunta>>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             //Configure Mongo Serializer
+
+            //Configure Services
+            services.AddScoped<ITokenService, TokenService>();
         }
     }
 }

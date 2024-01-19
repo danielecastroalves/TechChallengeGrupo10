@@ -87,5 +87,19 @@ namespace FintechGrupo10.Infrastructure.Mongo.Repositorios
             await _context.GetCollection<TEntidade>()
                 .ReplaceOneAsync(filter, entity, cancellationToken: cancellationToken);
         }
+
+        public virtual async Task<bool> DeletarPorIdAsync
+        (
+            Guid id,
+            CancellationToken cancellationToken = default
+        )
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var queryResut = await _context.GetCollection<TEntidade>()
+                .DeleteOneAsync(f => f.Id == id, cancellationToken: cancellationToken);
+
+            return queryResut.IsAcknowledged;
+        }
     }
 }

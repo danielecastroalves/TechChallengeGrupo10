@@ -9,6 +9,6 @@ namespace FintechGrupo10.Domain.Entidades
         public string Telefone { get; set; } = null!;
         public string Email { get; set; } = null!;
         public DateTime DataNascimento { get; set; }
-        public ClientProfile ClientProfile { get; set; }
+        public PerfilInvestimento PerfilInvestimento { get; set; }
     }
 }

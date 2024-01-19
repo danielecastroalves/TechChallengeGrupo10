@@ -1,6 +1,4 @@
-﻿using FintechGrupo10.Domain.Enums;
-
-namespace FintechGrupo10.Domain.Entidades
+﻿namespace FintechGrupo10.Domain.Entidades
 {
     public class Produto : EntidadeBase
     {
@@ -9,6 +7,6 @@ namespace FintechGrupo10.Domain.Entidades
         public string ValorMinimo { get; set; } = null!;
         public string TaxaAdministracao { get; set; } = null!;
         public string RiscoProduto { get; set; } = null!;
-        public ClientProfile PerfilProduto { get; set; }
+        //public ClientProfile PerfilProduto { get; set; }
     }
 }
