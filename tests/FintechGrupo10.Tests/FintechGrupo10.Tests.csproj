@@ -31,8 +31,4 @@
     <ProjectReference Include="..\..\src\FintechGrupo10.WebApi\FintechGrupo10.WebApi.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UnitTests\Application\" />
-  </ItemGroup>
-
 </Project>

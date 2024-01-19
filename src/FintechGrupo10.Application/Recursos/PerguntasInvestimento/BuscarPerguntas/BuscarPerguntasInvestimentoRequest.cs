@@ -3,7 +3,7 @@ using MediatR;
 
 namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.BuscarPerguntas
 {
-    public class GetPerguntasInvestimentoRequest : IRequest<List<Pergunta>>
+    public class BuscarPerguntasInvestimentoRequest : IRequest<List<Pergunta>>
     {
     }
 }
