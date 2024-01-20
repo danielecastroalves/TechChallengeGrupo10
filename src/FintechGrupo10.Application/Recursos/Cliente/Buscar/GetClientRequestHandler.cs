@@ -18,11 +18,10 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Buscar
             cancellationToken.ThrowIfCancellationRequested();
 
             var entity = await _repositorio.ObterPorFiltroAsync(x =>
-                x.Documento.Equals(request.Documento) &&
-                x.Ativo == true,
-                cancellationToken);
+                x.Documento.Equals(request.Documento) && x.Ativo,
+                cancellationToken);            
 
-            var response = request.Adapt<GetClientResponse>();
+            var response = entity.Adapt<GetClientResponse>();
 
             return response;
         }

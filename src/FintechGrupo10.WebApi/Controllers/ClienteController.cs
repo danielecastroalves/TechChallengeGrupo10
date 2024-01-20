@@ -47,7 +47,7 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         // FEITO
-        [HttpPut("cliente/{clienteId}")]
+        [HttpPut("cliente/{clientId}")]
         [SwaggerOperation(OperationId = "UpdateClientAsync")]
         public async Task<IActionResult> UpdateClientAsync
         (
