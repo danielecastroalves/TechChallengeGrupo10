@@ -5,16 +5,16 @@ using MediatR;
 
 namespace FintechGrupo10.Application.Recursos.Cliente.Adicionar
 {
-    public class AddClienteRequestHandler : IRequestHandler<AddClienteRequest>
+    public class AddClientRequestHandler : IRequestHandler<AddClientRequest>
     {
         private readonly IRepositorio<ClienteEntity> _repositorio;
 
-        public AddClienteRequestHandler(IRepositorio<ClienteEntity> repositorio)
+        public AddClientRequestHandler(IRepositorio<ClienteEntity> repositorio)
         {
             _repositorio = repositorio;
         }
 
-        public async Task<Unit> Handle(AddClienteRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddClientRequest request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 

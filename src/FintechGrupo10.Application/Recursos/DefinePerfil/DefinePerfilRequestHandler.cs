@@ -5,11 +5,11 @@ using MediatR;
 
 namespace FintechGrupo10.Application.Recursos.DefinePerfil
 {
-    public class DefinePerfilHandler : IRequestHandler<DefinePerfilRequest, bool>
+    public class DefinePerfilRequestHandler : IRequestHandler<DefinePerfilRequest, bool>
     {
         private readonly IRepositorio<ClienteEntity> _repositorio;
 
-        public DefinePerfilHandler(IRepositorio<ClienteEntity> repositorio)
+        public DefinePerfilRequestHandler(IRepositorio<ClienteEntity> repositorio)
         {
             _repositorio = repositorio;
         }

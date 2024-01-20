@@ -2,7 +2,7 @@
 
 namespace FintechGrupo10.Application.Recursos.Cliente.Adicionar
 {
-    public class AddClienteRequest : IRequest
+    public class AddClientRequest : IRequest
     {
         public string NomeCliente { get; set; } = null!;
         public string Documento { get; set; } = null!;
