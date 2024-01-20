@@ -1,5 +1,4 @@
-﻿using FintechGrupo10.Domain.Entidades;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
 namespace FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces
 {
@@ -10,8 +9,5 @@ namespace FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces
         IMongoDatabase GetDatabase();
 
         IMongoCollection<T> GetCollection<T>(string? name = null);
-
-        IMongoCollection<ClienteEntity> Cliente { get; }
-        IMongoCollection<Pergunta> Pergunta { get; }
     }
 }

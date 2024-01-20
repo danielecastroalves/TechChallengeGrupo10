@@ -21,9 +21,9 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.DeletaPergun
             {
                 return await _repositorio.DeletarPorIdAsync(request.IdPergunta, cancellationToken);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace FintechGrupo10.Domain.Entidades
 {
-    public class EntidadeBase
+    public abstract class EntidadeBase
     {
         public Guid Id { get; set; }
         public DateTime DataInsercao { get; set; }

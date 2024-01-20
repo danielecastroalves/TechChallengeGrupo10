@@ -9,9 +9,10 @@ using FintechGrupo10.Infrastructure.Mongo.Repositorios;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
 using MediatR;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using System.Diagnostics.CodeAnalysis;
-using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
-using FintechGrupo10.Infrastructure.Autenticacao.Token;
 
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
@@ -49,6 +50,7 @@ namespace FintechGrupo10.WebApi.DependencyInjection
                 c.ConnectionString = configuration.GetValue<string>("Mongo:ConnectionString");
 
                 c.Schema = configuration.GetValue<string>("Mongo:Schema");
+
             });
 
             services.AddSingleton<IMongoConnection, MongoConnection>();
@@ -56,15 +58,27 @@ namespace FintechGrupo10.WebApi.DependencyInjection
 
             //Configure Mongo Repositories
             services.AddScoped<IRepositorio<ClienteEntity>, RepositorioBase<ClienteEntity>>();
-            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-            //services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
             services.AddScoped<IRepositorio<Pergunta>, RepositorioBase<Pergunta>>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             //Configure Mongo Serializer
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
-            //Configure Services
-            services.AddScoped<ITokenService, TokenService>();
+            #pragma warning disable 618
+            BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
+            BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
+            #pragma warning restore
+
+            #pragma warning disable CS8602
+            var objectSerializer = new ObjectSerializer
+            (
+               type =>
+                       ObjectSerializer.DefaultAllowedTypes(type) ||
+                       type.FullName.StartsWith("FintechGrupo10.Domain")
+            );
+            #pragma warning restore CS8602
+
+            BsonSerializer.RegisterSerializer(objectSerializer);
         }
     }
 }

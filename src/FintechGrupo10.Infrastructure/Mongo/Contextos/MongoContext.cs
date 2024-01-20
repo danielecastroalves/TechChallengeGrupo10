@@ -1,5 +1,4 @@
-﻿using FintechGrupo10.Domain.Entidades;
-using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
+﻿using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
 using Microsoft.Extensions.Options;
@@ -12,10 +11,6 @@ namespace FintechGrupo10.Infrastructure.Mongo.Contextos
         private readonly IMongoConnection _connection;
 
         public int DefaultTtlDays { get; set; }
-
-        public IMongoCollection<ClienteEntity> Cliente => GetCollection<ClienteEntity>("Cliente");
-
-        public IMongoCollection<Pergunta> Pergunta => GetCollection<Pergunta>("Pergunta");
 
         public MongoContext
         (
