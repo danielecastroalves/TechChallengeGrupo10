@@ -1,8 +1,8 @@
 using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Domain.Entidades;
-using Moq.AutoMock;
-using Moq;
 using FintechGrupo10.Application.Recursos.PerguntasInvestimento.DeletaPergunta;
+using FintechGrupo10.Domain.Entities;
+using Moq;
+using Moq.AutoMock;
 using Xunit;
 
 namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.PerguntasInvestimento

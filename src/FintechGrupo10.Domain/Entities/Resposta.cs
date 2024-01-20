@@ -1,4 +1,4 @@
-namespace FintechGrupo10.Domain.Entidades
+namespace FintechGrupo10.Domain.Entities
 {
     public class Resposta
     {

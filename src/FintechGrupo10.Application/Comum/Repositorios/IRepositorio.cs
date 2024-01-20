@@ -1,38 +1,38 @@
-﻿using FintechGrupo10.Domain.Entidades;
+using FintechGrupo10.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace FintechGrupo10.Application.Comum.Repositorios
 {
-    public interface IRepositorio <TEntidade> where TEntidade : EntidadeBase
+    public interface IRepositorio <TEntity> where TEntity : Entity
     {
         Task<Guid> AdicionarAsync
         (
-            TEntidade entity,
+            TEntity entity,
             CancellationToken cancellationToken = default
         );
 
-        Task<TEntidade> ObterPorFiltroAsync
+        Task<TEntity> ObterPorFiltroAsync
         (
-            Expression<Func<TEntidade, bool>> filter,
+            Expression<Func<TEntity, bool>> filter,
             CancellationToken cancellationToken = default
         );
 
-        Task<TEntidade> ObterPorIdAsync
+        Task<TEntity> ObterPorIdAsync
         (
            Guid id,
            CancellationToken cancellationToken = default
         );
 
-        Task<IEnumerable<TEntidade>> ObterListaPorFiltroAsync
+        Task<IEnumerable<TEntity>> ObterListaPorFiltroAsync
         (
-           Expression<Func<TEntidade, bool>> filter,
+           Expression<Func<TEntity, bool>> filter,
            CancellationToken cancellationToken = default
         );
 
         Task AtualizarAsync
         (
-            Expression<Func<TEntidade, bool>> filter,
-            TEntidade entity,
+            Expression<Func<TEntity, bool>> filter,
+            TEntity entity,
             CancellationToken cancellationToken = default
         );
 

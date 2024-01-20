@@ -1,6 +1,6 @@
-﻿namespace FintechGrupo10.Domain.Entidades
+﻿namespace FintechGrupo10.Domain.Entities
 {
-    public class Produto : EntidadeBase
+    public class Produto : Entity
     {
         public string Titulo { get; set; } = null!;
         public string Descricao { get; set; } = null!;

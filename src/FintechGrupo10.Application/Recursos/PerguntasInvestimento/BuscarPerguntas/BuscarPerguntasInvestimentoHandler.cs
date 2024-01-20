@@ -1,5 +1,5 @@
 ﻿using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Domain.Entidades;
+using FintechGrupo10.Domain.Entities;
 using MediatR;
 
 namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.BuscarPerguntas

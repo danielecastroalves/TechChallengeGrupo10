@@ -1,6 +1,6 @@
 using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Application.Recursos.DefinePerfil;
-using FintechGrupo10.Domain.Entidades;
+using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Domain.Eventos;
 using Moq;
 using Moq.AutoMock;

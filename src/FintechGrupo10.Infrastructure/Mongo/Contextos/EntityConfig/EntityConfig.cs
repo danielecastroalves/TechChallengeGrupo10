@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Domain.Entidades;
+﻿using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
 using MongoDB.Driver;
 using System.Diagnostics.CodeAnalysis;
@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace FintechGrupo10.Infrastructure.Mongo.Contextos.EntityConfig
 {
     [ExcludeFromCodeCoverage]
-    public abstract class EntityConfig<T> where T : EntidadeBase
+    public abstract class EntityConfig<T> where T : Entity
     {
         protected IndexKeysDefinitionBuilder<T> Builder { get; }
 

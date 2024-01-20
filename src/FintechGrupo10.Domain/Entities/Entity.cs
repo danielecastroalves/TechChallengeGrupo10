@@ -1,13 +1,13 @@
-﻿namespace FintechGrupo10.Domain.Entidades
+﻿namespace FintechGrupo10.Domain.Entities
 {
-    public abstract class EntidadeBase
+    public abstract class Entity
     {
         public Guid Id { get; set; }
         public DateTime DataInsercao { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public bool Ativo { get; set; }
 
-        protected EntidadeBase()
+        protected Entity()
         {
             Id = Guid.NewGuid();
             Ativo = true;

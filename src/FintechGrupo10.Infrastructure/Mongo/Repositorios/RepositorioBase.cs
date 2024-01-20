@@ -1,12 +1,12 @@
 ﻿using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Domain.Entidades;
+using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 
 namespace FintechGrupo10.Infrastructure.Mongo.Repositorios
 {
-    public class RepositorioBase<TEntidade> : IRepositorio<TEntidade> where TEntidade : EntidadeBase
+    public class RepositorioBase<TEntidade> : IRepositorio<TEntidade> where TEntidade : Entity
     {
         protected readonly IMongoContext _context;
 

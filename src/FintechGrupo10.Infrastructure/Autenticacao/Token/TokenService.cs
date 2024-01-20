@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Domain.Entidades;
+﻿using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

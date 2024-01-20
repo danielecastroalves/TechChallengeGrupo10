@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using FintechGrupo10.Application;
 using FintechGrupo10.Application.Comum.Behavior;
 using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Domain.Entidades;
+using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Infrastructure.Autenticacao.Token;
 using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
 using FintechGrupo10.Infrastructure.Mongo.Contextos;
