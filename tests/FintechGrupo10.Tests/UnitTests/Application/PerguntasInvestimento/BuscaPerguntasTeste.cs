@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Application.Recursos.PerguntasInvestimento.BuscarPerguntas;
 using FintechGrupo10.Domain.Entidades;
 using Moq;
@@ -44,8 +44,9 @@ namespace FintechGrupo10.Tests.UnitTests.Application.PerguntasInvestimento
                     Titulo = "Pergunta 1",
                     Resposta = new List<Resposta>
                     {
-                        new Resposta
-                        { Descricao = "Resposta 1",
+                        new()
+                        {
+                            Descricao = "Resposta 1",
                             Pontuacao = 10
                         }
                     }

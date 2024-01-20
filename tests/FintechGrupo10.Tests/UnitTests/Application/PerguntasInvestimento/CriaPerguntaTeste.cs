@@ -1,8 +1,8 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Domain.Entidades;
-using Moq.AutoMock;
-using Moq;
+using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunta;
+using FintechGrupo10.Domain.Entidades;
+using Moq;
+using Moq.AutoMock;
 using Xunit;
 
 namespace FintechGrupo10.Tests.UnitTests.Application.PerguntasInvestimento
@@ -42,13 +42,13 @@ namespace FintechGrupo10.Tests.UnitTests.Application.PerguntasInvestimento
                 Titulo = "Pergunta 1",
                 Resposta = new List<Resposta>
                     {
-                        new Resposta
-                        { 
+                        new()
+                        {
                             Descricao = "Resposta 1",
                             Pontuacao = 10
                         }
                     }
-            };     
+            };
         }
     }
 }

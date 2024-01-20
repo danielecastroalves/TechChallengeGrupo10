@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Domain.Entidades;
 using FintechGrupo10.Domain.Enums;
 using MediatR;
@@ -61,9 +61,9 @@ namespace FintechGrupo10.Application.Recursos.DefinePerfil
                 await _repositorio.AtualizarAsync(x => x.Documento == documento, entidade, CancellationToken.None);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }          
         }
     }

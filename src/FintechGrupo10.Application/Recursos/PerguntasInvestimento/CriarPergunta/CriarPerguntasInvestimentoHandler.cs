@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Domain.Entidades;
 using MediatR;
 
@@ -21,9 +21,9 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunt
             {
                 return await _repositorio.AdicionarAsync(request.Pergunta, cancellationToken);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }

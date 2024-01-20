@@ -1,4 +1,6 @@
-﻿using FintechGrupo10.Application;
+using System.Diagnostics.CodeAnalysis;
+using FintechGrupo10.Application;
+using FintechGrupo10.Application.Comum.Behavior;
 using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Domain.Entidades;
 using FintechGrupo10.Infrastructure.Autenticacao.Token;
@@ -12,7 +14,6 @@ using MediatR;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using System.Diagnostics.CodeAnalysis;
 
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
@@ -25,15 +26,18 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             IConfiguration configuration
         )
         {
-            // Mongo
             ConfigureBindingsMongo(services, configuration);
-
-            // MediatR
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddMediatR(new AssemblyReference().GetAssembly());
+            ConfigureBindingsMediatR(services);
 
             // Services
             services.AddScoped<ITokenService, TokenService>();
+        }
+
+        private static void ConfigureBindingsMediatR(IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddMediatR(new AssemblyReference().GetAssembly());
         }
 
         public static void ConfigureBindingsMongo
