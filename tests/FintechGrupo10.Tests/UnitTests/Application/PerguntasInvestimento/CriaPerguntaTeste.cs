@@ -3,6 +3,7 @@ using FintechGrupo10.Domain.Entidades;
 using Moq.AutoMock;
 using Moq;
 using FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunta;
+using Xunit;
 
 namespace FintechGrupo10.Tests.UnitTests.Application.PerguntasInvestimento
 {
@@ -23,15 +24,15 @@ namespace FintechGrupo10.Tests.UnitTests.Application.PerguntasInvestimento
         [Fact]
         public async Task CriaPerguntasDeInvestimento()
         {
-            //Arrange
+            // Arrange
             var perguntas = Pergunta();
             _repositorio.Setup(x => x.AdicionarAsync(perguntas, CancellationToken.None)).ReturnsAsync(Guid.NewGuid());
 
-            //Act
+            // Act
             var result = await _handler.Handle(_request, CancellationToken.None);
 
-            //Assert
-            Assert.NotNull(result);
+            // Assert
+            Assert.IsType<Guid>(result);
         }
 
         private static Pergunta Pergunta()

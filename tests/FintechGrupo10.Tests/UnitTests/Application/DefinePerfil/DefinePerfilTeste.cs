@@ -1,22 +1,23 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Domain.Entidades;
-using Moq.AutoMock;
-using Moq;
+using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Application.Recursos.DefinePerfil;
+using FintechGrupo10.Domain.Entidades;
 using FintechGrupo10.Domain.Eventos;
+using Moq;
+using Moq.AutoMock;
+using Xunit;
 
 namespace FintechGrupo10.Tests.UnitTests.Application.DefinePerfil
 {
     public class DefinePerfilTeste
     {
-        private readonly DefinePerfilHandler _handler;
+        private readonly DefinePerfilRequestHandler _handler;
         private readonly Mock<IRepositorio<ClienteEntity>> _repositorio;
         private readonly DefinePerfilRequest _request;
 
         public DefinePerfilTeste()
         {
             var autoMock = new AutoMocker();
-            _handler = autoMock.CreateInstance<DefinePerfilHandler>();
+            _handler = autoMock.CreateInstance<DefinePerfilRequestHandler>();
             _repositorio = autoMock.GetMock<IRepositorio<ClienteEntity>>();
             _request = Request();
         }
@@ -24,17 +25,17 @@ namespace FintechGrupo10.Tests.UnitTests.Application.DefinePerfil
         [Fact]
         public async Task BuscarPerguntasDeInvestimento()
         {
-            //Arrange
+            // Arrange
             var perguntas = ListaDePerguntas();
             var cliente = Cliente();
 
             _repositorio.Setup(x => x.ObterPorFiltroAsync(x => x.Documento == "123456", CancellationToken.None)).ReturnsAsync(cliente);
             _repositorio.Setup(x => x.AtualizarAsync(x => x.Documento == "123456", It.IsAny<ClienteEntity>(), It.IsAny<CancellationToken>()));
 
-            //Act
+            // Act
             var result = await _handler.Handle(_request, CancellationToken.None);
 
-            //Assert
+            // Assert
             Assert.True(result);
         }
 
@@ -42,13 +43,14 @@ namespace FintechGrupo10.Tests.UnitTests.Application.DefinePerfil
         {
             return new List<Pergunta>
             {
-                new Pergunta
+                new()
                 {
                     Titulo = "Pergunta 1",
                     Resposta = new List<Resposta>
                     {
-                        new Resposta
-                        { Descricao = "Resposta 1",
+                        new()
+                        {
+                            Descricao = "Resposta 1",
                             Pontuacao = 10
                         }
                     }
@@ -60,7 +62,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.DefinePerfil
         {
             return new ClienteEntity
             {
-                Documento = "123456"               
+                Documento = "123456"
             };
         }
 
@@ -73,18 +75,18 @@ namespace FintechGrupo10.Tests.UnitTests.Application.DefinePerfil
                     Documento = "123456",
                     PerguntasRespondidas = new List<Pergunta>
                     {
-                        new Pergunta
-                        {       
+                        new()
+                        {
                             Titulo = "Pergunta 1",
                             Resposta = new List<Resposta>
                             {
-                                new Resposta
-                                {   
+                                new()
+                                {
                                     Descricao = "Resposta 1",
                                     Pontuacao = 10
                                 }
                             }
-                        }       
+                        }
                     }
                 }
             };

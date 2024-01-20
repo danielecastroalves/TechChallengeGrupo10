@@ -1,8 +1,9 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Application.Comum.Repositorios;
 using FintechGrupo10.Domain.Entidades;
 using Moq.AutoMock;
 using Moq;
 using FintechGrupo10.Application.Recursos.PerguntasInvestimento.DeletaPergunta;
+using Xunit;
 
 namespace FintechGrupo10.Tests.UnitTests.Application.PerguntasInvestimento
 {
@@ -23,13 +24,13 @@ namespace FintechGrupo10.Tests.UnitTests.Application.PerguntasInvestimento
         [Fact]
         public async Task DeletaPerguntasDeInvestimento()
         {
-            //Arrange
+            // Arrange
             _repositorio.Setup(x => x.DeletarPorIdAsync(It.IsAny<Guid>(), CancellationToken.None)).ReturnsAsync(true);
 
-            //Act
+            // Act
             var result = await _handler.Handle(_request, CancellationToken.None);
 
-            //Assert
+            // Assert
             Assert.True(result);
         }
     }
