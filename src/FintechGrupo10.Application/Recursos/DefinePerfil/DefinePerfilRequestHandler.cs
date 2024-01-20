@@ -16,6 +16,9 @@ namespace FintechGrupo10.Application.Recursos.DefinePerfil
 
         public async Task<bool> Handle(DefinePerfilRequest request, CancellationToken cancellationToken)
         {
+            if (request is null)
+                return false;
+
             var pontuacaoTotal = 0;
 
             foreach (var pergunta in request.EventoPerfil.PerguntasRespondidas)
