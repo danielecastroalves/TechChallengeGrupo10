@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
-using MediatR;
 
 namespace FintechGrupo10.Application.Recursos.Cliente
 {
-    public class ClientRequestBase : IRequest
+    public class ClientRequestBase
     {
         public string NomeCliente { get; set; } = null!;
         public string Documento { get; set; } = null!;

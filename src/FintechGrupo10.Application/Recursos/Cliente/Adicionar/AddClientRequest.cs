@@ -1,4 +1,6 @@
-﻿namespace FintechGrupo10.Application.Recursos.Cliente.Adicionar
+﻿using MediatR;
+
+namespace FintechGrupo10.Application.Recursos.Cliente.Adicionar
 {
-    public class AddClientRequest : ClientRequestBase { }    
+    public class AddClientRequest : ClientRequestBase, IRequest { }    
 }

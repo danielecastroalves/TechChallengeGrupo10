@@ -1,4 +1,5 @@
 ﻿using FintechGrupo10.Application.Recursos.Cliente.Adicionar;
+using FintechGrupo10.Application.Recursos.Cliente.Atualizar;
 using FintechGrupo10.Application.Recursos.Cliente.Buscar;
 using FintechGrupo10.Application.Recursos.Cliente.Excluir;
 using FintechGrupo10.WebApi.Controllers.Comum;
@@ -45,22 +46,24 @@ namespace FintechGrupo10.WebApi.Controllers
             return Ok(cliente);
         }
 
-        ////TODO - Implementar Handler
-        //[HttpPut("cliente/{clienteId}")]
-        //[SwaggerOperation(OperationId = "UpdateClientAsync")]
-        //public async Task<IActionResult> UpdateClientAsync
-        //(
-        //    [FromRoute] Guid clientId,
-        //    [FromBody] UpdateClientRequest request,
-        //    CancellationToken cancellationToken = default
-        //)
-        //{
-        //    var result = await _mediator.Send(request, cancellationToken);
+        // FEITO
+        [HttpPut("cliente/{clienteId}")]
+        [SwaggerOperation(OperationId = "UpdateClientAsync")]
+        public async Task<IActionResult> UpdateClientAsync
+        (
+            [FromRoute] Guid clientId,
+            [FromBody] UpdateClientRequest request,
+            CancellationToken cancellationToken = default
+        )
+        {
+            request.Id = clientId;
 
-        //    return result is null ? NotFound() : NoContent();
-        //}
+            var result = await _mediator.Send(request, cancellationToken);
 
-        //TODO - FEITO
+            return result is null ? NotFound() : NoContent();
+        }
+
+        // FEITO
         [HttpDelete("cliente/{clientId}")]
         [SwaggerOperation(OperationId = "DeleteClientAsync")]
         public async Task<IActionResult> DeleteClientAsync
