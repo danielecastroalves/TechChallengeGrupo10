@@ -6,7 +6,7 @@ using Moq;
 using Moq.AutoMock;
 using Xunit;
 
-namespace FintechGrupo10.Tests.UnitTests.Application.DefinePerfil
+namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.DefinePerfil
 {
     public class DefinePerfilTeste
     {

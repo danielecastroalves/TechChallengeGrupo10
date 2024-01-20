@@ -5,7 +5,7 @@ using Moq;
 using Moq.AutoMock;
 using Xunit;
 
-namespace FintechGrupo10.Tests.UnitTests.Application.PerguntasInvestimento
+namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.PerguntasInvestimento
 {
     public class CriaPerguntaTeste
     {

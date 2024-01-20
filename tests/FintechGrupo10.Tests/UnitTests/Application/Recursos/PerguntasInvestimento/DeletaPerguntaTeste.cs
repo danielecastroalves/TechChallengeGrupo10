@@ -5,7 +5,7 @@ using Moq;
 using FintechGrupo10.Application.Recursos.PerguntasInvestimento.DeletaPergunta;
 using Xunit;
 
-namespace FintechGrupo10.Tests.UnitTests.Application.PerguntasInvestimento
+namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.PerguntasInvestimento
 {
     public class DeletaPerguntaTeste
     {
