@@ -12,11 +12,15 @@ using FintechGrupo10.Infrastructure.Mongo.Repositories;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
 using FintechGrupo10.Infrastructure.RabbitMQ;
+using FluentValidation;
 using MediatR;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using RabbitMQ.Client;
+using Serilog;
+using Serilog.Events;
+using ILogger = Serilog.ILogger;
 
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
@@ -32,11 +36,13 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             ConfigureBindingsMediatR(services);
             ConfigureBindingsMongo(services, configuration);
             ConfigureBindingsRabbitMQ(services);
+            ConfigureBindingsSerilog(services);
+            ConfigureBindingsValidators(services);
 
             // Services
-            services.AddScoped<ITokenService, TokenService>();       
+            services.AddScoped<ITokenService, TokenService>();
         }
-       
+
 
         private static void ConfigureBindingsMediatR(IServiceCollection services)
         {
@@ -103,6 +109,32 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             // RabbitMQ Services
             services.AddSingleton<IMessagePublisherService, MessagePublisherService>();
             services.AddSingleton<IMessageConsumerService, MessageConsumerService>();
+        }
+
+        private static void ConfigureBindingsSerilog(IServiceCollection services)
+        {
+            var shortDate = DateTime.Now.ToString("yyyy-MM-dd_HH");
+            var path = "logs";
+            var filename = $@"{path}\{shortDate}.log";
+
+            var logConfig = new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                .MinimumLevel.Override("Host.Startup", LogEventLevel.Warning)
+                .MinimumLevel.Override("Host.Aggregator", LogEventLevel.Warning)
+                .MinimumLevel.Override("Host.Executor", LogEventLevel.Fatal)
+                .MinimumLevel.Override("Host.Results", LogEventLevel.Fatal)
+                .WriteTo.Console()
+                .WriteTo.File(filename, rollingInterval: RollingInterval.Day);
+
+            ILogger logger = logConfig.CreateLogger();
+
+            services.AddLogging(configure: x => x.AddSerilog(logger));
+        }
+
+        private static void ConfigureBindingsValidators(IServiceCollection services)
+        {
+            services.AddValidatorsFromAssembly(new AssemblyReference().GetAssembly());
         }
     }
 }
