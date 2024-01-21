@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using FintechGrupo10.Application;
 using FintechGrupo10.Application.Comum.Behavior;
 using FintechGrupo10.Application.Comum.Repositories;
+using FintechGrupo10.Application.Comum.Services;
 using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Infrastructure.Autenticacao.Token;
 using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
@@ -10,10 +11,12 @@ using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
 using FintechGrupo10.Infrastructure.Mongo.Repositories;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
+using FintechGrupo10.Infrastructure.RabbitMQ;
 using MediatR;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using RabbitMQ.Client;
 
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
@@ -26,12 +29,14 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             IConfiguration configuration
         )
         {
-            ConfigureBindingsMongo(services, configuration);
             ConfigureBindingsMediatR(services);
+            ConfigureBindingsMongo(services, configuration);
+            ConfigureBindingsRabbitMQ(services);
 
             // Services
-            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITokenService, TokenService>();       
         }
+       
 
         private static void ConfigureBindingsMediatR(IServiceCollection services)
         {
@@ -40,11 +45,7 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             services.AddMediatR(new AssemblyReference().GetAssembly());
         }
 
-        public static void ConfigureBindingsMongo
-        (
-            IServiceCollection services,
-            IConfiguration configuration
-        )
+        private static void ConfigureBindingsMongo(IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<MongoConnectionOptions>(c =>
             {
@@ -83,6 +84,25 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             #pragma warning restore CS8602
 
             BsonSerializer.RegisterSerializer(objectSerializer);
+        }
+
+        private static void ConfigureBindingsRabbitMQ(IServiceCollection services)
+        {
+            services.AddSingleton(x =>
+            {
+                var factory = new ConnectionFactory()
+                {
+                    HostName = "localhost",
+                    UserName = "root",
+                    Password = "root"
+                };
+
+                return factory.CreateConnection();
+            });
+
+            // RabbitMQ Services
+            services.AddSingleton<IMessagePublisherService, MessagePublisherService>();
+            services.AddSingleton<IMessageConsumerService, MessageConsumerService>();
         }
     }
 }
