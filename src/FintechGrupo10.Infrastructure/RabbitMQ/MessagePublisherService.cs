@@ -13,11 +13,11 @@ namespace FintechGrupo10.Infrastructure.RabbitMQ
             _connection = connection;
         }
 
-        public void PublishMessage(string message)
+        public void PublishMessage(string message, string queueName)
         {
             using var channel = _connection.CreateModel();
 
-            channel.QueueDeclare(queue: "sua_fila",
+            channel.QueueDeclare(queue: queueName,
                                  durable: false,
                                  exclusive: false,
                                  autoDelete: false,
@@ -26,7 +26,7 @@ namespace FintechGrupo10.Infrastructure.RabbitMQ
             var body = Encoding.UTF8.GetBytes(message);
 
             channel.BasicPublish(exchange: "",
-                                 routingKey: "sua_fila",
+                                 routingKey: queueName,
                                  basicProperties: null,
                                  body: body);
 

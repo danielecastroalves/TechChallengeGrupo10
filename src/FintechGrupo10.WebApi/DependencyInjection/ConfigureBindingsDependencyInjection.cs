@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using FintechGrupo10.Application;
 using FintechGrupo10.Application.Comum.Behavior;
+using FintechGrupo10.Application.Comum.Configurations;
 using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Application.Comum.Services;
 using FintechGrupo10.Domain.Entities;
@@ -35,14 +36,13 @@ namespace FintechGrupo10.WebApi.DependencyInjection
         {
             ConfigureBindingsMediatR(services);
             ConfigureBindingsMongo(services, configuration);
-            ConfigureBindingsRabbitMQ(services);
+            ConfigureBindingsRabbitMQ(services, configuration);
             ConfigureBindingsSerilog(services);
             ConfigureBindingsValidators(services);
 
             // Services
             services.AddScoped<ITokenService, TokenService>();
         }
-
 
         private static void ConfigureBindingsMediatR(IServiceCollection services)
         {
@@ -92,15 +92,17 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             BsonSerializer.RegisterSerializer(objectSerializer);
         }
 
-        private static void ConfigureBindingsRabbitMQ(IServiceCollection services)
+        private static void ConfigureBindingsRabbitMQ(IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<RabbitMqConfig>(configuration.GetSection("RabbitMq"));
+
             services.AddSingleton(x =>
             {
                 var factory = new ConnectionFactory()
                 {
-                    HostName = "localhost",
-                    UserName = "root",
-                    Password = "root"
+                    HostName = configuration.GetValue<string>("RabbitMq:Host"),
+                    UserName = configuration.GetValue<string>("RabbitMq:Username"),
+                    Password = configuration.GetValue<string>("RabbitMq:Password")
                 };
 
                 return factory.CreateConnection();
