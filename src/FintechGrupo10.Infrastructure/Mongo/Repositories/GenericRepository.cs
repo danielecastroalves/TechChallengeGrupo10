@@ -1,23 +1,23 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Domain.Entities;
-using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
-using MongoDB.Driver;
 using System.Linq.Expressions;
+using FintechGrupo10.Application.Comum.Repositories;
+using FintechGrupo10.Domain.Entities;
+using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
+using MongoDB.Driver;
 
-namespace FintechGrupo10.Infrastructure.Mongo.Repositorios
+namespace FintechGrupo10.Infrastructure.Mongo.Repositories
 {
-    public class RepositorioBase<TEntidade> : IRepositorio<TEntidade> where TEntidade : Entity
+    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         protected readonly IMongoContext _context;
 
-        public RepositorioBase(IMongoContext context)
+        public GenericRepository(IMongoContext context)
         {
             _context = context;
         }
 
-        public virtual async Task<Guid> AdicionarAsync
+        public virtual async Task<Guid> AddAsync
         (
-            TEntidade entity,
+            TEntity entity,
             CancellationToken cancellationToken = default
         )
         {
@@ -25,27 +25,27 @@ namespace FintechGrupo10.Infrastructure.Mongo.Repositorios
 
             entity.SetDataInsercao();
 
-            await _context.GetCollection<TEntidade>()
+            await _context.GetCollection<TEntity>()
                 .InsertOneAsync(entity, cancellationToken: cancellationToken);
 
             return entity.Id;
         }
 
-        public virtual async Task<TEntidade> ObterPorFiltroAsync
+        public virtual async Task<TEntity> GetByFilterAsync
         (
-            Expression<Func<TEntidade, bool>> filter,
+            Expression<Func<TEntity, bool>> filter,
             CancellationToken cancellationToken = default
         )
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var queryResut = await _context.GetCollection<TEntidade>()
+            var queryResut = await _context.GetCollection<TEntity>()
                 .FindAsync(filter, cancellationToken: cancellationToken);
 
             return await queryResut.FirstOrDefaultAsync(cancellationToken);
         }
 
-        public virtual async Task<TEntidade> ObterPorIdAsync
+        public virtual async Task<TEntity> GetByIdAsync
         (
             Guid id,
             CancellationToken cancellationToken = default
@@ -53,30 +53,30 @@ namespace FintechGrupo10.Infrastructure.Mongo.Repositorios
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var queryResut = await _context.GetCollection<TEntidade>()
+            var queryResut = await _context.GetCollection<TEntity>()
                 .FindAsync(f => f.Id == id, cancellationToken: cancellationToken);
 
             return await queryResut.FirstOrDefaultAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<TEntidade>> ObterListaPorFiltroAsync
+        public virtual async Task<IEnumerable<TEntity>> GetListByFilterAsync
         (
-            Expression<Func<TEntidade, bool>> filter,
+            Expression<Func<TEntity, bool>> filter,
             CancellationToken cancellationToken = default
         )
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var result = await _context.GetCollection<TEntidade>()
+            var result = await _context.GetCollection<TEntity>()
                 .FindAsync(filter, cancellationToken: cancellationToken);
 
             return await result.ToListAsync(cancellationToken);
         }
 
-        public virtual async Task AtualizarAsync
+        public virtual async Task UpdateAsync
         (
-            Expression<Func<TEntidade, bool>> filter,
-            TEntidade entity,
+            Expression<Func<TEntity, bool>> filter,
+            TEntity entity,
             CancellationToken cancellationToken = default
         )
         {
@@ -84,11 +84,11 @@ namespace FintechGrupo10.Infrastructure.Mongo.Repositorios
 
             entity.SetDataAtualizacao();
 
-            await _context.GetCollection<TEntidade>()
+            await _context.GetCollection<TEntity>()
                 .ReplaceOneAsync(filter, entity, cancellationToken: cancellationToken);
         }
 
-        public virtual async Task<bool> DeletarPorIdAsync
+        public virtual async Task<bool> DeleteByIdAsync
         (
             Guid id,
             CancellationToken cancellationToken = default
@@ -96,7 +96,7 @@ namespace FintechGrupo10.Infrastructure.Mongo.Repositorios
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var queryResut = await _context.GetCollection<TEntidade>()
+            var queryResut = await _context.GetCollection<TEntity>()
                 .DeleteOneAsync(f => f.Id == id, cancellationToken: cancellationToken);
 
             return queryResut.IsAcknowledged;

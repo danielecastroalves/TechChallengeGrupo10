@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+﻿using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
 using Mapster;
 using MediatR;
@@ -7,8 +7,8 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Buscar
 {
     public class GetClientRequestHandler : IRequestHandler<GetClientRequest, GetClientResponse>
     {
-        private readonly IRepositorio<ClienteEntity> _repositorio;
-        public GetClientRequestHandler(IRepositorio<ClienteEntity> repositorio)
+        private readonly IRepository<ClienteEntity> _repositorio;
+        public GetClientRequestHandler(IRepository<ClienteEntity> repositorio)
         {
             _repositorio = repositorio;
         }
@@ -17,7 +17,7 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Buscar
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var entity = await _repositorio.ObterPorFiltroAsync(x =>
+            var entity = await _repositorio.GetByFilterAsync(x =>
                 x.Documento.Equals(request.Documento) && x.Ativo,
                 cancellationToken);            
 

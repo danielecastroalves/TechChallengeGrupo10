@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+﻿using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
 using Mapster;
 using MediatR;
@@ -7,8 +7,8 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Atualizar
 {
     public class UpdateClientRequestHandler : IRequestHandler<UpdateClientRequest, ClienteEntity?>
     {
-        private readonly IRepositorio<ClienteEntity> _repositorio;
-        public UpdateClientRequestHandler(IRepositorio<ClienteEntity> repositorio)
+        private readonly IRepository<ClienteEntity> _repositorio;
+        public UpdateClientRequestHandler(IRepository<ClienteEntity> repositorio)
         {
             _repositorio = repositorio;
         }
@@ -17,7 +17,7 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Atualizar
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var entity = await _repositorio.ObterPorFiltroAsync(x =>
+            var entity = await _repositorio.GetByFilterAsync(x =>
                 x.Id == request.Id,
                 cancellationToken);
 
@@ -25,7 +25,7 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Atualizar
 
             entity = request.Adapt<ClienteEntity>();
 
-            await _repositorio.AtualizarAsync(x => x.Id == entity.Id, entity, cancellationToken);
+            await _repositorio.UpdateAsync(x => x.Id == entity.Id, entity, cancellationToken);
 
             return entity;
         }

@@ -1,4 +1,4 @@
-using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Domain.Enums;
 using MediatR;
@@ -7,9 +7,9 @@ namespace FintechGrupo10.Application.Recursos.DefinePerfil
 {
     public class DefinePerfilRequestHandler : IRequestHandler<DefinePerfilRequest, bool>
     {
-        private readonly IRepositorio<ClienteEntity> _repositorio;
+        private readonly IRepository<ClienteEntity> _repositorio;
 
-        public DefinePerfilRequestHandler(IRepositorio<ClienteEntity> repositorio)
+        public DefinePerfilRequestHandler(IRepository<ClienteEntity> repositorio)
         {
             _repositorio = repositorio;
         }
@@ -50,7 +50,7 @@ namespace FintechGrupo10.Application.Recursos.DefinePerfil
 
         private async Task<bool> AtualizaPerfil(PerfilInvestimento perfilInvestimento, string documento)
         {
-            var entidade = await _repositorio.ObterPorFiltroAsync(x => x.Documento == documento);
+            var entidade = await _repositorio.GetByFilterAsync(x => x.Documento == documento);
             if (entidade is null)
                 return false;
 
@@ -58,7 +58,7 @@ namespace FintechGrupo10.Application.Recursos.DefinePerfil
 
             try
             {
-                await _repositorio.AtualizarAsync(x => x.Documento == documento, entidade, CancellationToken.None);
+                await _repositorio.UpdateAsync(x => x.Documento == documento, entidade, CancellationToken.None);
                 return true;
             }
             catch (Exception)

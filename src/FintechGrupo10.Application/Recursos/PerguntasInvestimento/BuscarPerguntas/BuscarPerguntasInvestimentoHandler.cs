@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+﻿using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
 using MediatR;
 
@@ -6,9 +6,9 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.BuscarPergun
 {
     public class BuscarPerguntasInvestimentoHandler : IRequestHandler<BuscarPerguntasInvestimentoRequest, List<Pergunta>>
     {
-        private readonly IRepositorio<Pergunta> _repositorio;
+        private readonly IRepository<Pergunta> _repositorio;
 
-        public BuscarPerguntasInvestimentoHandler(IRepositorio<Pergunta> repositorio)
+        public BuscarPerguntasInvestimentoHandler(IRepository<Pergunta> repositorio)
         {
             _repositorio = repositorio;
         }
@@ -17,7 +17,7 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.BuscarPergun
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var perguntas = await _repositorio.ObterListaPorFiltroAsync(x => x.Ativo, cancellationToken);
+            var perguntas = await _repositorio.GetListByFilterAsync(x => x.Ativo, cancellationToken);
 
             return perguntas.ToList();
         }

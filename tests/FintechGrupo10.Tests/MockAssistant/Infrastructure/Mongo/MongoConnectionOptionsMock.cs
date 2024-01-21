@@ -1,6 +1,6 @@
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 
-namespace FintechGrupo10.Tests.UnitTests.Infrastructure.Mongo.Contexts
+namespace FintechGrupo10.Tests.MockAssistant.Infrastructure.Mongo
 {
     public static class MongoConnectionOptionsMock
     {

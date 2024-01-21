@@ -1,7 +1,8 @@
 using FintechGrupo10.Domain.Entities;
-using FintechGrupo10.Infrastructure.Mongo.Contextos;
+using FintechGrupo10.Infrastructure.Mongo.Contexts;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
+using FintechGrupo10.Tests.MockAssistant.Infrastructure.Mongo;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Moq;
@@ -14,6 +15,27 @@ namespace FintechGrupo10.Tests.UnitTests.Infrastructure.Mongo.Contexts
     {
         private readonly AutoMocker _mocker;
         private readonly MongoContext _mockedMongoContext;
+
+        public MongoContextTest()
+        {
+            _mocker = new AutoMocker();
+
+            var mongoConnection = _mocker.GetMock<IMongoConnection>();
+
+            var mongoDatabase = _mocker.GetMock<IMongoDatabase>();
+
+            var options = _mocker.GetMock<IOptions<MongoConnectionOptions>>();
+
+            mongoConnection
+                .Setup(mock => mock.GetDatabase())
+                .Returns(mongoDatabase.Object);
+
+            options
+                .Setup(mock => mock.Value)
+                .Returns(MongoConnectionOptionsMock.Get());
+
+            _mockedMongoContext = _mocker.CreateInstance<MongoContext>();
+        }
 
         [Fact]
         public void GetDatabase_ShouldReturnMongoDatabase_WhenRequested()
@@ -82,27 +104,6 @@ namespace FintechGrupo10.Tests.UnitTests.Infrastructure.Mongo.Contexts
             mongoDataBase.Verify(x =>
                 x.GetCollection<Entity>(typeof(Entity).Name, null),
                 Times.Exactly(1));
-        }
-
-        public MongoContextTest()
-        {
-            _mocker = new AutoMocker();
-
-            var mongoConnection = _mocker.GetMock<IMongoConnection>();
-
-            var mongoDatabase = _mocker.GetMock<IMongoDatabase>();
-
-            var options = _mocker.GetMock<IOptions<MongoConnectionOptions>>();
-
-            mongoConnection
-                .Setup(mock => mock.GetDatabase())
-                .Returns(mongoDatabase.Object);
-
-            options
-                .Setup(mock => mock.Value)
-                .Returns(MongoConnectionOptionsMock.Get());
-
-            _mockedMongoContext = _mocker.CreateInstance<MongoContext>();
         }
     }
 }

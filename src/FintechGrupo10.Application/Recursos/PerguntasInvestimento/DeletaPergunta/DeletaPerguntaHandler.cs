@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+﻿using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
 using MediatR;
 
@@ -6,9 +6,9 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.DeletaPergun
 {
     public class DeletaPerguntaHandler : IRequestHandler<DeletaPerguntaRequest, bool>
     {
-        private readonly IRepositorio<Pergunta> _repositorio;
+        private readonly IRepository<Pergunta> _repositorio;
 
-        public DeletaPerguntaHandler(IRepositorio<Pergunta> repositorio)
+        public DeletaPerguntaHandler(IRepository<Pergunta> repositorio)
         {
             _repositorio = repositorio;
         }
@@ -19,7 +19,7 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.DeletaPergun
 
             try
             {
-                return await _repositorio.DeletarPorIdAsync(request.IdPergunta, cancellationToken);
+                return await _repositorio.DeleteByIdAsync(request.IdPergunta, cancellationToken);
             }
             catch (Exception)
             {

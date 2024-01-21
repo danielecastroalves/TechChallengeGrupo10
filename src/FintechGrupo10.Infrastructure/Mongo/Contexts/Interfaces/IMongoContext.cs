@@ -1,6 +1,6 @@
-﻿using MongoDB.Driver;
+using MongoDB.Driver;
 
-namespace FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces
+namespace FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces
 {
     public interface IMongoContext
     {

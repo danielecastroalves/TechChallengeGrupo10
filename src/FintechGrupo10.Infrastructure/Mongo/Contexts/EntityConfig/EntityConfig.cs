@@ -1,9 +1,9 @@
-﻿using FintechGrupo10.Domain.Entities;
-using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
+using FintechGrupo10.Domain.Entities;
+using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
 using MongoDB.Driver;
 using System.Diagnostics.CodeAnalysis;
 
-namespace FintechGrupo10.Infrastructure.Mongo.Contextos.EntityConfig
+namespace FintechGrupo10.Infrastructure.Mongo.Contexts.EntityConfig
 {
     [ExcludeFromCodeCoverage]
     public abstract class EntityConfig<T> where T : Entity

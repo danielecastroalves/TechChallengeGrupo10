@@ -1,10 +1,10 @@
-﻿using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
+using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace FintechGrupo10.Infrastructure.Mongo.Contextos
+namespace FintechGrupo10.Infrastructure.Mongo.Contexts
 {
     public class MongoContext : IMongoContext
     {

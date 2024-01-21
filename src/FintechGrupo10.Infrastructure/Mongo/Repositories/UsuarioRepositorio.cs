@@ -1,12 +1,12 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Domain.Entities;
-using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
-using MongoDB.Driver;
 using System.Linq.Expressions;
+using FintechGrupo10.Application.Comum.Repositories;
+using FintechGrupo10.Domain.Entities;
+using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
+using MongoDB.Driver;
 
-namespace FintechGrupo10.Infrastructure.Mongo.Repositorios;
+namespace FintechGrupo10.Infrastructure.Mongo.Repositories;
 
-public class UsuarioRepositorio : RepositorioBase<Usuario>, IUsuarioRepositorio
+public class UsuarioRepositorio : GenericRepository<Usuario>, IUsuarioRepository
 {
     public UsuarioRepositorio(IMongoContext context) : base(context) { }
 

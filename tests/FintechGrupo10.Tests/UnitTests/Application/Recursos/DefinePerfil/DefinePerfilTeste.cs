@@ -1,4 +1,4 @@
-using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Application.Recursos.DefinePerfil;
 using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Domain.Eventos;
@@ -11,14 +11,14 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.DefinePerfil
     public class DefinePerfilTeste
     {
         private readonly DefinePerfilRequestHandler _handler;
-        private readonly Mock<IRepositorio<ClienteEntity>> _repositorio;
+        private readonly Mock<IRepository<ClienteEntity>> _repositorio;
         private readonly DefinePerfilRequest _request;
 
         public DefinePerfilTeste()
         {
             var autoMock = new AutoMocker();
             _handler = autoMock.CreateInstance<DefinePerfilRequestHandler>();
-            _repositorio = autoMock.GetMock<IRepositorio<ClienteEntity>>();
+            _repositorio = autoMock.GetMock<IRepository<ClienteEntity>>();
             _request = Request();
         }
 
@@ -29,8 +29,8 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.DefinePerfil
             var perguntas = ListaDePerguntas();
             var cliente = Cliente();
 
-            _repositorio.Setup(x => x.ObterPorFiltroAsync(x => x.Documento == "123456", CancellationToken.None)).ReturnsAsync(cliente);
-            _repositorio.Setup(x => x.AtualizarAsync(x => x.Documento == "123456", It.IsAny<ClienteEntity>(), It.IsAny<CancellationToken>()));
+            _repositorio.Setup(x => x.GetByFilterAsync(x => x.Documento == "123456", CancellationToken.None)).ReturnsAsync(cliente);
+            _repositorio.Setup(x => x.UpdateAsync(x => x.Documento == "123456", It.IsAny<ClienteEntity>(), It.IsAny<CancellationToken>()));
 
             // Act
             var result = await _handler.Handle(_request, CancellationToken.None);

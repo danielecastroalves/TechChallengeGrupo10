@@ -1,4 +1,4 @@
-using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
 using MediatR;
 
@@ -6,9 +6,9 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunt
 {
     public class CriarPerguntasInvestimentoHandler : IRequestHandler<CriarPerguntasInvestimentoRequest, Guid>
     {
-        private readonly IRepositorio<Pergunta> _repositorio;
+        private readonly IRepository<Pergunta> _repositorio;
 
-        public CriarPerguntasInvestimentoHandler(IRepositorio<Pergunta> repositorio)
+        public CriarPerguntasInvestimentoHandler(IRepository<Pergunta> repositorio)
         {
             _repositorio = repositorio;
         }
@@ -19,7 +19,7 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunt
 
             try
             {
-                return await _repositorio.AdicionarAsync(request.Pergunta, cancellationToken);
+                return await _repositorio.AddAsync(request.Pergunta, cancellationToken);
             }
             catch (Exception)
             {

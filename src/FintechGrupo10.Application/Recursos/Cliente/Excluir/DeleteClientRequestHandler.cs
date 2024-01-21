@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Comum.Repositorios;
+﻿using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
 using MediatR;
 
@@ -6,9 +6,9 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Excluir
 {
     public class DeleteClientRequestHandler : IRequestHandler<DeleteClientRequest>
     {
-        private readonly IRepositorio<ClienteEntity> _repositorio;
+        private readonly IRepository<ClienteEntity> _repositorio;
 
-        public DeleteClientRequestHandler(IRepositorio<ClienteEntity> repositorio)
+        public DeleteClientRequestHandler(IRepository<ClienteEntity> repositorio)
         {
             _repositorio = repositorio;
         }
@@ -17,11 +17,11 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Excluir
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var entity = await _repositorio.ObterPorFiltroAsync(x=> x.Id == request.ClientID, cancellationToken);
+            var entity = await _repositorio.GetByFilterAsync(x=> x.Id == request.ClientID, cancellationToken);
 
             entity.Ativo = false;
 
-            await _repositorio.AtualizarAsync(x=> x.Id == entity.Id, entity, cancellationToken);
+            await _repositorio.UpdateAsync(x=> x.Id == entity.Id, entity, cancellationToken);
 
             return Unit.Value;
         }

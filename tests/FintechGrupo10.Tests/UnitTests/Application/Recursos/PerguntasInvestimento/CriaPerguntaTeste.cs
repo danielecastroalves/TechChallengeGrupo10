@@ -1,4 +1,4 @@
-using FintechGrupo10.Application.Comum.Repositorios;
+using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunta;
 using FintechGrupo10.Domain.Entities;
 using Moq;
@@ -10,14 +10,14 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.PerguntasInvestime
     public class CriaPerguntaTeste
     {
         private readonly CriarPerguntasInvestimentoHandler _handler;
-        private readonly Mock<IRepositorio<Pergunta>> _repositorio;
+        private readonly Mock<IRepository<Pergunta>> _repositorio;
         private readonly CriarPerguntasInvestimentoRequest _request;
 
         public CriaPerguntaTeste()
         {
             var autoMock = new AutoMocker();
             _handler = autoMock.CreateInstance<CriarPerguntasInvestimentoHandler>();
-            _repositorio = autoMock.GetMock<IRepositorio<Pergunta>>();
+            _repositorio = autoMock.GetMock<IRepository<Pergunta>>();
             _request = new CriarPerguntasInvestimentoRequest();
         }
 
@@ -26,7 +26,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.PerguntasInvestime
         {
             // Arrange
             var perguntas = Pergunta();
-            _repositorio.Setup(x => x.AdicionarAsync(perguntas, CancellationToken.None)).ReturnsAsync(Guid.NewGuid());
+            _repositorio.Setup(x => x.AddAsync(perguntas, CancellationToken.None)).ReturnsAsync(Guid.NewGuid());
 
             // Act
             var result = await _handler.Handle(_request, CancellationToken.None);
