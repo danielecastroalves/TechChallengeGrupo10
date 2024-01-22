@@ -10,9 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.4.0" />
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="Moq.AutoMock" Version="3.5.0" />
+    <PackageReference Include="NSubstitute" Version="5.1.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,10 +31,6 @@
     <ProjectReference Include="..\..\src\FintechGrupo10.Domain\FintechGrupo10.Domain.csproj" />
     <ProjectReference Include="..\..\src\FintechGrupo10.Infrastructure\FintechGrupo10.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\FintechGrupo10.WebApi\FintechGrupo10.WebApi.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UnitTests\Application\" />
   </ItemGroup>
 
 </Project>

@@ -1,17 +1,28 @@
-﻿using FintechGrupo10.Application;
-using FintechGrupo10.Application.Comum.Repositorios;
-using FintechGrupo10.Domain.Entidades;
+using System.Diagnostics.CodeAnalysis;
+using FintechGrupo10.Application;
+using FintechGrupo10.Application.Comum.Behavior;
+using FintechGrupo10.Application.Comum.Configurations;
+using FintechGrupo10.Application.Comum.Repositories;
+using FintechGrupo10.Application.Comum.Services;
+using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Infrastructure.Autenticacao.Token;
 using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
-using FintechGrupo10.Infrastructure.Mongo.Contextos;
-using FintechGrupo10.Infrastructure.Mongo.Contextos.Interfaces;
-using FintechGrupo10.Infrastructure.Mongo.Repositorios;
+using FintechGrupo10.Infrastructure.Mongo.Contexts;
+using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
+using FintechGrupo10.Infrastructure.Mongo.Repositories;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
+using FintechGrupo10.Infrastructure.RabbitMQ;
+using FintechGrupo10.WebApi.Consumers;
+using FluentValidation;
 using MediatR;
-using System.Diagnostics.CodeAnalysis;
-using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
-using FintechGrupo10.Infrastructure.Autenticacao.Token;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using RabbitMQ.Client;
+using Serilog;
+using Serilog.Events;
+using ILogger = Serilog.ILogger;
 
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
@@ -24,22 +35,24 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             IConfiguration configuration
         )
         {
-            // Mongo
+            ConfigureBindingsMediatR(services);
             ConfigureBindingsMongo(services, configuration);
-
-            // MediatR
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddMediatR(new AssemblyReference().GetAssembly());
+            ConfigureBindingsRabbitMQ(services, configuration);
+            ConfigureBindingsSerilog(services);
+            ConfigureBindingsValidators(services);
 
             // Services
             services.AddScoped<ITokenService, TokenService>();
         }
 
-        public static void ConfigureBindingsMongo
-        (
-            IServiceCollection services,
-            IConfiguration configuration
-        )
+        private static void ConfigureBindingsMediatR(IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddMediatR(new AssemblyReference().GetAssembly());
+        }
+
+        private static void ConfigureBindingsMongo(IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<MongoConnectionOptions>(c =>
             {
@@ -49,22 +62,84 @@ namespace FintechGrupo10.WebApi.DependencyInjection
                 c.ConnectionString = configuration.GetValue<string>("Mongo:ConnectionString");
 
                 c.Schema = configuration.GetValue<string>("Mongo:Schema");
+
             });
 
             services.AddSingleton<IMongoConnection, MongoConnection>();
             services.AddSingleton<IMongoContext, MongoContext>();
 
             //Configure Mongo Repositories
-            services.AddScoped<IRepositorio<ClienteEntity>, RepositorioBase<ClienteEntity>>();
-            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-            //services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
-            services.AddScoped<IRepositorio<Pergunta>, RepositorioBase<Pergunta>>();
-            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IRepository<ClienteEntity>, GenericRepository<ClienteEntity>>();
+            services.AddScoped<IRepository<Pergunta>, GenericRepository<Pergunta>>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepositorio>();
 
             //Configure Mongo Serializer
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
-            //Configure Services
-            services.AddScoped<ITokenService, TokenService>();
+            #pragma warning disable 618
+            BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
+            BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
+            #pragma warning restore
+
+            #pragma warning disable CS8602
+            var objectSerializer = new ObjectSerializer
+            (
+               type =>
+                       ObjectSerializer.DefaultAllowedTypes(type) ||
+                       type.FullName.StartsWith("FintechGrupo10.Domain")
+            );
+            #pragma warning restore CS8602
+
+            BsonSerializer.RegisterSerializer(objectSerializer);
+        }
+
+        private static void ConfigureBindingsRabbitMQ(IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<RabbitMqConfig>(configuration.GetSection("RabbitMq"));
+
+            services.AddSingleton(x =>
+            {
+                var factory = new ConnectionFactory()
+                {
+                    HostName = configuration.GetValue<string>("RabbitMq:Host"),
+                    UserName = configuration.GetValue<string>("RabbitMq:Username"),
+                    Password = configuration.GetValue<string>("RabbitMq:Password")
+                };
+
+                return factory.CreateConnection();
+            });
+
+            // RabbitMQ Services
+            services.AddSingleton<IMessagePublisherService, MessagePublisherService>();
+
+            // Consumers
+            services.AddHostedService<ClientProfileConsumer>();
+        }
+
+        private static void ConfigureBindingsSerilog(IServiceCollection services)
+        {
+            var shortDate = DateTime.Now.ToString("yyyy-MM-dd_HH");
+            var path = "logs";
+            var filename = $@"{path}\{shortDate}.log";
+
+            var logConfig = new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                .MinimumLevel.Override("Host.Startup", LogEventLevel.Warning)
+                .MinimumLevel.Override("Host.Aggregator", LogEventLevel.Warning)
+                .MinimumLevel.Override("Host.Executor", LogEventLevel.Fatal)
+                .MinimumLevel.Override("Host.Results", LogEventLevel.Fatal)
+                .WriteTo.Console()
+                .WriteTo.File(filename, rollingInterval: RollingInterval.Day);
+
+            ILogger logger = logConfig.CreateLogger();
+
+            services.AddLogging(configure: x => x.AddSerilog(logger));
+        }
+
+        private static void ConfigureBindingsValidators(IServiceCollection services)
+        {
+            services.AddValidatorsFromAssembly(new AssemblyReference().GetAssembly());
         }
     }
 }

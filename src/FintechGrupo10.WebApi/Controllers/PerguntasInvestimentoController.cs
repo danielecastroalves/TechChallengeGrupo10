@@ -18,7 +18,7 @@ namespace FintechGrupo10.WebApi.Controllers
         [HttpGet("busca-perguntas")]
         public async Task<IActionResult> GetQuestions()
         {
-            return Ok(await _mediator.Send(new GetPerguntasInvestimentoRequest(), CancellationToken.None));
+            return Ok(await _mediator.Send(new BuscarPerguntasInvestimentoRequest(), CancellationToken.None));
         }
 
         [HttpPost("cria-pergunta")]
