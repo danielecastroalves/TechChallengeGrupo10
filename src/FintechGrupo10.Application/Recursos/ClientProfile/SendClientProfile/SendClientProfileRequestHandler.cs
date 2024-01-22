@@ -1,17 +1,18 @@
 using System.Text.Json;
 using FintechGrupo10.Application.Comum.Configurations;
 using FintechGrupo10.Application.Comum.Services;
+using FintechGrupo10.Application.Recursos.ClientProfile.SendClientProfile;
 using MediatR;
 using Microsoft.Extensions.Options;
 
-namespace FintechGrupo10.Application.Recursos.ClientProfile
+namespace FintechGrupo10.Application.Recursos.ClientProfile.SendClientProfileCommand
 {
-    public class ClientProfileRequestHandler : IRequestHandler<ClientProfileRequest>
+    public class SendClientProfileRequestHandler : IRequestHandler<SendClientProfileRequest>
     {
         private readonly IMessagePublisherService _messagePublisherService;
         private readonly RabbitMqConfig _rabbitMqConfig;
 
-        public ClientProfileRequestHandler
+        public SendClientProfileRequestHandler
         (
             IMessagePublisherService messagePublisherService,
             IOptions<RabbitMqConfig> options
@@ -21,7 +22,7 @@ namespace FintechGrupo10.Application.Recursos.ClientProfile
             _rabbitMqConfig = options.Value;
         }
 
-        public Task<Unit> Handle(ClientProfileRequest request, CancellationToken cancellationToken)
+        public Task<Unit> Handle(SendClientProfileRequest request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 

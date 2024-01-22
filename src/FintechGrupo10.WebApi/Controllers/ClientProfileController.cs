@@ -1,4 +1,4 @@
-using FintechGrupo10.Application.Recursos.ClientProfile;
+using FintechGrupo10.Application.Recursos.ClientProfile.SendClientProfile;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +13,10 @@ namespace FintechGrupo10.WebApi.Controllers
         public ClientProfileController(IMediator mediator) : base(mediator) { }
 
         [HttpPost("clientProfile")]
-        [SwaggerOperation(OperationId = "SetClientProfile")]
-        public async Task<IActionResult> SetClientProfile
+        [SwaggerOperation(OperationId = "SendClientProfile")]
+        public async Task<IActionResult> SendClientProfile
         (
-            ClientProfileRequest request,
+            SendClientProfileRequest request,
             CancellationToken cancellationToken = default
         )
         {

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace FintechGrupo10.Application.Recursos.ClientProfile
 {
-    public class ClientProfileRequest : IRequest
+    public class ClientProfileRequest
     {
         public Guid ClientId { get; set; }
 
@@ -13,7 +13,7 @@ namespace FintechGrupo10.Application.Recursos.ClientProfile
     public class Question
     {
         public Guid QuestionId { get; set; }
-        public int QuestionPoint { get; set; }
+        public int QuestionValue { get; set; }
     }
 
     public class ClientProfileRequestValidator : AbstractValidator<ClientProfileRequest>
