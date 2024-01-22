@@ -24,6 +24,9 @@ public class LoginRequestHandler : IRequestHandler<LoginRequest, string>
             request.Senha,
             cancellationToken);
 
+        if (usuario is null)
+            return string.Empty;
+
         return _tokenService.GerarToken(usuario);
         // TODO: Talvez tratar o retorno de usuario nulo no controller
     }

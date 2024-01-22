@@ -20,7 +20,7 @@ public class TokenService : ITokenService
     public string GerarToken(Usuario usuario)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_configuration.GetValue<char[]>("Autenticacao:Secret")!);
+        var key = Encoding.ASCII.GetBytes(_configuration.GetSection("Autenticacao").GetValue<string>("Secret")!);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new Claim[]
