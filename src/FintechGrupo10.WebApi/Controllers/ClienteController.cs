@@ -1,9 +1,10 @@
-﻿using FintechGrupo10.Application.Recursos.Cliente.Adicionar;
+using FintechGrupo10.Application.Recursos.Cliente.Adicionar;
 using FintechGrupo10.Application.Recursos.Cliente.Atualizar;
 using FintechGrupo10.Application.Recursos.Cliente.Buscar;
 using FintechGrupo10.Application.Recursos.Cliente.Excluir;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -13,9 +14,12 @@ namespace FintechGrupo10.WebApi.Controllers
     [Route("v1")]
     public sealed class ClienteController : CommonController
     {
-        public ClienteController(IMediator mediator) : base(mediator) { }
+        public ClienteController(IMediator mediator) : base(mediator)
+        {
+        }
 
         // FEITO
+        [AllowAnonymous]
         [HttpPost("cliente")]
         [SwaggerOperation(OperationId = "AddClientAsync")]
         public async Task<IActionResult> AddClientAsync
@@ -33,6 +37,7 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         // FEITO
+        [Authorize]
         [HttpGet("cliente")]
         [SwaggerOperation(OperationId = "GetClientAsync")]
         public async Task<IActionResult> GetClientAsync
@@ -47,6 +52,7 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         // FEITO
+        [Authorize]
         [HttpPut("cliente/{clientId}")]
         [SwaggerOperation(OperationId = "UpdateClientAsync")]
         public async Task<IActionResult> UpdateClientAsync
@@ -64,6 +70,7 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         // FEITO
+        [Authorize]
         [HttpDelete("cliente/{clientId}")]
         [SwaggerOperation(OperationId = "DeleteClientAsync")]
         public async Task<IActionResult> DeleteClientAsync

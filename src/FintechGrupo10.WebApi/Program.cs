@@ -1,5 +1,8 @@
 using FintechGrupo10.WebApi.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,26 +14,26 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("Autenticacao").GetValue<string>("Secret")!);
+var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("Autenticacao").GetValue<string>("Secret")!);
 
-//builder.Services
-//    .AddAuthentication(x =>
-//    {
-//        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//    })
-//    .AddJwtBearer(x =>
-//    {
-//        x.RequireHttpsMetadata = false;
-//        x.SaveToken = true;
-//        x.TokenValidationParameters = new TokenValidationParameters
-//        {
-//            ValidateIssuerSigningKey = true,
-//            IssuerSigningKey = new SymmetricSecurityKey(key),
-//            ValidateIssuer = false,
-//            ValidateAudience = false
-//        };
-//    });
+builder.Services
+    .AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(x =>
+    {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
 // DependencyInjections
 ConfigureBindingsDependencyInjection.RegisterBindings(builder.Services, builder.Configuration);
@@ -54,4 +57,5 @@ app.MapControllers();
 app.Run();
 
 [ExcludeFromCodeCoverage]
-public static partial class Program { }
+public static partial class Program
+{ }
