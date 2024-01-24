@@ -62,7 +62,6 @@ namespace FintechGrupo10.WebApi.DependencyInjection
                 c.ConnectionString = configuration.GetValue<string>("Mongo:ConnectionString");
 
                 c.Schema = configuration.GetValue<string>("Mongo:Schema");
-
             });
 
             services.AddSingleton<IMongoConnection, MongoConnection>();

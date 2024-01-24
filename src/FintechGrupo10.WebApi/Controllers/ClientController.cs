@@ -5,6 +5,7 @@ using FintechGrupo10.Application.Recursos.Cliente.Buscar;
 using FintechGrupo10.Application.Recursos.Cliente.Excluir;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -30,6 +31,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>Task</returns>
         [HttpPost("cliente")]
+        [AllowAnonymous]
         [SwaggerOperation(OperationId = "AddClientAsync")]
         [SwaggerResponse
         (
@@ -57,6 +59,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>GetClientResponse</returns>
         [HttpGet("cliente")]
+        [Authorize]
         [SwaggerOperation(OperationId = "GetClientAsync")]
         [SwaggerResponse
         (
@@ -82,6 +85,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>Task</returns>
         [HttpPut("cliente/{clientId}")]
+        [Authorize]
         [SwaggerOperation(OperationId = "UpdateClientAsync")]
         [SwaggerResponse
         (
@@ -109,6 +113,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>Task</returns>
         [HttpDelete("cliente/{clientId}")]
+        [Authorize]
         [SwaggerOperation(OperationId = "DeleteClientAsync")]
         [SwaggerResponse
         (

@@ -1,6 +1,7 @@
 using FintechGrupo10.Application.Recursos.ClientProfile.SendClientProfile;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -12,6 +13,7 @@ namespace FintechGrupo10.WebApi.Controllers
     {
         public ClientProfileController(IMediator mediator) : base(mediator) { }
 
+        [Authorize]
         [HttpPost("clientProfile")]
         [SwaggerOperation(OperationId = "SendClientProfile")]
         public async Task<IActionResult> SendClientProfile

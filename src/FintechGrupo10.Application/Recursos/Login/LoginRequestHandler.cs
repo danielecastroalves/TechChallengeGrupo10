@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Comum.Repositories;
+using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
 using MediatR;
 
@@ -24,7 +24,9 @@ public class LoginRequestHandler : IRequestHandler<LoginRequest, string>
             request.Senha,
             cancellationToken);
 
+        if (usuario is null)
+            return string.Empty;
+
         return _tokenService.GerarToken(usuario);
-        // TODO: Talvez tratar o retorno de usuario nulo no controller
     }
 }

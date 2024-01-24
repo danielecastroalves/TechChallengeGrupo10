@@ -1,6 +1,7 @@
-﻿using FintechGrupo10.Application.Recursos.Login;
+using FintechGrupo10.Application.Recursos.Login;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FintechGrupo10.WebApi.Controllers
@@ -12,11 +13,27 @@ namespace FintechGrupo10.WebApi.Controllers
         public LoginController(IMediator mediator) : base(mediator) { }
 
         [HttpPost]
-        public async Task<IActionResult> Authenticar(
+        [AllowAnonymous]
+        public async Task<ActionResult<dynamic>> Autenticar(
             [FromBody] LoginRequest request,
             CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(request, cancellationToken));
+            var token = await _mediator.Send(request, cancellationToken);
+
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                return NotFound(new { message = "Usuário ou senha inválidos" });
+            }
+            else
+            {
+                request.Senha = "";
+
+                return new
+                {
+                    user = request,
+                    token
+                };
+            }
         }
     }
 }
