@@ -1,16 +1,25 @@
-﻿using FintechGrupo10.Application.Comum.Repositories;
+using System.Text.Json;
+using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
 using Mapster;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace FintechGrupo10.Application.Recursos.Cliente.Atualizar
 {
     public class UpdateClientRequestHandler : IRequestHandler<UpdateClientRequest, ClienteEntity?>
     {
         private readonly IRepository<ClienteEntity> _repositorio;
-        public UpdateClientRequestHandler(IRepository<ClienteEntity> repositorio)
+        private readonly ILogger<UpdateClientRequestHandler> _logger;
+
+        public UpdateClientRequestHandler
+        (
+            IRepository<ClienteEntity> repositorio,
+            ILogger<UpdateClientRequestHandler> logger
+        )
         {
             _repositorio = repositorio;
+            _logger = logger;
         }
 
         public async Task<ClienteEntity?> Handle(UpdateClientRequest request, CancellationToken cancellationToken)
@@ -26,6 +35,12 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Atualizar
             entity = request.Adapt<ClienteEntity>();
 
             await _repositorio.UpdateAsync(x => x.Id == entity.Id, entity, cancellationToken);
+
+            _logger.LogInformation(
+                "[UpdateClient] " +
+                "[Client has been updated successfully] " +
+                "[Payload: {entity}]",
+                JsonSerializer.Serialize(entity));
 
             return entity;
         }

@@ -1,16 +1,24 @@
-﻿using FintechGrupo10.Application.Comum.Repositories;
+using System.Text.Json;
+using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace FintechGrupo10.Application.Recursos.Cliente.Excluir
 {
     public class DeleteClientRequestHandler : IRequestHandler<DeleteClientRequest>
     {
         private readonly IRepository<ClienteEntity> _repositorio;
+        private readonly ILogger<DeleteClientRequestHandler> _logger;
 
-        public DeleteClientRequestHandler(IRepository<ClienteEntity> repositorio)
+        public DeleteClientRequestHandler
+        (
+            IRepository<ClienteEntity> repositorio,
+            ILogger<DeleteClientRequestHandler> logger
+        )
         {
             _repositorio = repositorio;
+            _logger = logger;
         }
 
         public async Task<Unit> Handle(DeleteClientRequest request, CancellationToken cancellationToken)
@@ -22,6 +30,12 @@ namespace FintechGrupo10.Application.Recursos.Cliente.Excluir
             entity.Ativo = false;
 
             await _repositorio.UpdateAsync(x=> x.Id == entity.Id, entity, cancellationToken);
+
+            _logger.LogInformation(
+              "[DeleteClient] " +
+              "[Client has been deleted successfully] " +
+              "[Payload: {entity}]",
+              JsonSerializer.Serialize(entity));
 
             return Unit.Value;
         }
