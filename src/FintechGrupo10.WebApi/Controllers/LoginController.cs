@@ -1,4 +1,4 @@
-using FintechGrupo10.Application.Recursos.Login;
+using FintechGrupo10.Application.Features.Login;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

@@ -1,5 +1,5 @@
-﻿using FintechGrupo10.Domain.Entities;
-using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
+﻿using FintechGrupo10.Application.Common.Auth.Token;
+using FintechGrupo10.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,7 +17,7 @@ public class TokenService : ITokenService
         _configuration = configuration;
     }
 
-    public string GerarToken(Usuario usuario)
+    public string GetUserToken(Usuario usuario)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_configuration.GetSection("Autenticacao").GetValue<string>("Secret")!);

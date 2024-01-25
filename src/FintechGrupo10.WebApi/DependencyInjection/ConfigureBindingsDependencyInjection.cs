@@ -1,12 +1,12 @@
 using System.Diagnostics.CodeAnalysis;
 using FintechGrupo10.Application;
-using FintechGrupo10.Application.Comum.Behavior;
-using FintechGrupo10.Application.Comum.Configurations;
-using FintechGrupo10.Application.Comum.Repositories;
-using FintechGrupo10.Application.Comum.Services;
+using FintechGrupo10.Application.Common.Auth.Token;
+using FintechGrupo10.Application.Common.Behavior;
+using FintechGrupo10.Application.Common.Configurations;
+using FintechGrupo10.Application.Common.Repositories;
+using FintechGrupo10.Application.Common.Services;
 using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Infrastructure.Autenticacao.Token;
-using FintechGrupo10.Infrastructure.Autenticacao.Token.Interface;
 using FintechGrupo10.Infrastructure.Mongo.Contexts;
 using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
 using FintechGrupo10.Infrastructure.Mongo.Repositories;
@@ -70,7 +70,7 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             //Configure Mongo Repositories
             services.AddScoped<IRepository<ClienteEntity>, GenericRepository<ClienteEntity>>();
             services.AddScoped<IRepository<Pergunta>, GenericRepository<Pergunta>>();
-            services.AddScoped<IUsuarioRepository, UsuarioRepositorio>();
+            services.AddScoped<IUserRepository, UsuarioRepositorio>();
 
             //Configure Mongo Serializer
             BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));

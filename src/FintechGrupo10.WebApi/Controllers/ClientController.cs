@@ -1,8 +1,8 @@
 using System.Net;
-using FintechGrupo10.Application.Recursos.Cliente.Adicionar;
-using FintechGrupo10.Application.Recursos.Cliente.Atualizar;
-using FintechGrupo10.Application.Recursos.Cliente.Buscar;
-using FintechGrupo10.Application.Recursos.Cliente.Excluir;
+using FintechGrupo10.Application.Features.Client.AddClient;
+using FintechGrupo10.Application.Features.Client.Excluir;
+using FintechGrupo10.Application.Features.Client.GetClient;
+using FintechGrupo10.Application.Features.Client.UpdateClient;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

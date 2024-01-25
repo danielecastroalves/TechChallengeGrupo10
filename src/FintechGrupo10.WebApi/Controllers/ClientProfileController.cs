@@ -1,5 +1,5 @@
 using System.Net;
-using FintechGrupo10.Application.Recursos.ClientProfile.SendClientProfile;
+using FintechGrupo10.Application.Features.ClientProfile.SendClientProfile;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

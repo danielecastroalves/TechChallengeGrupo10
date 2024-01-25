@@ -1,7 +1,7 @@
 using System.Net;
-using FintechGrupo10.Application.Recursos.PerguntasInvestimento.BuscarPerguntas;
-using FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunta;
-using FintechGrupo10.Application.Recursos.PerguntasInvestimento.DeletaPergunta;
+using FintechGrupo10.Application.Features.PerguntasInvestimento.BuscarPerguntas;
+using FintechGrupo10.Application.Features.PerguntasInvestimento.CriarPergunta;
+using FintechGrupo10.Application.Features.PerguntasInvestimento.DeletaPergunta;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

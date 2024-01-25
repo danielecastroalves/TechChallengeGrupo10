@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using FintechGrupo10.Application.Comum.Repositories;
+using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
 using MongoDB.Driver;

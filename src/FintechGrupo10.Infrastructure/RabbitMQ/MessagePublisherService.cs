@@ -1,5 +1,5 @@
 using System.Text;
-using FintechGrupo10.Application.Comum.Services;
+using FintechGrupo10.Application.Common.Services;
 using RabbitMQ.Client;
 
 namespace FintechGrupo10.Infrastructure.RabbitMQ

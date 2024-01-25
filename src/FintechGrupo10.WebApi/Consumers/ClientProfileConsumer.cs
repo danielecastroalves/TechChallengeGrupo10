@@ -1,6 +1,6 @@
 using System.Text;
-using FintechGrupo10.Application.Comum.Configurations;
-using FintechGrupo10.Application.Recursos.ClientProfile.SetClientProfile;
+using FintechGrupo10.Application.Common.Configurations;
+using FintechGrupo10.Application.Features.ClientProfile.SetClientProfile;
 using MediatR;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
