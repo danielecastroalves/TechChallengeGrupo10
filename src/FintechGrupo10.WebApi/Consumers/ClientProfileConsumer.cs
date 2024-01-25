@@ -9,12 +9,21 @@ using RabbitMQ.Client.Events;
 
 namespace FintechGrupo10.WebApi.Consumers
 {
+    /// <summary>
+    /// Background Service for Client Profile RabbitMQ Consumer
+    /// </summary>
     public class ClientProfileConsumer : BackgroundService
     {
         private readonly IConnection _rabbitConnection;
         private readonly IServiceProvider _serviceProvider;
         private readonly RabbitMqConfig _rabbitMqConfig;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="rabbitConnection">RabbitMQ Connection</param>
+        /// <param name="serviceProvider">Service Provider</param>
+        /// <param name="options">RabbitMQ Config Options</param>
         public ClientProfileConsumer
         (
             IConnection rabbitConnection,
@@ -27,7 +36,12 @@ namespace FintechGrupo10.WebApi.Consumers
             _rabbitMqConfig = options.Value;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+        /// <summary>
+        /// ExecuteAsync
+        /// </summary>
+        /// <param name="stoppingToken">Cancellation Token</param>
+        /// <returns>Task</returns>
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             using var channel = _rabbitConnection.CreateModel();
 
@@ -41,7 +55,6 @@ namespace FintechGrupo10.WebApi.Consumers
                 using var scope = _serviceProvider.CreateScope();
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-                // Enviar um comando para o MediatR
                 await mediator.Send(clientProfileEvent!);
 
                 channel.BasicAck(ea.DeliveryTag, false);
@@ -51,7 +64,7 @@ namespace FintechGrupo10.WebApi.Consumers
                                  autoAck: false,
                                  consumer: consumer);
 
-            await Task.Delay(Timeout.Infinite, cancellationToken);
+            await Task.Delay(Timeout.Infinite, stoppingToken);
         }
     }
 }

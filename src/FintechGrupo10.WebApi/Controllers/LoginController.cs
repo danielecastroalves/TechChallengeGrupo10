@@ -24,7 +24,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// </summary>
         /// <param name="request">Login Request</param>
         /// <param name="cancellationToken">Cancellation Token</param>
-        /// <returns></returns>
+        /// <returns>Task</returns>
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult<dynamic>> Authenticate(
@@ -35,11 +35,11 @@ namespace FintechGrupo10.WebApi.Controllers
 
             if (string.IsNullOrWhiteSpace(token))
             {
-                return NotFound(new { message = "Usuário ou senha inválidos" });
+                return NotFound(new { message = "Invalid User or Password" });
             }
             else
             {
-                request.Senha = "";
+                request.Password = "";
 
                 return new
                 {

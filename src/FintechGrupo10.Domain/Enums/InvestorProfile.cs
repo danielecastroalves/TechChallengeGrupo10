@@ -1,6 +1,6 @@
-﻿namespace FintechGrupo10.Domain.Enums
+namespace FintechGrupo10.Domain.Enums
 {
-    public enum PerfilInvestimento
+    public enum InvestorProfile
     {
         Indefinido,
         Agressivo,

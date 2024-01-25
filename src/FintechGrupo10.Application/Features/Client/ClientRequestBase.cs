@@ -13,7 +13,7 @@ namespace FintechGrupo10.Application.Features.Client
 
         public string Login { get; set; } = null!;
         public string Senha { get; set; } = null!;
-        public Permissao Permissao { get; set; }
+        public Permission Permissao { get; set; }
     }
 
     public class ClientRequestBaseValidator<T> : AbstractValidator<T> where T : ClientRequestBase

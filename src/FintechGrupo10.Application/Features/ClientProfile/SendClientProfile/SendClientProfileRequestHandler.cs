@@ -3,21 +3,25 @@ using FintechGrupo10.Application.Common.Configurations;
 using FintechGrupo10.Application.Common.Services;
 using FintechGrupo10.Application.Features.ClientProfile.SendClientProfile;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace FintechGrupo10.Application.Features.ClientProfile.SendClientProfileCommand
 {
     public class SendClientProfileRequestHandler : IRequestHandler<SendClientProfileRequest>
     {
+        private readonly ILogger<SendClientProfileRequestHandler> _logger;
         private readonly IMessagePublisherService _messagePublisherService;
         private readonly RabbitMqConfig _rabbitMqConfig;
 
         public SendClientProfileRequestHandler
         (
+            ILogger<SendClientProfileRequestHandler> logger,
             IMessagePublisherService messagePublisherService,
             IOptions<RabbitMqConfig> options
         )
         {
+            _logger = logger;
             _messagePublisherService = messagePublisherService;
             _rabbitMqConfig = options.Value;
         }
@@ -29,6 +33,12 @@ namespace FintechGrupo10.Application.Features.ClientProfile.SendClientProfileCom
             var message = JsonSerializer.Serialize(request);
 
             _messagePublisherService.PublishMessage(message, _rabbitMqConfig.ClientProfileQueue);
+
+            _logger.LogInformation(
+                "[SendClientProfile] " +
+                "[Client has been updated successfully] " +
+                "[Payload: {message}]",
+                message);
 
             return Task.FromResult(Unit.Value);
         }

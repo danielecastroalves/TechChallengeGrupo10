@@ -4,5 +4,5 @@ namespace FintechGrupo10.Application.Common.Auth.Token;
 
 public interface ITokenService
 {
-    string GetUserToken(Usuario usuario);
+    string GetUserToken(User usuario);
 }

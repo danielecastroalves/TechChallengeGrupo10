@@ -70,7 +70,7 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             //Configure Mongo Repositories
             services.AddScoped<IRepository<ClienteEntity>, GenericRepository<ClienteEntity>>();
             services.AddScoped<IRepository<Pergunta>, GenericRepository<Pergunta>>();
-            services.AddScoped<IUserRepository, UsuarioRepositorio>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             //Configure Mongo Serializer
             BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));

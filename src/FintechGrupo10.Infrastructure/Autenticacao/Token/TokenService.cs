@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Application.Common.Auth.Token;
+using FintechGrupo10.Application.Common.Auth.Token;
 using FintechGrupo10.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -17,10 +17,12 @@ public class TokenService : ITokenService
         _configuration = configuration;
     }
 
-    public string GetUserToken(Usuario usuario)
+    public string GetUserToken(User usuario)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
+
         var key = Encoding.ASCII.GetBytes(_configuration.GetSection("Autenticacao").GetValue<string>("Secret")!);
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new Claim[]
@@ -33,7 +35,9 @@ public class TokenService : ITokenService
                 new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha256Signature)
         };
+
         var token = tokenHandler.CreateToken(tokenDescriptor);
+
         return tokenHandler.WriteToken(token);
     }
 }

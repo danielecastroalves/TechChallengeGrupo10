@@ -6,21 +6,20 @@ using MongoDB.Driver;
 
 namespace FintechGrupo10.Infrastructure.Mongo.Repositories;
 
-public class UsuarioRepositorio : GenericRepository<Usuario>, IUserRepository
+public class UserRepository : GenericRepository<User>, IUserRepository
 {
-    public UsuarioRepositorio(IMongoContext context) : base(context)
-    {
-    }
+    public UserRepository(IMongoContext context) : base(context)
+    { }
 
-    public async Task<Usuario> ObterPorLoginESenhaAsync(
+    public async Task<User> GetAuthByLoginAndPassword(
         string login,
-        string senha,
+        string password,
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         Expression<Func<ClienteEntity, bool>> filter =
-            x => x.Senha == senha && x.Login == login && x.Ativo;
+            x => x.Senha == password && x.Login == login && x.Ativo;
 
         var queryResut = await _context.GetCollection<ClienteEntity>()
             .FindAsync(filter, cancellationToken: cancellationToken);

@@ -2,10 +2,10 @@ using FintechGrupo10.Domain.Entities;
 
 namespace FintechGrupo10.Application.Common.Repositories;
 
-public interface IUserRepository : IRepository<Usuario>
+public interface IUserRepository : IRepository<User>
 {
-    Task<Usuario> ObterPorLoginESenhaAsync(
+    Task<User> GetAuthByLoginAndPassword(
         string login,
-        string senha,
+        string password,
         CancellationToken cancellationToken = default);
 }

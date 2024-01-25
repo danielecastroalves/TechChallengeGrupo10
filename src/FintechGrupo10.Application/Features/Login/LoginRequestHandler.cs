@@ -6,22 +6,22 @@ namespace FintechGrupo10.Application.Features.Login;
 
 public class LoginRequestHandler : IRequestHandler<LoginRequest, string>
 {
-    private readonly IUserRepository _usuarioRepositorio;
+    private readonly IUserRepository _repository;
     private readonly ITokenService _tokenService;
 
     public LoginRequestHandler(
         IUserRepository usuarioRepositorio,
         ITokenService tokenService)
     {
-        _usuarioRepositorio = usuarioRepositorio;
+        _repository = usuarioRepositorio;
         _tokenService = tokenService;
     }
 
     public async Task<string> Handle(LoginRequest request, CancellationToken cancellationToken)
     {
-        var usuario = await _usuarioRepositorio.ObterPorLoginESenhaAsync(
+        var usuario = await _repository.GetAuthByLoginAndPassword(
             request.Login,
-            request.Senha,
+            request.Password,
             cancellationToken);
 
         if (usuario is null)
