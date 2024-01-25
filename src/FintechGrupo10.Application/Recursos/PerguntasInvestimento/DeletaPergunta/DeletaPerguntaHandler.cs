@@ -19,7 +19,7 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.DeletaPergun
 
             try
             {
-                return await _repositorio.DeleteByIdAsync(request.IdPergunta, cancellationToken);
+                return await _repositorio.DeleteByIdAsync(request.QuestionId, cancellationToken);
             }
             catch (Exception)
             {

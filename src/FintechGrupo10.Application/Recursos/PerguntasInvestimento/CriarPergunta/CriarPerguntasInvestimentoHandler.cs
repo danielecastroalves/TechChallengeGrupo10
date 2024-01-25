@@ -1,5 +1,6 @@
 using FintechGrupo10.Application.Comum.Repositories;
 using FintechGrupo10.Domain.Entities;
+using Mapster;
 using MediatR;
 
 namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunta
@@ -19,7 +20,9 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunt
 
             try
             {
-                return await _repositorio.AddAsync(request.Pergunta, cancellationToken);
+                var entity = request.Adapt<Pergunta>();
+
+                return await _repositorio.AddAsync(entity, cancellationToken);
             }
             catch (Exception)
             {

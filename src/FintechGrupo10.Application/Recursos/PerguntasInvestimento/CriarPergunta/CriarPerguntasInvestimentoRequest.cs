@@ -5,6 +5,7 @@ namespace FintechGrupo10.Application.Recursos.PerguntasInvestimento.CriarPergunt
 {
     public class CriarPerguntasInvestimentoRequest : IRequest<Guid>
     {
-        public Pergunta Pergunta { get; set; } = null!;
+        public string Titulo { get; set; } = null!;
+        public List<Resposta> Resposta { get; set; } = null!;
     }
 }

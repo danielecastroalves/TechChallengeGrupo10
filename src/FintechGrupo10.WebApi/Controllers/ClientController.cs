@@ -107,7 +107,7 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         /// <summary>
-        /// DeleteClientAsync - Deletes a Client register from giver id
+        /// DeleteClientAsync - Delete a Client register from given id
         /// </summary>
         /// <param name="clientId">Client Id - GUID</param>
         /// <param name="cancellationToken">Cancellation Token</param>
