@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+using FintechGrupo10.Domain.Enums;
+using FluentValidation;
 
 namespace FintechGrupo10.Application.Recursos.Cliente
 {
@@ -12,6 +13,7 @@ namespace FintechGrupo10.Application.Recursos.Cliente
 
         public string Login { get; set; } = null!;
         public string Senha { get; set; } = null!;
+        public Permissao Permissao { get; set; }
     }
 
     public class ClientRequestBaseValidator<T> : AbstractValidator<T> where T : ClientRequestBase

@@ -8,7 +8,9 @@ namespace FintechGrupo10.Infrastructure.Mongo.Repositories;
 
 public class UsuarioRepositorio : GenericRepository<Usuario>, IUsuarioRepository
 {
-    public UsuarioRepositorio(IMongoContext context) : base(context) { }
+    public UsuarioRepositorio(IMongoContext context) : base(context)
+    {
+    }
 
     public async Task<Usuario> ObterPorLoginESenhaAsync(
         string login,
@@ -17,11 +19,11 @@ public class UsuarioRepositorio : GenericRepository<Usuario>, IUsuarioRepository
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        Expression<Func<Usuario, bool>> filter =
+        Expression<Func<ClienteEntity, bool>> filter =
             x => x.Senha == senha && x.Login == login && x.Ativo;
 
-        var queryResut = await _context.GetCollection<Usuario>()
-            .FindAsync<Usuario>(filter, cancellationToken: cancellationToken);
+        var queryResut = await _context.GetCollection<ClienteEntity>()
+            .FindAsync(filter, cancellationToken: cancellationToken);
 
         return await queryResut.FirstOrDefaultAsync(cancellationToken);
     }
