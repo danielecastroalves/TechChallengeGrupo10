@@ -1,6 +1,6 @@
 using System.Net;
 using FintechGrupo10.Application.Features.Client.AddClient;
-using FintechGrupo10.Application.Features.Client.Excluir;
+using FintechGrupo10.Application.Features.Client.DeleteClient;
 using FintechGrupo10.Application.Features.Client.GetClient;
 using FintechGrupo10.Application.Features.Client.UpdateClient;
 using FintechGrupo10.WebApi.Controllers.Comum;
@@ -30,7 +30,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="request">AddClient Request</param>
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>Task</returns>
-        [HttpPost("cliente")]
+        [HttpPost("client")]
         [AllowAnonymous]
         [SwaggerOperation(OperationId = "AddClientAsync")]
         [SwaggerResponse
@@ -58,7 +58,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="request">GetClient Request</param>
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>GetClientResponse</returns>
-        [HttpGet("cliente")]
+        [HttpGet("client")]
         [Authorize]
         [SwaggerOperation(OperationId = "GetClientAsync")]
         [SwaggerResponse
@@ -72,9 +72,9 @@ namespace FintechGrupo10.WebApi.Controllers
             CancellationToken cancellationToken
         )
         {
-            var cliente = await _mediator.Send(request, cancellationToken);
+            var client = await _mediator.Send(request, cancellationToken);
 
-            return Ok(cliente);
+            return Ok(client);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="request">UpdateClient Request</param>
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>Task</returns>
-        [HttpPut("cliente/{clientId}")]
+        [HttpPut("client/{clientId}")]
         [Authorize]
         [SwaggerOperation(OperationId = "UpdateClientAsync")]
         [SwaggerResponse
@@ -112,7 +112,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="clientId">Client Id - GUID</param>
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>Task</returns>
-        [HttpDelete("cliente/{clientId}")]
+        [HttpDelete("client/{clientId}")]
         [Authorize]
         [SwaggerOperation(OperationId = "DeleteClientAsync")]
         [SwaggerResponse

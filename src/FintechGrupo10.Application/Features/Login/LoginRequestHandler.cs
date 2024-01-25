@@ -1,19 +1,25 @@
 using FintechGrupo10.Application.Common.Auth.Token;
 using FintechGrupo10.Application.Common.Repositories;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace FintechGrupo10.Application.Features.Login;
 
 public class LoginRequestHandler : IRequestHandler<LoginRequest, string>
 {
     private readonly IUserRepository _repository;
+    private readonly ILogger<LoginRequestHandler> _logger;
     private readonly ITokenService _tokenService;
 
-    public LoginRequestHandler(
-        IUserRepository usuarioRepositorio,
-        ITokenService tokenService)
+    public LoginRequestHandler
+    (
+        IUserRepository repository,
+        ILogger<LoginRequestHandler> logger,
+        ITokenService tokenService
+    )
     {
-        _repository = usuarioRepositorio;
+        _repository = repository;
+        _logger = logger;
         _tokenService = tokenService;
     }
 
@@ -27,6 +33,14 @@ public class LoginRequestHandler : IRequestHandler<LoginRequest, string>
         if (usuario is null)
             return string.Empty;
 
-        return _tokenService.GetUserToken(usuario);
+        var response = _tokenService.GetUserToken(usuario);
+
+        _logger.LogInformation(
+                "[Authenticate] " +
+                "[UserToken has been generated successfully] " +
+                "[Login: {login}]",
+                request.Login);
+
+        return response;
     }
 }

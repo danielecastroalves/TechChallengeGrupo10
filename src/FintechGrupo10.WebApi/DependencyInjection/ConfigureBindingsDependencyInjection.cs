@@ -69,7 +69,7 @@ namespace FintechGrupo10.WebApi.DependencyInjection
 
             //Configure Mongo Repositories
             services.AddScoped<IRepository<ClienteEntity>, GenericRepository<ClienteEntity>>();
-            services.AddScoped<IRepository<Pergunta>, GenericRepository<Pergunta>>();
+            services.AddScoped<IRepository<Question>, GenericRepository<Question>>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             //Configure Mongo Serializer
@@ -96,7 +96,7 @@ namespace FintechGrupo10.WebApi.DependencyInjection
         {
             services.Configure<RabbitMqConfig>(configuration.GetSection("RabbitMq"));
 
-            services.AddSingleton(x =>
+            services.AddSingleton(_ =>
             {
                 var factory = new ConnectionFactory()
                 {
@@ -117,8 +117,8 @@ namespace FintechGrupo10.WebApi.DependencyInjection
 
         private static void ConfigureBindingsSerilog(IServiceCollection services)
         {
+            const string path = "logs";
             var shortDate = DateTime.Now.ToString("yyyy-MM-dd_HH");
-            var path = "logs";
             var filename = $@"{path}\{shortDate}.log";
 
             var logConfig = new LoggerConfiguration()

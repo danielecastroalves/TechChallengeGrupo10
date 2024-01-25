@@ -1,7 +1,7 @@
 using System.Net;
-using FintechGrupo10.Application.Features.PerguntasInvestimento.BuscarPerguntas;
-using FintechGrupo10.Application.Features.PerguntasInvestimento.CriarPergunta;
-using FintechGrupo10.Application.Features.PerguntasInvestimento.DeletaPergunta;
+using FintechGrupo10.Application.Features.InvestimentQuestion.AddInvestimentQuestion;
+using FintechGrupo10.Application.Features.InvestimentQuestion.DeleteQuestion;
+using FintechGrupo10.Application.Features.InvestimentQuestion.GetInvestimentQuestion;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -11,35 +11,35 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace FintechGrupo10.WebApi.Controllers
 {
     /// <summary>
-    /// InvestingQuestions Controller
+    /// Investiment Question Controller
     /// </summary>
     [ApiController]
     [Route("v1")]
-    public class InvestingQuestionsController : CommonController
+    public class InvestimentQuestionsController : CommonController
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="mediator">Mediator DI</param>
-        public InvestingQuestionsController(IMediator mediator) : base(mediator) { }
+        public InvestimentQuestionsController(IMediator mediator) : base(mediator) { }
 
         /// <summary>
-        /// CreateQuestionAsync - Create a new Investing Question for Profile Definition
+        /// AddQuestionAsync - Create a new Investiment Question for Profile Definition
         /// </summary>
-        /// <param name="request">CreateInvestingQuestion Request</param>
+        /// <param name="request">AddInvestimentQuestion Request</param>
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>Task</returns>
-        [HttpPost("investingQuestions")]
+        [HttpPost("investimentQuestion")]
         [Authorize]
-        [SwaggerOperation(OperationId = "CreateQuestionAsync")]
+        [SwaggerOperation(OperationId = "AddQuestionAsync")]
         [SwaggerResponse
         (
             (int)HttpStatusCode.Created,
             "Question has been created successfully"
         )]
-        public async Task<IActionResult> CreateQuestionAsync
+        public async Task<IActionResult> AddQuestionAsync
         (
-            CriarPerguntasInvestimentoRequest request,
+            AddInvestimentQuesitonRequest request,
             CancellationToken cancellationToken
         )
         {
@@ -52,29 +52,29 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         /// <summary>
-        /// GetQuestionsAsync - Returns all Investing Questions
+        /// GetQuestionsAsync - Returns all Investiment Questions
         /// </summary>
-        /// <returns></returns>
-        [HttpGet("investingQuestions")]
+        /// <returns>GetInvestimentQuestionsResponse</returns>
+        [HttpGet("investimentQuestion")]
         [Authorize]
         [SwaggerOperation(OperationId = "GetQuestionsAsync")]
         [SwaggerResponse
         (
             (int)HttpStatusCode.OK,
-            "These are the Investing Questions found"
+            "These are the Investiment Questions found"
         )]
         public async Task<IActionResult> GetQuestionsAsync()
         {
-            return Ok(await _mediator.Send(new BuscarPerguntasInvestimentoRequest(), CancellationToken.None));
+            return Ok(await _mediator.Send(new GetInvestimentQuestionRequest(), CancellationToken.None));
         }
 
         /// <summary>
-        /// DeleteQuestionAsync - Delete a Investing Question from given id
+        /// DeleteQuestionAsync - Delete a Investiment Question from given id
         /// </summary>
         /// <param name="questionId">Question Id - GUID</param>
         /// <param name="cancellationToken">Cancellation Token</param>
-        /// <returns></returns>
-        [HttpDelete("investingQuestions/{questionId}")]
+        /// <returns>Task</returns>
+        [HttpDelete("investimentQuestion/{questionId}")]
         [Authorize]
         [SwaggerOperation(OperationId = "DeleteQuestionAsync")]
         [SwaggerResponse
@@ -93,7 +93,7 @@ namespace FintechGrupo10.WebApi.Controllers
             CancellationToken cancellationToken
         )
         {
-            await _mediator.Send(new DeletaPerguntaRequest(questionId), cancellationToken);
+            await _mediator.Send(new DeleteInvestimentQuestionRequest(questionId), cancellationToken);
 
             return Ok();
         }
