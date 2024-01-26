@@ -15,13 +15,13 @@ namespace FintechGrupo10.WebApi.Controllers
     /// </summary>
     [ApiController]
     [Route("v1")]
-    public class InvestimentQuestionsController : CommonController
+    public class InvestimentQuestionController : CommonController
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="mediator">Mediator DI</param>
-        public InvestimentQuestionsController(IMediator mediator) : base(mediator) { }
+        public InvestimentQuestionController(IMediator mediator) : base(mediator) { }
 
         /// <summary>
         /// AddQuestionAsync - Create a new Investiment Question for Profile Definition
@@ -65,7 +65,7 @@ namespace FintechGrupo10.WebApi.Controllers
         )]
         public async Task<IActionResult> GetQuestionsAsync()
         {
-            return Ok(await _mediator.Send(new GetInvestimentQuestionRequest(), CancellationToken.None));
+            return Ok(await _mediator.Send(new GetInvestimentQuestionRequest()));
         }
 
         /// <summary>

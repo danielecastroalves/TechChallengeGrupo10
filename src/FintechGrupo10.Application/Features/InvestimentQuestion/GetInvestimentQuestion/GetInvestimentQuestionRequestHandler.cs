@@ -8,12 +8,12 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.GetInvestiment
 {
     public class GetInvestimentQuestionRequestHandler : IRequestHandler<GetInvestimentQuestionRequest, GetInvestimentQuestionsResponse>
     {
-        private readonly IRepository<Question> _repositorio;
+        private readonly IRepository<QuestionEntity> _repositorio;
         private readonly ILogger<GetInvestimentQuestionRequestHandler> _logger;
 
         public GetInvestimentQuestionRequestHandler
         (
-            IRepository<Question> repositorio,
+            IRepository<QuestionEntity> repositorio,
             ILogger<GetInvestimentQuestionRequestHandler> logger
         )
         {
@@ -34,7 +34,7 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.GetInvestiment
             var response = new GetInvestimentQuestionsResponse(entity.ToList());
 
             _logger.LogInformation(
-               "[GetInvestimentQuestions] " +
+               "[GetInvestimentQuestion] " +
                "[These are the Investiment Questions found] " +
                "[Payload: {response}]",
                JsonSerializer.Serialize(response));

@@ -2,7 +2,7 @@ using FintechGrupo10.Domain.Enums;
 
 namespace FintechGrupo10.Domain.Entities
 {
-    public class Product : Entity
+    public class ProductEntity : Entity
     {
         public string Titulo { get; set; } = null!;
         public string Descricao { get; set; } = null!;
@@ -10,6 +10,6 @@ namespace FintechGrupo10.Domain.Entities
         public string TaxaAdministracao { get; set; } = null!;
         public string RiscoProduto { get; set; } = null!;
 
-        public InvestorProfile PerfilProduto { get; set; }
+        public InvestorProfile PerfilInvestimento { get; set; }
     }
 }

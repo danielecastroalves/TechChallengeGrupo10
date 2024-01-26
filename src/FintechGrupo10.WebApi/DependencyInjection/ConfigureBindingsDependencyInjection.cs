@@ -69,7 +69,8 @@ namespace FintechGrupo10.WebApi.DependencyInjection
 
             //Configure Mongo Repositories
             services.AddScoped<IRepository<ClienteEntity>, GenericRepository<ClienteEntity>>();
-            services.AddScoped<IRepository<Question>, GenericRepository<Question>>();
+            services.AddScoped<IRepository<ProductEntity>, GenericRepository<ProductEntity>>();
+            services.AddScoped<IRepository<QuestionEntity>, GenericRepository<QuestionEntity>>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             //Configure Mongo Serializer

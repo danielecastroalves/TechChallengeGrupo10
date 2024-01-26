@@ -8,11 +8,11 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.GetInvestiment
 
     public class GetInvestimentQuestionsResponse
     {
-        public GetInvestimentQuestionsResponse(List<Question> investimentQuestions)
+        public GetInvestimentQuestionsResponse(List<QuestionEntity> investimentQuestions)
         {
             InvestimentQuestions = investimentQuestions;
         }
 
-        public List<Question> InvestimentQuestions { get; set; }
+        public List<QuestionEntity> InvestimentQuestions { get; set; }
     }
 }

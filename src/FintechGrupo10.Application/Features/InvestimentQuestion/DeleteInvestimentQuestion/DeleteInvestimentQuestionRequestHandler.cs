@@ -8,12 +8,12 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.DeleteInvestim
 {
     public class DeleteInvestimentQuestionRequestHandler : IRequestHandler<DeleteInvestimentQuestionRequest>
     {
-        private readonly IRepository<Question> _repositorio;
+        private readonly IRepository<QuestionEntity> _repositorio;
         private readonly ILogger<AddInvestimentQuestionRequestHandler> _logger;
 
         public DeleteInvestimentQuestionRequestHandler
         (
-            IRepository<Question> repositorio,
+            IRepository<QuestionEntity> repositorio,
             ILogger<AddInvestimentQuestionRequestHandler> logger
         )
         {

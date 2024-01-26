@@ -9,12 +9,12 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.AddInvestiment
 {
     public class AddInvestimentQuestionRequestHandler : IRequestHandler<AddInvestimentQuesitonRequest, Guid>
     {
-        private readonly IRepository<Question> _repositorio;
+        private readonly IRepository<QuestionEntity> _repositorio;
         private readonly ILogger<AddInvestimentQuestionRequestHandler> _logger;
 
         public AddInvestimentQuestionRequestHandler
         (
-            IRepository<Question> repositorio,
+            IRepository<QuestionEntity> repositorio,
             ILogger<AddInvestimentQuestionRequestHandler> logger
         )
         {
@@ -26,7 +26,7 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.AddInvestiment
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var entity = request.Adapt<Question>();
+            var entity = request.Adapt<QuestionEntity>();
 
             var response = await _repositorio.AddAsync(entity, cancellationToken);
 
