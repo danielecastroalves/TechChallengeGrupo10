@@ -1,11 +1,10 @@
-using System.Text.Json;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Features.InvestimentQuestion.AddInvestimentQuestion;
 using FintechGrupo10.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace FintechGrupo10.Application.Features.InvestimentQuestion.DeleteQuestion
+namespace FintechGrupo10.Application.Features.InvestimentQuestion.DeleteInvestimentQuestion
 {
     public class DeleteInvestimentQuestionRequestHandler : IRequestHandler<DeleteInvestimentQuestionRequest>
     {
@@ -29,10 +28,10 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.DeleteQuestion
             await _repositorio.DeleteByIdAsync(request.QuestionId, cancellationToken);
 
             _logger.LogInformation(
-               "[DeleteInvestimentQuestion] " +
-               "[Question has been deleted successfully] " +
-               "[QuestionId: {questionId}]",
-               request.QuestionId.ToString());
+                "[DeleteInvestimentQuestion] " +
+                "[Question has been deleted successfully] " +
+                "[QuestionId: {questionId}]",
+                request.QuestionId.ToString());
 
             return Unit.Value;
         }

@@ -1,7 +1,7 @@
 using FluentValidation;
 using MediatR;
 
-namespace FintechGrupo10.Application.Features.InvestimentQuestion.DeleteQuestion
+namespace FintechGrupo10.Application.Features.InvestimentQuestion.DeleteInvestimentQuestion
 {
     public class DeleteInvestimentQuestionRequest : IRequest
     {

@@ -1,6 +1,6 @@
 using System.Net;
 using FintechGrupo10.Application.Features.InvestimentQuestion.AddInvestimentQuestion;
-using FintechGrupo10.Application.Features.InvestimentQuestion.DeleteQuestion;
+using FintechGrupo10.Application.Features.InvestimentQuestion.DeleteInvestimentQuestion;
 using FintechGrupo10.Application.Features.InvestimentQuestion.GetInvestimentQuestion;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;

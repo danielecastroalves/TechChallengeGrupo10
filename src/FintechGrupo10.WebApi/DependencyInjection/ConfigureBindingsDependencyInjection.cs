@@ -6,7 +6,7 @@ using FintechGrupo10.Application.Common.Configurations;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Common.Services;
 using FintechGrupo10.Domain.Entities;
-using FintechGrupo10.Infrastructure.Autenticacao.Token;
+using FintechGrupo10.Infrastructure.Auth.Token;
 using FintechGrupo10.Infrastructure.Mongo.Contexts;
 using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
 using FintechGrupo10.Infrastructure.Mongo.Repositories;

@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace FintechGrupo10.Infrastructure.Autenticacao.Token;
+namespace FintechGrupo10.Infrastructure.Auth.Token;
 
 public class TokenService : ITokenService
 {

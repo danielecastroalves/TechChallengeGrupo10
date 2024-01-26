@@ -1,4 +1,4 @@
-﻿using FintechGrupo10.Domain.Enums;
+using FintechGrupo10.Domain.Enums;
 
 namespace FintechGrupo10.Domain.Entities
 {
@@ -9,6 +9,6 @@ namespace FintechGrupo10.Domain.Entities
         public string Telefone { get; set; } = null!;
         public string Email { get; set; } = null!;
         public DateTime DataNascimento { get; set; }
-        public InvestorProfile PerfilInvestimento { get; set; }
+        public InvestorProfile PerfilInvestimento { get; set; } = InvestorProfile.Indefinido;
     }
 }
