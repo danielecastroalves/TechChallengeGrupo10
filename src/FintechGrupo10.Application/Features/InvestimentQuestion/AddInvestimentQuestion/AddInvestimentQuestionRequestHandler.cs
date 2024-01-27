@@ -5,24 +5,24 @@ using Mapster;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace FintechGrupo10.Application.Features.InvestimentQuestion.AddInvestimentQuestion
+namespace FintechGrupo10.Application.Features.InvestmentQuestion.AddInvestmentQuestion
 {
-    public class AddInvestimentQuestionRequestHandler : IRequestHandler<AddInvestimentQuesitonRequest, Guid>
+    public class AddInvestmentQuestionRequestHandler : IRequestHandler<AddInvestmentQuestionRequest, Guid>
     {
         private readonly IRepository<QuestionEntity> _repositorio;
-        private readonly ILogger<AddInvestimentQuestionRequestHandler> _logger;
+        private readonly ILogger<AddInvestmentQuestionRequestHandler> _logger;
 
-        public AddInvestimentQuestionRequestHandler
+        public AddInvestmentQuestionRequestHandler
         (
             IRepository<QuestionEntity> repositorio,
-            ILogger<AddInvestimentQuestionRequestHandler> logger
+            ILogger<AddInvestmentQuestionRequestHandler> logger
         )
         {
             _repositorio = repositorio;
             _logger = logger;
         }
 
-        public async Task<Guid> Handle(AddInvestimentQuesitonRequest request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddInvestmentQuestionRequest request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -31,7 +31,7 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.AddInvestiment
             var response = await _repositorio.AddAsync(entity, cancellationToken);
 
             _logger.LogInformation(
-                "[AddInvestimentQuestion] " +
+                "[AddInvestmentQuestion] " +
                 "[Question has been added successfully] " +
                 "[QuestionId: {questionId}] " +
                 "[Payload: {entity}]",

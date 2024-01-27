@@ -1,7 +1,7 @@
 using FintechGrupo10.Domain.Entities;
 using MediatR;
 
-namespace FintechGrupo10.Application.Features.InvestimentProduct
+namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct
 {
     public class GetInvestmentProductRequest : IRequest<GetInvestmentProductResponse>
     {

@@ -1,34 +1,34 @@
 using FintechGrupo10.Application.Common.Repositories;
-using FintechGrupo10.Application.Features.InvestimentQuestion.AddInvestimentQuestion;
+using FintechGrupo10.Application.Features.InvestmentQuestion.AddInvestmentQuestion;
 using FintechGrupo10.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace FintechGrupo10.Application.Features.InvestimentQuestion.DeleteInvestimentQuestion
+namespace FintechGrupo10.Application.Features.InvestmentQuestion.DeleteInvestmentQuestion
 {
-    public class DeleteInvestimentQuestionRequestHandler : IRequestHandler<DeleteInvestimentQuestionRequest>
+    public class DeleteInvestmentQuestionRequestHandler : IRequestHandler<DeleteInvestmentQuestionRequest>
     {
         private readonly IRepository<QuestionEntity> _repositorio;
-        private readonly ILogger<AddInvestimentQuestionRequestHandler> _logger;
+        private readonly ILogger<AddInvestmentQuestionRequestHandler> _logger;
 
-        public DeleteInvestimentQuestionRequestHandler
+        public DeleteInvestmentQuestionRequestHandler
         (
             IRepository<QuestionEntity> repositorio,
-            ILogger<AddInvestimentQuestionRequestHandler> logger
+            ILogger<AddInvestmentQuestionRequestHandler> logger
         )
         {
             _repositorio = repositorio;
             _logger = logger;
         }
 
-        public async Task<Unit> Handle(DeleteInvestimentQuestionRequest request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteInvestmentQuestionRequest request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             await _repositorio.DeleteByIdAsync(request.QuestionId, cancellationToken);
 
             _logger.LogInformation(
-                "[DeleteInvestimentQuestion] " +
+                "[DeleteInvestmentQuestion] " +
                 "[Question has been deleted successfully] " +
                 "[QuestionId: {questionId}]",
                 request.QuestionId.ToString());

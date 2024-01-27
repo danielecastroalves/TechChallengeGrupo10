@@ -1,18 +1,18 @@
 using FintechGrupo10.Domain.Entities;
 using MediatR;
 
-namespace FintechGrupo10.Application.Features.InvestimentQuestion.GetInvestimentQuestion
+namespace FintechGrupo10.Application.Features.InvestmentQuestion.GetInvestmentQuestion
 {
-    public class GetInvestimentQuestionRequest : IRequest<GetInvestimentQuestionsResponse>
+    public class GetInvestmentQuestionRequest : IRequest<GetInvestmentQuestionsResponse>
     { }
 
-    public class GetInvestimentQuestionsResponse
+    public class GetInvestmentQuestionsResponse
     {
-        public GetInvestimentQuestionsResponse(List<QuestionEntity> investimentQuestions)
+        public GetInvestmentQuestionsResponse(List<QuestionEntity> investmentQuestions)
         {
-            InvestimentQuestions = investimentQuestions;
+            InvestmentQuestions = investmentQuestions;
         }
 
-        public List<QuestionEntity> InvestimentQuestions { get; set; }
+        public List<QuestionEntity> InvestmentQuestions { get; set; }
     }
 }

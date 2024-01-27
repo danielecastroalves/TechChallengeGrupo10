@@ -4,26 +4,26 @@ using FintechGrupo10.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace FintechGrupo10.Application.Features.InvestimentQuestion.GetInvestimentQuestion
+namespace FintechGrupo10.Application.Features.InvestmentQuestion.GetInvestmentQuestion
 {
-    public class GetInvestimentQuestionRequestHandler : IRequestHandler<GetInvestimentQuestionRequest, GetInvestimentQuestionsResponse>
+    public class GetInvestmentQuestionRequestHandler : IRequestHandler<GetInvestmentQuestionRequest, GetInvestmentQuestionsResponse>
     {
         private readonly IRepository<QuestionEntity> _repositorio;
-        private readonly ILogger<GetInvestimentQuestionRequestHandler> _logger;
+        private readonly ILogger<GetInvestmentQuestionRequestHandler> _logger;
 
-        public GetInvestimentQuestionRequestHandler
+        public GetInvestmentQuestionRequestHandler
         (
             IRepository<QuestionEntity> repositorio,
-            ILogger<GetInvestimentQuestionRequestHandler> logger
+            ILogger<GetInvestmentQuestionRequestHandler> logger
         )
         {
             _repositorio = repositorio;
             _logger = logger;
         }
 
-        public async Task<GetInvestimentQuestionsResponse> Handle
+        public async Task<GetInvestmentQuestionsResponse> Handle
         (
-            GetInvestimentQuestionRequest request,
+            GetInvestmentQuestionRequest request,
             CancellationToken cancellationToken
         )
         {
@@ -31,11 +31,11 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.GetInvestiment
 
             var entity = await _repositorio.GetListByFilterAsync(x => x.Ativo, cancellationToken);
 
-            var response = new GetInvestimentQuestionsResponse(entity.ToList());
+            var response = new GetInvestmentQuestionsResponse(entity.ToList());
 
             _logger.LogInformation(
-               "[GetInvestimentQuestion] " +
-               "[These are the Investiment Questions found] " +
+               "[GetInvestmentQuestion] " +
+               "[These are the Investment Questions found] " +
                "[Payload: {response}]",
                JsonSerializer.Serialize(response));
 

@@ -1,5 +1,6 @@
 using System.Net;
-using FintechGrupo10.Application.Features.InvestimentProduct;
+using FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentProduct;
+using FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -9,33 +10,61 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace FintechGrupo10.WebApi.Controllers
 {
     /// <summary>
-    /// Investiment Product Controller
+    /// Investment Product Controller
     /// </summary>
     [ApiController]
     [Route("v1")]
-    public sealed class InvestimentProductController : CommonController
+    public sealed class InvestmentProductController : CommonController
     {
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="mediator">Mediator DI</param>
-        public InvestimentProductController(IMediator mediator) : base(mediator) { }
+        public InvestmentProductController(IMediator mediator) : base(mediator) { }
 
         /// <summary>
-        /// GetInvestimentProductByProfile - Get product according to investment profile
+        /// AddInvestmentProductAsync - Create a new Product for Investors
+        /// </summary>
+        /// <param name="request">AddInvestmentProduct Request</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
+        /// <returns>Task</returns>
+        [HttpPost("investmentProduct")]
+        [Authorize]
+        [SwaggerOperation(OperationId = "AddInvestmentProductAsync")]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Created,
+            "Product has been created successfully"
+        )]
+        public async Task<IActionResult> AddInvestmentProductAsync
+        (
+            AddInvestmentProductRequest request,
+            CancellationToken cancellationToken
+        )
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+
+            return new ObjectResult(result)
+            {
+                StatusCode = 201
+            };
+        }
+
+        /// <summary>
+        /// GetInvestmentProductByProfile - Get product according to investment profile
         /// </summary>
         /// <param name="investorProfile">Investment Product Request</param>
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>GetInvestmentProductResponse</returns>
-        [HttpGet("investimentProduct/{investorProfile}")]
+        [HttpGet("investmentProduct/{investorProfile}")]
         [Authorize]
-        [SwaggerOperation(OperationId = "GetInvestimentProductByProfileAsync")]
+        [SwaggerOperation(OperationId = "GetInvestmentProductByProfileAsync")]
         [SwaggerResponse
         (
             (int)HttpStatusCode.OK,
-            "Here is the Investment Product found for this profile"
+            "Here is the Investment Products found for this profile"
         )]
-        public async Task<IActionResult> GetInvestimentProductByProfileAsync
+        public async Task<IActionResult> GetInvestmentProductByProfileAsync
         (
             [FromRoute] string investorProfile,
             CancellationToken cancellationToken = default
@@ -47,18 +76,18 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         /// <summary>
-        /// GetAllInvestimentProduct - Get all investiment products
+        /// GetAllInvestmentProduct - Get all investment products
         /// </summary>
         /// <returns>GetInvestmentProductResponse</returns>
-        [HttpGet("investimentProduct")]
+        [HttpGet("investmentProduct")]
         [Authorize]
-        [SwaggerOperation(OperationId = "GetAllInvestimentProductAsync")]
+        [SwaggerOperation(OperationId = "GetAllInvestmentProductAsync")]
         [SwaggerResponse
         (
             (int)HttpStatusCode.OK,
-            "Here is the Investment Product found for this profile"
+            "Here is all the Investment Products found"
         )]
-        public async Task<IActionResult> GetAllInvestimentProductAsync()
+        public async Task<IActionResult> GetAllInvestmentProductAsync()
         {
             var response = await _mediator.Send(new GetInvestmentProductRequest());
 

@@ -1,23 +1,21 @@
 using System.Text.Json;
-using System.Xml;
 using FintechGrupo10.Application.Common.Repositories;
-using FintechGrupo10.Application.Features.InvestimentQuestion.GetInvestimentQuestion;
+using FintechGrupo10.Application.Features.InvestmentQuestion.GetInvestmentQuestion;
 using FintechGrupo10.Domain.Entities;
-using FintechGrupo10.Domain.Enums;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace FintechGrupo10.Application.Features.InvestimentProduct
+namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct
 {
     public class GetInvestmentProductRequestHandler : IRequestHandler<GetInvestmentProductRequest, GetInvestmentProductResponse>
     {
         private readonly IRepository<ProductEntity> _repositorio;
-        private readonly ILogger<GetInvestimentQuestionRequestHandler> _logger;
+        private readonly ILogger<GetInvestmentQuestionRequestHandler> _logger;
 
         public GetInvestmentProductRequestHandler
         (
             IRepository<ProductEntity> repositorio,
-            ILogger<GetInvestimentQuestionRequestHandler> logger
+            ILogger<GetInvestmentQuestionRequestHandler> logger
         )
         {
             _repositorio = repositorio;
@@ -50,7 +48,7 @@ namespace FintechGrupo10.Application.Features.InvestimentProduct
 
             _logger.LogInformation(
                "[GetInvestmentProduct] " +
-               "[These are the Investiment Products found] " +
+               "[These are the Investment Products found] " +
                "[Payload: {response}]",
                JsonSerializer.Serialize(response));
 

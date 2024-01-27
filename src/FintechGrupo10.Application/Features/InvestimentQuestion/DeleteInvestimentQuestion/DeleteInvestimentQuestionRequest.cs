@@ -1,11 +1,11 @@
 using FluentValidation;
 using MediatR;
 
-namespace FintechGrupo10.Application.Features.InvestimentQuestion.DeleteInvestimentQuestion
+namespace FintechGrupo10.Application.Features.InvestmentQuestion.DeleteInvestmentQuestion
 {
-    public class DeleteInvestimentQuestionRequest : IRequest
+    public class DeleteInvestmentQuestionRequest : IRequest
     {
-        public DeleteInvestimentQuestionRequest(Guid questionId)
+        public DeleteInvestmentQuestionRequest(Guid questionId)
         {
             QuestionId = questionId;
         }
@@ -13,9 +13,9 @@ namespace FintechGrupo10.Application.Features.InvestimentQuestion.DeleteInvestim
         public Guid QuestionId { get; set; }
     }
 
-    public class DeleteInvestimentQuestionRequestValidator : AbstractValidator<DeleteInvestimentQuestionRequest>
+    public class DeleteInvestmentQuestionRequestValidator : AbstractValidator<DeleteInvestmentQuestionRequest>
     {
-        public DeleteInvestimentQuestionRequestValidator()
+        public DeleteInvestmentQuestionRequestValidator()
         {
             RuleFor(x => x.QuestionId).NotEmpty().NotNull();
         }
