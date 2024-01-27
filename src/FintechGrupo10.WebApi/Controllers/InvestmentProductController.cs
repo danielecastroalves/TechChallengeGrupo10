@@ -51,7 +51,7 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         /// <summary>
-        /// GetInvestmentProductByProfile - Get product according to investment profile
+        /// GetInvestmentProductByProfileAsync - Get product according to investment profile
         /// </summary>
         /// <param name="investorProfile">Investment Product Request</param>
         /// <param name="cancellationToken">Cancellation Token</param>
@@ -76,7 +76,7 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         /// <summary>
-        /// GetAllInvestmentProduct - Get all investment products
+        /// GetAllInvestmentProductAsync - Get all investment products
         /// </summary>
         /// <returns>GetInvestmentProductResponse</returns>
         [HttpGet("investmentProduct")]

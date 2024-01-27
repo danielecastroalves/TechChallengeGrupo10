@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Text;
 using FintechGrupo10.WebApi.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,7 +16,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fintech - Grupo 10", Version = "v1" });
+    c.SwaggerDoc("v1",
+                 new OpenApiInfo
+                 {
+                     Version = "v1",
+                     Title = "Fintech - Grupo 10",
+                     Description = "Aplicação de Finanças criada para o curso de Pós Graduação em Arquitetura de Sistemas .Net com Azure - FIAP"
+                 });
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n
@@ -42,6 +50,12 @@ builder.Services.AddSwaggerGen(c =>
             Array.Empty<string>()
         }
     });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+
+    c.EnableAnnotations();
 });
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("Autenticacao").GetValue<string>("Secret")!);
@@ -86,6 +100,9 @@ app.MapControllers();
 
 app.Run();
 
+/// <summary>
+/// Program Partial Class
+/// </summary>
 [ExcludeFromCodeCoverage]
 public static partial class Program
 { }

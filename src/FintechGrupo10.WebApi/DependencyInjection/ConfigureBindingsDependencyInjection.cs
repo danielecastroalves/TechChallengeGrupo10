@@ -26,9 +26,17 @@ using ILogger = Serilog.ILogger;
 
 namespace FintechGrupo10.WebApi.DependencyInjection
 {
+    /// <summary>
+    /// Configuring Dependency Injections
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public static class ConfigureBindingsDependencyInjection
     {
+        /// <summary>
+        /// Register Bindings
+        /// </summary>
+        /// <param name="services">IServiceCollection</param>
+        /// <param name="configuration">IConfiguration</param>
         public static void RegisterBindings
         (
             IServiceCollection services,
