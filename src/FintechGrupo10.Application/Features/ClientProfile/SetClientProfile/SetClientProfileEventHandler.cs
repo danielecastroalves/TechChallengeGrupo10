@@ -29,7 +29,7 @@ namespace FintechGrupo10.Application.Features.ClientProfile.SetClientProfile
 
             foreach (var value in request.Questions)
             {
-                totalPoints = +value.QuestionValue;
+                totalPoints += value.QuestionValue;
             }
 
             var investorProfile = SetInvertorProfile(totalPoints);

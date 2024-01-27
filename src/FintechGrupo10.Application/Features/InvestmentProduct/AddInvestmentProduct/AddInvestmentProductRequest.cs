@@ -12,7 +12,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentPro
         public string TaxaAdministracao { get; set; } = null!;
         public string RiscoProduto { get; set; } = null!;
 
-        public InvestorProfile PerfilInvestimento { get; set; }
+        public string PerfilInvestimento { get; set; } = null!;
     }
 
     public class AddInvestmentProductRequestValidator : AbstractValidator<AddInvestmentProductRequest>
@@ -24,7 +24,9 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentPro
             RuleFor(x => x.ValorMinimo).NotEmpty().NotNull();
             RuleFor(x => x.TaxaAdministracao).NotEmpty().NotNull();
             RuleFor(x => x.RiscoProduto).NotEmpty().NotNull();
-            RuleFor(x => x.PerfilInvestimento).IsInEnum();
+            RuleFor(x => x.PerfilInvestimento).Must(BeValidEnumValue);
         }
+
+        private bool BeValidEnumValue(string value) => Enum.TryParse(typeof(InvestorProfile), value, out _);
     }
 }

@@ -1,4 +1,5 @@
 using FintechGrupo10.Domain.Entities;
+using FintechGrupo10.Domain.Enums;
 using MediatR;
 
 namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct
@@ -7,12 +8,12 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentPro
     {
         public GetInvestmentProductRequest() { }
 
-        public GetInvestmentProductRequest(string investorProfile)
+        public GetInvestmentProductRequest(InvestorProfile investorProfile)
         {
             InvestorProfile = investorProfile;
         }
 
-        public string? InvestorProfile { get; set; }
+        public InvestorProfile? InvestorProfile { get; set; }
     }
 
     public class GetInvestmentProductResponse

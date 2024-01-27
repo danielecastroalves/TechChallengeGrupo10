@@ -2,6 +2,7 @@ using System.Text.Json;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Features.InvestmentQuestion.GetInvestmentQuestion;
 using FintechGrupo10.Domain.Entities;
+using FintechGrupo10.Domain.Enums;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -32,7 +33,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentPro
 
             List<ProductEntity>? entity = null;
 
-            if (request.InvestorProfile is null)
+            if (request.InvestorProfile is null || request.InvestorProfile == InvestorProfile.Indefinido)
             {
                 entity = (await _repositorio.GetListByFilterAsync(x => x.Ativo, cancellationToken)).ToList();
             }
@@ -40,7 +41,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentPro
             {
                 entity = (await _repositorio.GetListByFilterAsync(x =>
                 x.Ativo &&
-                x.PerfilInvestimento.Equals(request.InvestorProfile),
+                x.PerfilInvestimento == request.InvestorProfile,
                 cancellationToken)).ToList();
             }
 

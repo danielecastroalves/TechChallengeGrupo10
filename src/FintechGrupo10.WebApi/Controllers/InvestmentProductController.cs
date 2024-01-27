@@ -1,6 +1,7 @@
 using System.Net;
 using FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentProduct;
 using FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct;
+using FintechGrupo10.Domain.Enums;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -56,7 +57,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="investorProfile">Investment Product Request</param>
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>GetInvestmentProductResponse</returns>
-        [HttpGet("investmentProduct/{investorProfile}")]
+        [HttpGet("investmentProduct/investorProfile/")]
         [Authorize]
         [SwaggerOperation(OperationId = "GetInvestmentProductByProfileAsync")]
         [SwaggerResponse
@@ -66,7 +67,7 @@ namespace FintechGrupo10.WebApi.Controllers
         )]
         public async Task<IActionResult> GetInvestmentProductByProfileAsync
         (
-            [FromRoute] string investorProfile,
+            [FromQuery] InvestorProfile investorProfile,
             CancellationToken cancellationToken = default
         )
         {
