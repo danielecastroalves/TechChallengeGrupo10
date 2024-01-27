@@ -37,6 +37,16 @@ namespace FintechGrupo10.WebApi.Controllers
             (int)HttpStatusCode.Created,
             "Product has been created successfully"
         )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
+        )]
         public async Task<IActionResult> AddInvestmentProductAsync
         (
             AddInvestmentProductRequest request,
@@ -65,6 +75,16 @@ namespace FintechGrupo10.WebApi.Controllers
             (int)HttpStatusCode.OK,
             "Here is the Investment Products found for this profile"
         )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
+        )]
         public async Task<IActionResult> GetInvestmentProductByProfileAsync
         (
             [FromQuery] InvestorProfile investorProfile,
@@ -87,6 +107,16 @@ namespace FintechGrupo10.WebApi.Controllers
         (
             (int)HttpStatusCode.OK,
             "Here is all the Investment Products found"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
         )]
         public async Task<IActionResult> GetAllInvestmentProductAsync()
         {

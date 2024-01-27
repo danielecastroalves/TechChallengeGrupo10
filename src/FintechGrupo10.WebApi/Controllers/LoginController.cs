@@ -1,8 +1,10 @@
+using System.Net;
 using FintechGrupo10.Application.Features.Login;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FintechGrupo10.WebApi.Controllers
 {
@@ -27,6 +29,21 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <returns>Task</returns>
         [HttpPost]
         [AllowAnonymous]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.OK,
+            "Here is a token for authenticate the user"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.NotFound,
+            "Not Found - Invalid User or Password"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
         public async Task<ActionResult<dynamic>> Authenticate(
             [FromBody] LoginRequest request,
             CancellationToken cancellationToken)

@@ -35,6 +35,16 @@ namespace FintechGrupo10.WebApi.Controllers
             (int)HttpStatusCode.OK,
             "The list was sent successfully"
         )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
+        )]
         public async Task<IActionResult> SendClientProfile
         (
             SendClientProfileRequest request,

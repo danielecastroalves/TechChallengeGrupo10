@@ -37,6 +37,16 @@ namespace FintechGrupo10.WebApi.Controllers
             (int)HttpStatusCode.Created,
             "Question has been created successfully"
         )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
+        )]
         public async Task<IActionResult> AddQuestionAsync
         (
             AddInvestmentQuestionRequest request,
@@ -63,6 +73,16 @@ namespace FintechGrupo10.WebApi.Controllers
             (int)HttpStatusCode.OK,
             "These are the Investment Questions found"
         )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
+        )]
         public async Task<IActionResult> GetQuestionsAsync()
         {
             return Ok(await _mediator.Send(new GetInvestmentQuestionRequest()));
@@ -86,6 +106,11 @@ namespace FintechGrupo10.WebApi.Controllers
         (
             (int)HttpStatusCode.BadRequest,
             "Failed to delete Question register"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
         )]
         public async Task<IActionResult> DeleteQuestionAsync
         (

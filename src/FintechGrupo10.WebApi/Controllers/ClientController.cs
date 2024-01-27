@@ -40,6 +40,11 @@ namespace FintechGrupo10.WebApi.Controllers
             (int)HttpStatusCode.Created,
             "Client has been created successfully"
         )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
         public async Task<IActionResult> AddClientAsync
         (
             AddClientRequest request,
@@ -68,6 +73,16 @@ namespace FintechGrupo10.WebApi.Controllers
             (int)HttpStatusCode.OK,
             "Here is the Client found"
         )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
+        )]
         public async Task<IActionResult> GetClientAsync
         (
             [FromQuery] GetClientRequest request,
@@ -93,6 +108,16 @@ namespace FintechGrupo10.WebApi.Controllers
         (
             (int)HttpStatusCode.NoContent,
             "Client has been updated successfully"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
         )]
         public async Task<IActionResult> UpdateClientAsync
         (
@@ -127,6 +152,11 @@ namespace FintechGrupo10.WebApi.Controllers
         (
             (int)HttpStatusCode.BadRequest,
             "Failed to delete Client register"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
         )]
         public async Task<IActionResult> DeleteClientAsync
         (
