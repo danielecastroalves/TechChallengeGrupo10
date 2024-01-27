@@ -1,9 +1,11 @@
 using System.Net;
+using FintechGrupo10.Application.Features.Client;
 using FintechGrupo10.Application.Features.Client.AddClient;
 using FintechGrupo10.Application.Features.Client.DeleteClient;
 using FintechGrupo10.Application.Features.Client.GetClient;
 using FintechGrupo10.Application.Features.Client.UpdateClient;
 using FintechGrupo10.WebApi.Controllers.Comum;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -95,13 +97,14 @@ namespace FintechGrupo10.WebApi.Controllers
         public async Task<IActionResult> UpdateClientAsync
         (
             [FromRoute] Guid clientId,
-            [FromBody] UpdateClientRequest request,
+            [FromBody] ClientRequestBase request,
             CancellationToken cancellationToken = default
         )
         {
-            request.Id = clientId;
+            var client = request.Adapt<UpdateClientRequest>();
+            client.Id = clientId;
 
-            var result = await _mediator.Send(request, cancellationToken);
+            var result = await _mediator.Send(client, cancellationToken);
 
             return result is null ? NotFound() : NoContent();
         }
