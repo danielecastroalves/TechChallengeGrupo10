@@ -24,7 +24,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.PerguntasInvestime
         }
 
         [Fact]
-        public async Task CriaPerguntasDeInvestimento()
+        public async Task Handle_ShouldExecuteWithSuccess_WhenRequestIsValid()
         {
             // Arrange         
             _repository.Setup(x => x.AddAsync(It.IsAny<QuestionEntity>(), CancellationToken.None)).ReturnsAsync(Guid.NewGuid());
