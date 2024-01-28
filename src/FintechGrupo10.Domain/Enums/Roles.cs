@@ -1,6 +1,6 @@
 namespace FintechGrupo10.Domain.Enums;
 
-public enum Permission
+public enum Roles
 {
     User,
     Admin

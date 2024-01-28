@@ -29,7 +29,6 @@ namespace FintechGrupo10.Infrastructure.RabbitMQ
                                  routingKey: queueName,
                                  basicProperties: null,
                                  body: body);
-
         }
     }
 }

@@ -54,10 +54,10 @@ namespace FintechGrupo10.Application.Features.ClientProfile.SetClientProfile
             if (pontuacaoTotal <= 20)
                 profile = InvestorProfile.Conservador;
 
-            if (pontuacaoTotal > 20 && pontuacaoTotal <= 40)
+            if (pontuacaoTotal > 20 && pontuacaoTotal < 40)
                 profile = InvestorProfile.Moderado;
 
-            if (pontuacaoTotal > 40)
+            if (pontuacaoTotal >= 40)
                 profile = InvestorProfile.Agressivo;
 
             return profile;
