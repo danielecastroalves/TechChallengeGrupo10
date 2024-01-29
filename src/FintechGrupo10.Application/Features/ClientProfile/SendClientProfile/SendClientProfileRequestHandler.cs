@@ -36,7 +36,7 @@ namespace FintechGrupo10.Application.Features.ClientProfile.SendClientProfileCom
 
             _logger.LogInformation(
                 "[SendClientProfile] " +
-                "[Client has been updated successfully] " +
+                "[Message was sent successfully] " +
                 "[Payload: {message}]",
                 message);
 
