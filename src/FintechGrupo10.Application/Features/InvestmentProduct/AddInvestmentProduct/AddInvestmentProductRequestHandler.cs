@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentProduct
 {
-    internal class AddInvestmentProductRequestHandler : IRequestHandler<AddInvestmentProductRequest, Guid>
+    public class AddInvestmentProductRequestHandler : IRequestHandler<AddInvestmentProductRequest, Guid>
     {
         private readonly IRepository<ProductEntity> _repositorio;
         private readonly ILogger<AddInvestmentProductRequestHandler> _logger;
