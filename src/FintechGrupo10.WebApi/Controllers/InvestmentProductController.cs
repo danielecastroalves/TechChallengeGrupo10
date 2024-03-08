@@ -133,7 +133,7 @@ namespace FintechGrupo10.WebApi.Controllers
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>Task</returns>
         [HttpPost("buyProduct")]
-        //[Authorize]
+        [Authorize]
         [SwaggerOperation(OperationId = "BuyProductAsync")]
         [SwaggerResponse
         (
