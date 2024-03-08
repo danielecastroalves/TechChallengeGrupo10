@@ -1,46 +1,42 @@
 using System.Text.Json;
 using FintechGrupo10.Application.Common.Configurations;
 using FintechGrupo10.Application.Common.Services;
-using FintechGrupo10.Application.Features.ClientProfile.SendClientProfile;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FintechGrupo10.Application.Features.ClientProfile.SendClientProfileCommand
+namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
 {
-    public class SendClientProfileRequestHandler : IRequestHandler<SendClientProfileRequest>
+    public class BuyProductRequestHandler : IRequestHandler<BuyProductRequest, bool>
     {
-        private readonly ILogger<SendClientProfileRequestHandler> _logger;
+        private readonly ILogger<BuyProductRequestHandler> _logger;
         private readonly IMessagePublisherService _messagePublisherService;
         private readonly RabbitMqConfig _rabbitMqConfig;
 
-        public SendClientProfileRequestHandler
-        (
-            ILogger<SendClientProfileRequestHandler> logger,
+        public BuyProductRequestHandler(ILogger<BuyProductRequestHandler> logger,
             IMessagePublisherService messagePublisherService,
-            IOptions<RabbitMqConfig> options
-        )
+            IOptions<RabbitMqConfig> options)
         {
             _logger = logger;
             _messagePublisherService = messagePublisherService;
             _rabbitMqConfig = options.Value;
         }
 
-        public Task<Unit> Handle(SendClientProfileRequest request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(BuyProductRequest request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             var message = JsonSerializer.Serialize(request);
 
-            _messagePublisherService.PublishMessage(message, _rabbitMqConfig.ClientProfileQueue, false);
+            _messagePublisherService.PublishMessage(message, _rabbitMqConfig.BuyProductQueue, true);
 
             _logger.LogInformation(
-                "[SendClientProfile] " +
+                "[SendOrderForProduct] " +
                 "[Message was sent successfully] " +
                 "[Payload: {message}]",
                 message);
 
-            return Task.FromResult(Unit.Value);
+            return await Task.FromResult(true);
         }
     }
 }

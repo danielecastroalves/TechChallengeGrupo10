@@ -9,5 +9,6 @@ namespace FintechGrupo10.Application.Common.Configurations
         public string Username { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string ClientProfileQueue { get; set; } = null!;
+        public string BuyProductQueue { get; set; } = null!;
     }
 }

@@ -109,9 +109,7 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             {
                 var factory = new ConnectionFactory()
                 {
-                    HostName = configuration.GetValue<string>("RabbitMq:Host"),
-                    UserName = configuration.GetValue<string>("RabbitMq:Username"),
-                    Password = configuration.GetValue<string>("RabbitMq:Password")
+                    Uri = new Uri(configuration.GetValue<string>("RabbitMq:ConnectionString"))
                 };
 
                 return factory.CreateConnection();

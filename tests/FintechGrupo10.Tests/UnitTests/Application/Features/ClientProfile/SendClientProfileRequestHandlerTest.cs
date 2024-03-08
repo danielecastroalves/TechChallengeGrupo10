@@ -37,7 +37,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.ClientProfile
 
             // Assert
             messagePublisherServiceMock.Verify(
-                x => x.PublishMessage(It.IsAny<string>(), It.IsAny<string>()),
+                x => x.PublishMessage(It.IsAny<string>(), It.IsAny<string>(), false),
                 Times.Once
             );
         }
