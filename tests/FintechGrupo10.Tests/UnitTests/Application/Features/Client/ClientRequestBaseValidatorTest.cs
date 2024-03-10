@@ -1,16 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace FintechGrupo10.Tests.UnitTests.Application.Features.Client
 {
     using System;
     using FintechGrupo10.Application.Features.Client;
     using FluentAssertions;
-    using FluentValidation.TestHelper;
-    using Moq;
     using Moq.AutoMock;
     using Xunit;
 
@@ -46,8 +38,6 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.Client
                 result.Errors.Should().Contain(error => error.PropertyName == nameof(ClientRequestBase.Documento));
             }
 
-            // ... (repeat similar tests for other properties)
-
             [Fact]
             public void Should_Not_Have_Error_When_All_Properties_Are_Valid()
             {
@@ -74,8 +64,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.Client
             private ClientRequestBaseValidator<ClientRequestBase> CreateValidator()
             {
                 var mocker = new AutoMocker();
-                var validator = mocker.CreateInstance<ClientRequestBaseValidator<ClientRequestBase>>();
-                return validator;
+                return mocker.CreateInstance<ClientRequestBaseValidator<ClientRequestBase>>();
             }
         }
     }

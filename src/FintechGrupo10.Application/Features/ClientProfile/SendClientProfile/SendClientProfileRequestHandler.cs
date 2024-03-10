@@ -32,7 +32,7 @@ namespace FintechGrupo10.Application.Features.ClientProfile.SendClientProfileCom
 
             var message = JsonSerializer.Serialize(request);
 
-            _messagePublisherService.PublishMessage(message, _rabbitMqConfig.ClientProfileQueue, false);
+            _messagePublisherService.PublishMessage(message, _rabbitMqConfig.ClientProfileQueue);
 
             _logger.LogInformation(
                 "[SendClientProfile] " +

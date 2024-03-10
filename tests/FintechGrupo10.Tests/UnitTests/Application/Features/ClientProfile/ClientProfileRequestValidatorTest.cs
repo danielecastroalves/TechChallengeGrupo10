@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Features.ClientProfile;
 using FluentAssertions;
 using Moq.AutoMock;
@@ -38,7 +33,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.ClientProfile
             var request = new ClientProfileRequest
             {
                 ClientId = Guid.NewGuid(),
-                Questions = null
+                Questions = null!
             };
 
             // Act
@@ -56,7 +51,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.ClientProfile
             var request = new ClientProfileRequest
             {
                 ClientId = Guid.NewGuid(),
-                Questions = new List<Question>()
+                Questions = []
             };
 
             // Act
@@ -74,7 +69,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.ClientProfile
             var request = new ClientProfileRequest
             {
                 ClientId = Guid.NewGuid(),
-                Questions = new List<Question> { new Question { QuestionId = Guid.NewGuid(), QuestionValue = 1 } }
+                Questions = [new Question { QuestionId = Guid.NewGuid(), QuestionValue = 1 }]
             };
 
             // Act
@@ -87,8 +82,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.ClientProfile
         private ClientProfileRequestValidator CreateValidator()
         {
             var mocker = new AutoMocker();
-            var validator = mocker.CreateInstance<ClientProfileRequestValidator>();
-            return validator;
+            return mocker.CreateInstance<ClientProfileRequestValidator>();
         }
     }
 }

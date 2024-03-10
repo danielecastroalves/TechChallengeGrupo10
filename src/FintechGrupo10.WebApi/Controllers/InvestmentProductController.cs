@@ -127,9 +127,9 @@ namespace FintechGrupo10.WebApi.Controllers
         }
 
         /// <summary>
-        /// AddInvestmentProductAsync - Create a new Product for Investors
+        /// BuyProductAsync - Buy a Investment Product
         /// </summary>
-        /// <param name="request">AddInvestmentProduct Request</param>
+        /// <param name="request">BuyProductRequest Request</param>
         /// <param name="cancellationToken">Cancellation Token</param>
         /// <returns>Task</returns>
         [HttpPost("buyProduct")]
@@ -158,7 +158,7 @@ namespace FintechGrupo10.WebApi.Controllers
         {
             await _mediator.Send(request, cancellationToken);
 
-            return Ok("Ordem enviada");
+            return Ok("Ordem de compra enviada");
         }
     }
 }

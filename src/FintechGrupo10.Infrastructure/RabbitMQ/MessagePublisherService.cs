@@ -13,7 +13,12 @@ namespace FintechGrupo10.Infrastructure.RabbitMQ
             _connection = connection;
         }
 
-        public void PublishMessage(string message, string queueName, bool durable)
+        public void PublishMessage
+        (
+            string message,
+            string queueName,
+            bool durable = false
+        )
         {
             using var channel = _connection.CreateModel();
 
