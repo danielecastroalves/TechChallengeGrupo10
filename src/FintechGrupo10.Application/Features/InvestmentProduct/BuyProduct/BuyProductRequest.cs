@@ -7,6 +7,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
     {
         public Guid ProductId { get; set; }
         public decimal ApplicationValue { get; set; }
+        public Guid ClientId { get; set; }
     }
 
     public class BuyProductRequestValidator : AbstractValidator<BuyProductRequest>
@@ -15,6 +16,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
         {
             RuleFor(x => x.ProductId).NotEmpty().NotNull();
             RuleFor(x => x.ApplicationValue).NotEmpty().NotNull();
+            RuleFor(x => x.ClientId).NotEmpty().NotNull();
         }
     }
 }
