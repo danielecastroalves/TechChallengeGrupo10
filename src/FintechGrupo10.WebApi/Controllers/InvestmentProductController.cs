@@ -147,6 +147,11 @@ namespace FintechGrupo10.WebApi.Controllers
         )]
         [SwaggerResponse
         (
+            (int)HttpStatusCode.NotFound,
+            "Not Found - Client not found"
+        )]
+        [SwaggerResponse
+        (
             (int)HttpStatusCode.Unauthorized,
             "Unauthorized - Invalid credentials or authentication token"
         )]
@@ -156,7 +161,9 @@ namespace FintechGrupo10.WebApi.Controllers
             CancellationToken cancellationToken
         )
         {
-            await _mediator.Send(request, cancellationToken);
+            var result = await _mediator.Send(request, cancellationToken);
+            if(!result)
+                return NotFound("Cliente não encontrado");
 
             return Ok("Ordem de compra enviada");
         }
