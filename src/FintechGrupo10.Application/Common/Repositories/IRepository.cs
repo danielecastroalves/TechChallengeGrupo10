@@ -1,5 +1,5 @@
-using FintechGrupo10.Domain.Entities;
 using System.Linq.Expressions;
+using FintechGrupo10.Domain.Entities;
 
 namespace FintechGrupo10.Application.Common.Repositories
 {

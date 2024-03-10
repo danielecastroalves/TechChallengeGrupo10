@@ -14,3 +14,5 @@ reportgenerator "-reports:coveragereport/opencoverage/**/coverage.opencover.xml"
 "-targetdir:coveragereport/html" "-reporttypes:Html" "-title:tech-challenge-grupo10"
 
 Start-Process "./coveragereport/html/index.htm"
+
+Read-Host -Prompt "Press Enter to exit"

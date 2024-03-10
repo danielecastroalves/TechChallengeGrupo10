@@ -1,16 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Features.Client.AddClient;
 using FintechGrupo10.Domain.Entities;
-using Microsoft.Extensions.Logging;
-using Moq.AutoMock;
 using Moq;
+using Moq.AutoMock;
 using Xunit;
-using NSubstitute;
 
 namespace FintechGrupo10.Tests.UnitTests.Application.Features.Client
 {

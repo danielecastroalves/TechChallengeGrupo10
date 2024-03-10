@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Features.Client.GetClient;
 using FintechGrupo10.Domain.Entities;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Moq.AutoMock;
 using Xunit;
