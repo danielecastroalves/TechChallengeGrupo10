@@ -27,29 +27,22 @@ stages:
     pool:
       vmImage: ubuntu-latest
     displayName: 'Build Job'
-    steps:
-    - bash: |
-        echo "dotnet version: net8.x"
-      name: get_dotnet_version
-      displayName: Get current .NetCore version    
-    - bash: |
-        echo "SDK version: 8.0.x"
-      name: get_dotnet_sdk_version
-      displayName: Get current .NETCore SDK version
+    steps:    
     - task: UseDotNet@2
       displayName: Use .Net Core SDK
       inputs:
-        version: 8.x
-        packageType: "sdk"
+        packageType: 'sdk'
+        version: '8.0.x'
+        includePreviewVersions: true
         performMultiLevelLookup: true
-        useGlobalJson: false
     - task: DotNetCoreCLI@2
       displayName: 'Restore'
       inputs:
         command: 'restore'
         projects: '$(projectFile)'
-        feedsToUse: 'config'
-        nugetConfigPath: 'nuget.config'
+        feedsToUse: 'select'
+        vstsFeed: '963865b1-c3ff-4e94-b3a0-b70d145e0c3d'
+        includeNuGetOrg: true
     - task: DotNetCoreCLI@2
       displayName: 'Build'
       inputs:
@@ -101,10 +94,9 @@ stages:
      runOnce:
        deploy:
           steps:         
-          - task: AzureRmWebAppDeployment@4
+          - task: AzureRmWebAppDeployment@2
             inputs:
-              ConnectionType: 'ConnectedServiceName'
               ConnectedServiceName: '$(azureServiceConnection)'
               WebAppName: '$(webAppName)'
-              Package: '$(Pipeline.Workspace)/FintechGrupo10.WebApi/**/*.zip'
+              Package: '$(Pipeline.Workspace)/$(projectName)/**/*.zip'
               WebAppUri: '$(webAppName).azurewebsites.net'
