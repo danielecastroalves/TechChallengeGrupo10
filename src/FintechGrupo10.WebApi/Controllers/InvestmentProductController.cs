@@ -1,5 +1,6 @@
 using System.Net;
 using FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentProduct;
+using FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct;
 using FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct;
 using FintechGrupo10.Domain.Enums;
 using FintechGrupo10.WebApi.Controllers.Comum;
@@ -123,6 +124,48 @@ namespace FintechGrupo10.WebApi.Controllers
             var response = await _mediator.Send(new GetInvestmentProductRequest());
 
             return Ok(response);
+        }
+
+        /// <summary>
+        /// BuyProductAsync - Buy a Investment Product
+        /// </summary>
+        /// <param name="request">BuyProductRequest Request</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
+        /// <returns>Task</returns>
+        [HttpPost("investmentProduct/buyProduct")]
+        [Authorize]
+        [SwaggerOperation(OperationId = "BuyProductAsync")]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.OK,
+            "Product has been purchased successfully"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.NotFound,
+            "Not Found - Client not found"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
+        )]
+        public async Task<IActionResult> BuyProductAsync
+        (
+            BuyProductRequest request,
+            CancellationToken cancellationToken
+        )
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            if(!result)
+                return NotFound("Cliente não encontrado");
+
+            return Ok("Ordem de compra enviada");
         }
     }
 }

@@ -88,11 +88,9 @@ ConfigureBindingsDependencyInjection.RegisterBindings(builder.Services, builder.
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
@@ -107,5 +105,4 @@ app.Run();
 /// Program Partial Class
 /// </summary>
 [ExcludeFromCodeCoverage]
-public static partial class Program
-{ }
+public static partial class Program;

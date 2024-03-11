@@ -1,6 +1,6 @@
-﻿using MongoDB.Bson.Serialization;
+﻿using System.Diagnostics.CodeAnalysis;
+using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using System.Diagnostics.CodeAnalysis;
 
 namespace FintechGrupo10.Infrastructure.Mongo.Utils
 {

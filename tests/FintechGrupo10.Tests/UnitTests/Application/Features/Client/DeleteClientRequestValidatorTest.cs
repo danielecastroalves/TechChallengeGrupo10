@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Features.Client.DeleteClient;
 using FluentAssertions;
 using Moq.AutoMock;
@@ -43,8 +38,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.Client
         private DeleteClientRequestValidator CreateValidator()
         {
             var mocker = new AutoMocker();
-            var validator = mocker.CreateInstance<DeleteClientRequestValidator>();
-            return validator;
+            return mocker.CreateInstance<DeleteClientRequestValidator>();
         }
     }
 }

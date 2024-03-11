@@ -1,0 +1,110 @@
+### Pipeline Build, Test, and Deploy ###
+variables:
+  buildConfiguration: 'Release'
+  projectDirectory: 'src/FintechGrupo10.WebApi'
+  projectFile: '$(projectDirectory)/FintechGrupo10.WebApi.csproj'
+  projectName: 'FintechGrupo10.WebApi.csproj'
+  webAppName: 'fintech-grupo10-fiap'
+  azureServiceConnection: 'Azure for Students(a26778b4-5480-4c53-8787-c335293da81a)'
+
+trigger:
+  branches:
+    include:
+    - main
+    - develop
+
+pr:
+ branches:
+   include:
+     - main
+
+### Build ###
+stages:
+- stage: Build
+  displayName: 'Build'
+  jobs:
+  - job: Build
+    pool:
+      vmImage: ubuntu-latest
+    displayName: 'Build Job'
+    steps:
+    - bash: |
+        echo "dotnet version: net8.x"
+      name: get_dotnet_version
+      displayName: Get current .NetCore version    
+    - bash: |
+        echo "SDK version: 8.0.x"
+      name: get_dotnet_sdk_version
+      displayName: Get current .NETCore SDK version
+    - task: UseDotNet@2
+      displayName: Use .Net Core SDK
+      inputs:
+        version: 8.x
+        packageType: "sdk"
+        performMultiLevelLookup: true
+        useGlobalJson: false
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore'
+      inputs:
+        command: 'restore'
+        projects: '$(projectFile)'
+        feedsToUse: 'config'
+        nugetConfigPath: 'nuget.config'
+    - task: DotNetCoreCLI@2
+      displayName: 'Build'
+      inputs:
+        command: 'build'
+        arguments: '--configuration $(buildConfiguration)'
+        projects: '$(projectFile)'
+        workingDirectory: '$(projectDirectory)'
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish'
+      inputs:
+        command: publish
+        publishWebProjects: true
+        projects: '$(projectFile)'
+        arguments: '-c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)/ --no-build'
+        zipAfterPublish: true
+        workingDirectory: '$(projectDirectory)'
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(projectName)'
+
+### Test ###
+- stage: Test
+  displayName: 'Test'
+  dependsOn: Build
+  jobs:
+  - job: Test
+    displayName: 'Test Job'
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: 'Test'
+      inputs:
+        command: 'test'
+        projects: '**/*Tests/*.csproj'
+        arguments: '--configuration $(buildConfiguration)'
+
+### Deploy ###
+- stage: Deploy
+  displayName: 'Deploy to Azure'
+  dependsOn: Test
+  jobs:
+  - deployment: 
+    displayName: 'Deploy Job'
+    pool:
+      vmImage: windows-latest
+    environment: 'dev'
+    strategy:
+     runOnce:
+       deploy:
+          steps:         
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              ConnectionType: 'ConnectedServiceName'
+              ConnectedServiceName: '$(azureServiceConnection)'
+              WebAppName: '$(webAppName)'
+              Package: '$(Pipeline.Workspace)/FintechGrupo10.WebApi/**/*.zip'
+              WebAppUri: '$(webAppName).azurewebsites.net'

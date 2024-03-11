@@ -138,7 +138,7 @@ Com essa arquitetura de mensageria, a aplicação pode lidar com eventos em temp
 
 ## Conclusão
 
-A API FintechGrupo10 representa o resultado do Tech Challenge da Fase 1 do curso de pós-graduação em Arquitetura de Sistemas .Net com Azure, da FIAP.
+A API FintechGrupo10 representa o resultado do Tech Challenge do curso de pós-graduação em Arquitetura de Sistemas .Net com Azure, da FIAP.
 
 Este projeto foi concebido para oferecer uma aplicação sobre investimentos financeiros, desde o cadastro de clientes até a recomendação personalizada de produtos. A documentação aqui apresentada visa facilitar a compreensão e execução da aplicação, proporcionando um guia claro e detalhado.
 

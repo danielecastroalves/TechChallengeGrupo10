@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Common.Configurations;
 using FintechGrupo10.Application.Common.Services;
 using FintechGrupo10.Application.Features.ClientProfile.SendClientProfile;
@@ -37,7 +32,10 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.ClientProfile
 
             // Assert
             messagePublisherServiceMock.Verify(
-                x => x.PublishMessage(It.IsAny<string>(), It.IsAny<string>()),
+                x => x.PublishMessage(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<bool>()),
                 Times.Once
             );
         }
