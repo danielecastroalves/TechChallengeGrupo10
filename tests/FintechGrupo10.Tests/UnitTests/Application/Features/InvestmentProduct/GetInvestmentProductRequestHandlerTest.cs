@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct;
 using FintechGrupo10.Application.Features.InvestmentQuestion.GetInvestmentQuestion;
@@ -35,7 +30,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
 
             var productList = new List<ProductEntity>
             {
-                new ProductEntity ()
+                new()
             };
             repositoryMock.Setup(x => x.GetListByFilterAsync(It.IsAny<Expression<Func<ProductEntity, bool>>>(), cancellationToken))
                           .ReturnsAsync(productList);

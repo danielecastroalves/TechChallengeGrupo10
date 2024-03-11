@@ -1,7 +1,7 @@
+using System.Diagnostics.CodeAnalysis;
 using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Infrastructure.Mongo.Contexts.Interfaces;
 using MongoDB.Driver;
-using System.Diagnostics.CodeAnalysis;
 
 namespace FintechGrupo10.Infrastructure.Mongo.Contexts.EntityConfig
 {

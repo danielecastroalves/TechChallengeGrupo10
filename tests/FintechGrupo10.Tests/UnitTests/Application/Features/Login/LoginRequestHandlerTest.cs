@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Common.Auth.Token;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Features.Login;
@@ -34,7 +29,9 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.Login
             var cancellationToken = new CancellationToken();
 
             var user = new User(); // Replace with your actual User class
-            userRepositoryMock.Setup(repo => repo.GetAuthByLoginAndPassword(request.Login, request.Password, cancellationToken))
+
+            userRepositoryMock
+                .Setup(repo => repo.GetAuthByLoginAndPassword(request.Login, request.Password, cancellationToken))
                 .ReturnsAsync(user);
 
             tokenServiceMock.Setup(service => service.GetUserToken(user))
@@ -65,7 +62,8 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.Login
 
             var cancellationToken = new CancellationToken();
 
-            userRepositoryMock.Setup(repo => repo.GetAuthByLoginAndPassword(request.Login, request.Password, cancellationToken))
+            userRepositoryMock
+                .Setup(repo => repo.GetAuthByLoginAndPassword(request.Login, request.Password, cancellationToken))
                 .ReturnsAsync((User)null);
 
             // Act

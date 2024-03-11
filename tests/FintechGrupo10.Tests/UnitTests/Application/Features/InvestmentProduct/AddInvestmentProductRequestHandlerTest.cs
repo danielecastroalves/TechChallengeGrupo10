@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentProduct;
 using FintechGrupo10.Domain.Entities;
@@ -30,7 +25,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
             var handler = new AddInvestmentProductRequestHandler(repositoryMock.Object, loggerMock.Object);
 
             // Act
-            var result = await handler.Handle(request, cancellationToken);
+            await handler.Handle(request, cancellationToken);
 
             // Assert
             repositoryMock.Verify(repo => repo.AddAsync(It.IsAny<ProductEntity>(), cancellationToken), Times.Once);

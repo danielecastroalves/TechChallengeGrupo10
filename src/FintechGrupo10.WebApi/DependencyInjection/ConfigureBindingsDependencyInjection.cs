@@ -13,7 +13,6 @@ using FintechGrupo10.Infrastructure.Mongo.Repositories;
 using FintechGrupo10.Infrastructure.Mongo.Utils;
 using FintechGrupo10.Infrastructure.Mongo.Utils.Interfaces;
 using FintechGrupo10.Infrastructure.RabbitMQ;
-using FintechGrupo10.WebApi.Consumers;
 using FluentValidation;
 using MediatR;
 using MongoDB.Bson;
@@ -109,9 +108,7 @@ namespace FintechGrupo10.WebApi.DependencyInjection
             {
                 var factory = new ConnectionFactory()
                 {
-                    HostName = configuration.GetValue<string>("RabbitMq:Host"),
-                    UserName = configuration.GetValue<string>("RabbitMq:Username"),
-                    Password = configuration.GetValue<string>("RabbitMq:Password")
+                    Uri = new Uri(configuration.GetValue<string>("RabbitMq:ConnectionString"))
                 };
 
                 return factory.CreateConnection();
@@ -119,9 +116,6 @@ namespace FintechGrupo10.WebApi.DependencyInjection
 
             // RabbitMQ Services
             services.AddSingleton<IMessagePublisherService, MessagePublisherService>();
-
-            // Consumers
-            services.AddHostedService<ClientProfileConsumer>();
         }
 
         private static void ConfigureBindingsSerilog(IServiceCollection services)

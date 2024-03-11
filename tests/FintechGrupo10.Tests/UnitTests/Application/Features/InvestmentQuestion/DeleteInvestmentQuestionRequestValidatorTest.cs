@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Features.InvestmentQuestion.DeleteInvestmentQuestion;
 using FluentValidation.TestHelper;
 using Xunit;
