@@ -11,12 +11,12 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentPro
     public class GetInvestmentProductRequestHandler : IRequestHandler<GetInvestmentProductRequest, GetInvestmentProductResponse>
     {
         private readonly IRepository<ProductEntity> _repositorio;
-        private readonly ILogger<GetInvestmentQuestionRequestHandler> _logger;
+        private readonly ILogger<GetInvestmentProductRequestHandler> _logger;
 
         public GetInvestmentProductRequestHandler
         (
             IRepository<ProductEntity> repositorio,
-            ILogger<GetInvestmentQuestionRequestHandler> logger
+            ILogger<GetInvestmentProductRequestHandler> logger
         )
         {
             _repositorio = repositorio;

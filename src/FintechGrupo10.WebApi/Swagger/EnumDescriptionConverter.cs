@@ -1,8 +1,10 @@
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 
 namespace FintechGrupo10.WebApi.Swagger
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// EnumDescriptionConverter
     /// </summary>
