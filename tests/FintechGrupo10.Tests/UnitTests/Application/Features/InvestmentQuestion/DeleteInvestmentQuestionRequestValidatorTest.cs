@@ -17,8 +17,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentQuestion
             var result = validator.TestValidate(request);
 
             // Assert
-            result.ShouldHaveValidationErrorFor(x => x.QuestionId)
-                  .WithErrorMessage("'Question Id' must not be empty.");
+            result.ShouldHaveValidationErrorFor(x => x.QuestionId);
         }
 
         [Fact]

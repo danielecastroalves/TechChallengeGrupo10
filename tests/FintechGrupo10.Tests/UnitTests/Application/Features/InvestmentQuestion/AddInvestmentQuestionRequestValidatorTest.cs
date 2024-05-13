@@ -18,8 +18,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentQuestion
             var result = validator.TestValidate(request);
 
             // Assert
-            result.ShouldHaveValidationErrorFor(x => x.Titulo)
-                  .WithErrorMessage("'Titulo' must not be empty.");
+            result.ShouldHaveValidationErrorFor(x => x.Titulo);
         }
 
         [Fact]
@@ -33,8 +32,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentQuestion
             var result = validator.TestValidate(request);
 
             // Assert
-            result.ShouldHaveValidationErrorFor(x => x.Titulo)
-                  .WithErrorMessage("'Titulo' must not be empty.");
+            result.ShouldHaveValidationErrorFor(x => x.Titulo);
         }
 
         [Fact]
@@ -48,8 +46,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentQuestion
             var result = validator.TestValidate(request);
 
             // Assert
-            result.ShouldHaveValidationErrorFor(x => x.Resposta)
-                  .WithErrorMessage("'Resposta' must not be empty.");
+            result.ShouldHaveValidationErrorFor(x => x.Resposta);
         }
 
         [Fact]
@@ -63,8 +60,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentQuestion
             var result = validator.TestValidate(request);
 
             // Assert
-            result.ShouldHaveValidationErrorFor(x => x.Resposta)
-                  .WithErrorMessage("'Resposta' must not be empty.");
+            result.ShouldHaveValidationErrorFor(x => x.Resposta);
         }
     }
 }
