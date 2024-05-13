@@ -1,4 +1,4 @@
-﻿namespace FintechGrupo10.Domain.Entities
+namespace FintechGrupo10.Domain.Entities
 {
     public abstract class Entity
     {
@@ -24,18 +24,6 @@
         public void SetDataAtualizacao()
         {
             DataAtualizacao = DateTime.UtcNow;
-        }
-
-        public void AtivaEntidade()
-        {
-            Ativo = true;
-            SetDataAtualizacao();
-        }
-
-        public void InativaEntidade()
-        {
-            Ativo = false;
-            SetDataAtualizacao();
         }
     }
 }
