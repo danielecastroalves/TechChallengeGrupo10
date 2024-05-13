@@ -6,7 +6,7 @@ Bem-vindo à documentação da API FintechGrupo10, uma plataforma desenvolvida p
 
 Este guia visa oferecer uma compreensão abrangente da aplicação, permitindo que os todos possam entender e executar a solução sem dificuldades.
 
-Com uma arquitetura robusta e modular, esta aplicação busca atender às necessidades do setor financeiro, proporcionando soluções eficientes para cadastro de clientes, definição de perfis de investimento, e recomendação personalizada de produtos financeiros.
+Com uma arquitetura robusta e modular, esta aplicação busca atender às necessidades do setor financeiro, proporcionando soluções eficientes para cadastro de clientes, definição de perfis de investimento, e recomendação personalizada de produtos financeiros e agora também com a adição da compra de produtos.
 
 Este documento tem como objetivo fornecer uma visão detalhada dos requisitos funcionais e não funcionais do projeto. Desde o cadastro de clientes até a sugestão de produtos adaptados a cada perfil de investidor, a API FintechGrupo10 busca oferecer uma experiência completa e personalizada.
 
@@ -70,7 +70,7 @@ Essa abordagem categoriza os clientes com base em suas respostas, oferecendo uma
 
 ### 3. Produtos para Clientes
 
-A API oferece endpoints para cadastrar novos produtos ou retornar os produtos financeiros recomendados com base no perfil do cliente. Esses produtos são adaptados às preferências de investimento, levando em consideração fatores como risco e retorno.
+A API oferece endpoints para cadastrar novos produtos, bem como para retornar os produtos financeiros recomendados com base no perfil do cliente e também realizar a compra desses produtos.
 
 Exemplos dos tipos de produtos que podem ser oferecidos:
 
@@ -89,7 +89,9 @@ Exemplos dos tipos de produtos que podem ser oferecidos:
     - **Fundo Startups:** Investe em empresas emergentes, buscando inovação e alto crescimento.
     - **Criptomoedas Diversificadas:** Investimento em diversas criptomoedas, aproveitando a volatilidade do mercado de criptoativos.
 
-Essa abordagem permite uma oferta dinâmica de produtos financeiros, adaptando-se às mudanças no mercado e às preferências dos clientes. Os endpoints específicos da API possibilitam a gestão eficiente desses produtos, oferecendo aos clientes opções alinhadas ao seu perfil de investimento e objetivos financeiros.
+Após autenticar-se e receber um token de acesso, os clientes podem usar esse token para fazer chamadas ao endpoint de cadastro e compra.
+
+Essa abordagem permite uma oferta dinâmica de produtos financeiros, adaptando-se às mudanças no mercado e às preferências dos clientes, proporcionando-lhes uma experiência mais integrada, permitindo que realizem suas transações de investimento de forma rápida e conveniente diretamente pela API. Os endpoints específicos da API possibilitam a gestão eficiente desses produtos, oferecendo aos clientes opções alinhadas ao seu perfil de investimento e objetivos financeiros.
 
 ## Requisitos Não Funcionais
 
@@ -99,10 +101,10 @@ O projeto segue a arquitetura em camadas, organizada conforme os princípios do 
 
 As camadas incluem:
 
-- **Apresentação:** Consumers e Controllers.
+- **Apresentação (WebApi):** Consumers e Controllers.
 - **Aplicação:** Lógica de aplicação e serviços.
 - **Domínio:** Modelos de domínio e regras de negócios.
-- **Infraestrutura:** Implementação de acesso a dados, integrações e logs.
+- **Infraestrutura:** Implementação de acesso a dados e integrações.
 
 ### 2. Testes Unitários
 
@@ -136,11 +138,53 @@ A aplicação faz o uso do RabbitMQ como ferramenta de mensageria, possibilitand
 
 Com essa arquitetura de mensageria, a aplicação pode lidar com eventos em tempo real e manter um fluxo consistente de comunicação entre os diversos módulos, pois foi desenvolvida já pensando numa possível expansão do serviço, proporcionando uma experiência mais ágil e responsiva para os usuários.
 
+A integração com o RabbitMQ foi aprimorada com a utilização do template durável para garantir a entrega confiável das mensagens. O template durável é uma característica avançada que permite a execução de funções de longa duração, mantendo o estado entre as invocações. Isso é especialmente útil para cenários onde é necessário processar mensagens de forma assíncrona e garantir que o processamento seja concluído mesmo em caso de falhas temporárias. 
+
+Além disso, o RabbitMQ foi configurado para operar em um ambiente online e gratuito fornecido pela plataforma CloudAMQP, o que proporciona maior disponibilidade para a aplicação.
+
+### 7. Processo de CI/CD
+
+O processo de CI/CD (Integração Contínua e Entrega Contínua) é fundamental para garantir a qualidade e a entrega rápida de software e para automatizar esse processo, foi configurado um fluxo utilizando GitHub Actions no repositório GitHub da aplicação.
+
+Esse fluxo permite a construção e deploy automáticos da aplicação a cada modificação no código-fonte, garantindo que as alterações sejam integradas e disponibilizadas de forma eficiente e segura. Após a conclusão bem-sucedida do processo de CI/CD, a aplicação é automaticamente publicada no portal do Azure, onde fica disponível para uso. 
+
+Essa abordagem simplifica significativamente o ciclo de desenvolvimento, reduzindo o tempo necessário para implementar novas funcionalidades e correções, além de minimizar erros humanos durante o processo de deploy.
+
+Neste sistema, a pipeline é configurada para ser acionada automaticamente ao completar um *Pull Request* para a *branch* `main`, nos dois microsserviços. 
+
+### 8. **Separação em Microsserviços**
+
+A divisão da aplicação em dois microsserviços proporciona melhor escalabilidade e facilita a manutenção do sistema. O primeiro microsserviço, ***FintechGrupo10***, continua sendo a API principal, responsável por receber e processar as requisições dos usuários. 
+
+O segundo microsserviço, ***FintechMessageConsumer***, foi especialmente desenvolvido para consumir mensagens de uma fila RabbitMQ, permitindo uma comunicação assíncrona eficiente entre os serviços. 
+
+Essa abordagem de microsserviços promove uma arquitetura mais flexível, onde cada serviço pode ser escalado independentemente de acordo com a demanda, além de facilitar a implementação de novas funcionalidades e a manutenção do sistema como um todo.
+
+
+## **Como Executar**
+
+1. Certifique-se de que o RabbitMQ está em execução e acessível.
+
+O RabbitMQ está sendo utilizado através de uma plataforma online, a CloudAMQP. Obtenha as credenciais para realizar o login na plataforma, verifique se está em execução e com as filas criadas corretamente.
+
+2. Configure as variáveis de ambiente ou o arquivo de configuração do aplicativo com as informações necessárias para executar a aplicação.
+Configure o arquivo `appsettings.json` com as informações necessárias para cada campo.
+
+3. Execute o projeto.
+
+
+## **Dependências**
+
+- .NET 8
+- MongoDB
+- RabbitMQ
+
+
 ## Conclusão
 
 A API FintechGrupo10 representa o resultado do Tech Challenge do curso de pós-graduação em Arquitetura de Sistemas .Net com Azure, da FIAP.
 
-Este projeto foi concebido para oferecer uma aplicação sobre investimentos financeiros, desde o cadastro de clientes até a recomendação personalizada de produtos. A documentação aqui apresentada visa facilitar a compreensão e execução da aplicação, proporcionando um guia claro e detalhado.
+Este projeto foi concebido para oferecer uma aplicação sobre investimentos financeiros, desde o cadastro de clientes, recomendação personalizada de produtos, até a compra de um produto de investimento. A documentação aqui apresentada visa facilitar a compreensão e execução da aplicação, proporcionando um guia claro e detalhado.
 
 A arquitetura modular, a integração com serviços na nuvem e a utilização estratégica de tecnologias como MongoDB e RabbitMQ contribuem para a robustez e eficiência da API. Cada seção deste documento foi elaborada para oferecer insights detalhados, abordando desde a lógica de cadastro até os requisitos não funcionais, como autenticação, segurança e a estratégia de testes.
 
