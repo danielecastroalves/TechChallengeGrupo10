@@ -10,6 +10,7 @@ namespace FintechGrupo10.Domain.Entities
         public string Email { get; set; } = null!;
         public DateTime DataNascimento { get; set; }
         public InvestorProfile PerfilInvestimento { get; set; } = InvestorProfile.Indefinido;
+        public PortfolioEntity? Portfolio { get; set; }
     }
 
     public class User : Entity

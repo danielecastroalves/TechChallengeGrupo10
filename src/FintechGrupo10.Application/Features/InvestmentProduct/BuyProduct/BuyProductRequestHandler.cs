@@ -14,7 +14,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
         private readonly ILogger<BuyProductRequestHandler> _logger;
         private readonly IMessagePublisherService _messagePublisherService;
         private readonly RabbitMqConfig _rabbitMqConfig;
-        private readonly IRepository<ClienteEntity> _repository;
+        private readonly IRepository<ClienteEntity> _clientRepository;
 
         public BuyProductRequestHandler(ILogger<BuyProductRequestHandler> logger,
             IMessagePublisherService messagePublisherService,
@@ -23,15 +23,18 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
             _logger = logger;
             _messagePublisherService = messagePublisherService;
             _rabbitMqConfig = options.Value;
-            _repository = repository;
+            _clientRepository = repository;
         }
 
         public async Task<bool> Handle(BuyProductRequest request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var entity = await _repository.GetByFilterAsync(x => x.Id == request.ClientId);
-            if (entity == null)
+            var client = await _clientRepository.GetByFilterAsync(x => x.Id == request.ClientId);
+            if (client == null)
                 return false;
+
+            if (client.Portfolio == null)
+                await CreatePortfolio(request.ClientId, client, cancellationToken);
 
             var message = JsonSerializer.Serialize(request);
 
@@ -44,6 +47,21 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
                 message);
 
             return await Task.FromResult(true);
+        }
+
+        private async Task CreatePortfolio(Guid userId, ClienteEntity client, CancellationToken cancellation)
+        {
+            var newPortfolio = new PortfolioEntity
+            {
+                UsuarioId = userId,
+                Nome = "Meu Portfolio",
+                Descricao = "Meu portfolio de investimentos pessoal",
+                Ativos = new List<Wallet>()
+            };
+            
+            client.Portfolio = newPortfolio;
+
+            await _clientRepository.UpdateAsync(x=> x.Id == client.Id, client, cancellation);
         }
     }
 }

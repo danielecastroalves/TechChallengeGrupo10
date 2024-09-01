@@ -9,7 +9,20 @@ namespace FintechGrupo10.Domain.Entities
         public string ValorMinimo { get; set; } = null!;
         public string TaxaAdministracao { get; set; } = null!;
         public string RiscoProduto { get; set; } = null!;
-
+        public TipoAtivo TipoAtivo { get; set; }
+        public string CodigoAtivo { get; set; }
         public InvestorProfile PerfilInvestimento { get; set; }
+    }
+
+    public enum TipoAtivo
+    {
+        Acoes,
+        Titulos,
+        Criptomoedas,
+        TesouroDireto,
+        FundosDeInvestimento,
+        CDB,
+        RendaFixa,
+        RendaVariavel
     }
 }

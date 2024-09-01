@@ -15,7 +15,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
             {
                 ClientId = Guid.NewGuid(),
                 ProductId = Guid.NewGuid(),
-                ApplicationValue = 10
+                //ApplicationValue = 10
             };
 
             var validator = new BuyProductRequestValidator();
