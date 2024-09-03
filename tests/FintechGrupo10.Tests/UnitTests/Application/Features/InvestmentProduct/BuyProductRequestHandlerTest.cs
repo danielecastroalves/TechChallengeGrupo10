@@ -1,15 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using FintechGrupo10.Application.Common.Configurations;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Common.Services;
-using FintechGrupo10.Application.Features.ClientProfile.SendClientProfile;
-using FintechGrupo10.Application.Features.ClientProfile.SendClientProfileCommand;
-using FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentProduct;
 using FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct;
 using FintechGrupo10.Domain.Entities;
 using Microsoft.Extensions.Logging;
@@ -32,9 +24,9 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
             var repositoryMock = new Mock<IRepository<ClienteEntity>>();
 
             IOptions<RabbitMqConfig> options = Options.Create(new RabbitMqConfig());
-                        
+
             repositoryMock.Setup(repo => repo.GetByFilterAsync(It.IsAny<Expression<Func<ClienteEntity, bool>>>(), cancellationToken))
-                          .ReturnsAsync(new ClienteEntity { Id = Guid.NewGuid()});
+                          .ReturnsAsync(new ClienteEntity { Id = Guid.NewGuid() });
 
             var handler = new BuyProductRequestHandler(loggerMock.Object,
                 messagePublisherServiceMock.Object,
@@ -53,7 +45,9 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
                 Times.Once
             );
 
-            repositoryMock.Verify(repo => repo.GetByFilterAsync(It.IsAny<Expression<Func<ClienteEntity, bool>>>(), cancellationToken), Times.Once);          
+            repositoryMock.Verify(repo => repo
+                .GetByFilterAsync(It.IsAny<Expression<Func<ClienteEntity, bool>>>(),
+                                  cancellationToken), Times.Once);
         }
 
         [Fact]
@@ -85,7 +79,9 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
                 Times.Never
             );
 
-            repositoryMock.Verify(repo => repo.GetByFilterAsync(It.IsAny<Expression<Func<ClienteEntity, bool>>>(), cancellationToken), Times.Once);
+            repositoryMock.Verify(repo => repo
+                .GetByFilterAsync(It.IsAny<Expression<Func<ClienteEntity, bool>>>(),
+                                  cancellationToken), Times.Once);
         }
     }
 }

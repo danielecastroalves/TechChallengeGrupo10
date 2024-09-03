@@ -20,7 +20,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
             RuleFor(x => x.ClientId).NotEmpty().NotNull();
             RuleFor(x => x.Price).NotEmpty().NotNull();
             RuleFor(x => x.Amount).NotEmpty().NotNull();
-            RuleFor(x => x.TransactionType).NotEmpty().NotNull();
+            RuleFor(x => x.TransactionType).IsInEnum();
         }
     }
 

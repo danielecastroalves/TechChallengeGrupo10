@@ -4,7 +4,7 @@ using FluentValidation;
 using MediatR;
 using Xunit;
 
-namespace FintechGrupo10.Tests.UnitTests.Application.Comum.Behavior
+namespace FintechGrupo10.Tests.UnitTests.Application.Common.Behavior
 {
     public class ValidationBehaviorQuery : IRequest<bool>
     {

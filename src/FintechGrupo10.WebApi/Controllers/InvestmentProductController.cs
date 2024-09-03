@@ -14,16 +14,11 @@ namespace FintechGrupo10.WebApi.Controllers
     /// <summary>
     /// Investment Product Controller
     /// </summary>
+    /// <param name="mediator">Mediator DI</param>
     [ApiController]
     [Route("v1")]
-    public sealed class InvestmentProductController : CommonController
+    public sealed class InvestmentProductController(IMediator mediator) : CommonController(mediator)
     {
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="mediator">Mediator DI</param>
-        public InvestmentProductController(IMediator mediator) : base(mediator) { }
-
         /// <summary>
         /// AddInvestmentProductAsync - Create a new Product for Investors
         /// </summary>
@@ -162,7 +157,7 @@ namespace FintechGrupo10.WebApi.Controllers
         )
         {
             var result = await _mediator.Send(request, cancellationToken);
-            if(!result)
+            if (!result)
                 return NotFound("Cliente não encontrado");
 
             return Ok("Ordem de compra enviada");

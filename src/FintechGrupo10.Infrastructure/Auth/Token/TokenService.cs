@@ -8,14 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace FintechGrupo10.Infrastructure.Auth.Token;
 
-public class TokenService : ITokenService
+public class TokenService(IConfiguration configuration) : ITokenService
 {
-    private readonly IConfiguration _configuration;
-
-    public TokenService(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
+    private readonly IConfiguration _configuration = configuration;
 
     public string GetUserToken(User usuario)
     {

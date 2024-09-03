@@ -15,7 +15,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.ClientProfile
             var request = new ClientProfileRequest
             {
                 ClientId = Guid.Empty,
-                Questions = new List<Question> { new Question { QuestionId = Guid.NewGuid(), QuestionValue = 1 } }
+                Questions = [new() { QuestionId = Guid.NewGuid(), QuestionValue = 1 }]
             };
 
             // Act
@@ -79,7 +79,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.ClientProfile
             result.Errors.Should().BeEmpty();
         }
 
-        private ClientProfileRequestValidator CreateValidator()
+        private static ClientProfileRequestValidator CreateValidator()
         {
             var mocker = new AutoMocker();
             return mocker.CreateInstance<ClientProfileRequestValidator>();
