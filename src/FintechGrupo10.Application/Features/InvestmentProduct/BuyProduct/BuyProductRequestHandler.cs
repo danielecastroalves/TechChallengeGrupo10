@@ -25,13 +25,11 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
         public async Task<bool> Handle(BuyProductRequest request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var client = await _clientRepository.GetByFilterAsync(x => x.Id == request.ClientId, cancellationToken);
+
+            var client = await _clientRepository.GetByFilterAsync(x => x.Id == request.IdCliente, cancellationToken);
 
             if (client == null)
                 return false;
-
-            if (client.Portfolio == null)
-                await CreatePortfolio(request.ClientId, client, cancellationToken);
 
             var message = JsonSerializer.Serialize(request);
 
@@ -43,20 +41,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
                 "[Payload: {message}]",
                 message);
 
-            return await Task.FromResult(true);
-        }
-
-        private async Task CreatePortfolio(Guid userId, ClienteEntity client, CancellationToken cancellation)
-        {
-            client.Portfolio = new PortfolioEntity
-            {
-                UsuarioId = userId,
-                Nome = "Meu Portfolio",
-                Descricao = "Meu portfolio de investimentos pessoal",
-                Ativos = []
-            };
-
-            await _clientRepository.UpdateAsync(x => x.Id == client.Id, client, cancellation);
+            return true;
         }
     }
 }

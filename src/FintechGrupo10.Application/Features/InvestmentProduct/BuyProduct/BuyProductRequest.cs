@@ -1,3 +1,4 @@
+using FintechGrupo10.Domain.Enums;
 using FluentValidation;
 using MediatR;
 
@@ -5,28 +6,24 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
 {
     public class BuyProductRequest : IRequest<bool>
     {
-        public Guid ProductId { get; set; }
-        public Guid ClientId { get; set; }
-        public int Amount { get; set; }
-        public decimal Price { get; set; }
-        public TransactionType TransactionType { get; set; }
+        public Guid IdProduto { get; set; }
+        public Guid IdCliente { get; set; }
+        public int Quantidade { get; set; }
+        public decimal Preco { get; set; }
+        public string TipoTransacao { get; set; } = null!;
     }
 
     public class BuyProductRequestValidator : AbstractValidator<BuyProductRequest>
     {
         public BuyProductRequestValidator()
         {
-            RuleFor(x => x.ProductId).NotEmpty().NotNull();
-            RuleFor(x => x.ClientId).NotEmpty().NotNull();
-            RuleFor(x => x.Price).NotEmpty().NotNull();
-            RuleFor(x => x.Amount).NotEmpty().NotNull();
-            RuleFor(x => x.TransactionType).IsInEnum();
+            RuleFor(x => x.IdProduto).NotEmpty().NotNull();
+            RuleFor(x => x.IdCliente).NotEmpty().NotNull();
+            RuleFor(x => x.Quantidade).NotEmpty().NotNull();
+            RuleFor(x => x.Preco).NotEmpty().NotNull();
+            RuleFor(x => x.TipoTransacao).Must(BeValidEnumValue);
         }
-    }
 
-    public enum TransactionType
-    {
-        Buy,
-        Sale
+        private bool BeValidEnumValue(string value) => Enum.TryParse(typeof(TransactionType), value, out _);
     }
 }

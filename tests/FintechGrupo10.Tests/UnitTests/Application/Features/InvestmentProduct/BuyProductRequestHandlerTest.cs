@@ -26,7 +26,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
             IOptions<RabbitMqConfig> options = Options.Create(new RabbitMqConfig());
 
             repositoryMock.Setup(repo => repo.GetByFilterAsync(It.IsAny<Expression<Func<ClienteEntity, bool>>>(), cancellationToken))
-                          .ReturnsAsync(new ClienteEntity { Id = Guid.NewGuid() });
+                          .ReturnsAsync(new ClienteEntity());
 
             var handler = new BuyProductRequestHandler(loggerMock.Object,
                 messagePublisherServiceMock.Object,

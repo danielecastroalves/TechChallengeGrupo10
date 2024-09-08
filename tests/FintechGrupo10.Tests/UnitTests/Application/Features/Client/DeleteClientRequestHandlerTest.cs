@@ -22,7 +22,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.Client
 
             var mockRepository = mocker.GetMock<IRepository<ClienteEntity>>();
 
-            var existingEntity = new ClienteEntity { Id = clientId, Ativo = true };
+            var existingEntity = new ClienteEntity();
             mockRepository.Setup(repo => repo.GetByFilterAsync(It.IsAny<Expression<Func<ClienteEntity, bool>>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(existingEntity);
 

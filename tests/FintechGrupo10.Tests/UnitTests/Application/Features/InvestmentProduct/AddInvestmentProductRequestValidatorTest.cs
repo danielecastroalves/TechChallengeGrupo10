@@ -7,12 +7,12 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
     public class AddInvestmentProductRequestValidatorTest
     {
         [Theory]
-        [InlineData(null, "Some Description", "1000", "1%", "Low", "Criptomoedas", "BTC", "Conservative")]
+        [InlineData(null, "Some Description", 1000, "1%", "Low", "Criptomoedas", "BTC", "Conservative")]
         public void Validate_InvalidInput_ShouldFail
         (
             string titulo,
             string descricao,
-            string valorMinimo,
+            decimal valorMinimo,
             string taxaAdministracao,
             string riscoProduto,
             string tipoAtivo,
