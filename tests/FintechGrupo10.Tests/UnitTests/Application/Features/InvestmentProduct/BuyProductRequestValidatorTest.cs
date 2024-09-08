@@ -1,5 +1,4 @@
 using FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct;
-using FintechGrupo10.Domain.Enums;
 using FluentAssertions;
 using Xunit;
 
@@ -16,8 +15,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
                 IdCliente = Guid.NewGuid(),
                 IdProduto = Guid.NewGuid(),
                 Quantidade = 10,
-                Preco = 100,
-                TipoTransacao = nameof(TransactionType.Compra)
+                Preco = 100
             };
 
             var validator = new BuyProductRequestValidator();

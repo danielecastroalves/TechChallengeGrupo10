@@ -2,6 +2,7 @@ using System.Net;
 using FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentProduct;
 using FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct;
 using FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct;
+using FintechGrupo10.Application.Features.InvestmentProduct.SellProduct;
 using FintechGrupo10.Domain.Enums;
 using FintechGrupo10.WebApi.Controllers.Comum;
 using MediatR;
@@ -161,6 +162,48 @@ namespace FintechGrupo10.WebApi.Controllers
                 return NotFound("Cliente não encontrado");
 
             return Ok("Ordem de compra enviada");
+        }
+
+        /// <summary>
+        /// SellProductAsync - Sell a Investment Product
+        /// </summary>
+        /// <param name="request">SellProductRequest Request</param>
+        /// <param name="cancellationToken">Cancellation Token</param>
+        /// <returns>Task</returns>
+        [HttpPost("investmentProduct/sellProduct")]
+        [Authorize]
+        [SwaggerOperation(OperationId = "SellProductAsync")]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.OK,
+            "Product has been purchased successfully"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.BadRequest,
+            "Bad Request - Invalid input or missing required parameters"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.NotFound,
+            "Not Found - Client not found"
+        )]
+        [SwaggerResponse
+        (
+            (int)HttpStatusCode.Unauthorized,
+            "Unauthorized - Invalid credentials or authentication token"
+        )]
+        public async Task<IActionResult> SellProductAsync
+        (
+            SellProductRequest request,
+            CancellationToken cancellationToken
+        )
+        {
+            var result = await _mediator.Send(request, cancellationToken);
+            if (!result)
+                return NotFound("Cliente não encontrado");
+
+            return Ok("Ordem de venda enviada");
         }
     }
 }
