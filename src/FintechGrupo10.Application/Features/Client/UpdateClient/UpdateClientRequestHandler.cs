@@ -30,7 +30,7 @@ namespace FintechGrupo10.Application.Features.Client.UpdateClient
                 x.Id == request.Id,
                 cancellationToken);
 
-            entity.Ativo = true;
+            entity.SetUsuarioAtivo();
 
             entity = request.Adapt<ClienteEntity>();
 

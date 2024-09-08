@@ -1,4 +1,5 @@
-using FintechGrupo10.Domain.Entities;
+using System.ComponentModel;
+using System.Reflection;
 using FintechGrupo10.Domain.Enums;
 using FluentValidation;
 using MediatR;
@@ -9,7 +10,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentPro
     {
         public string Titulo { get; set; } = null!;
         public string Descricao { get; set; } = null!;
-        public string ValorMinimo { get; set; } = null!;
+        public decimal ValorMinimo { get; set; }
         public string TaxaAdministracao { get; set; } = null!;
         public string RiscoProduto { get; set; } = null!;
         public string TipoAtivo { get; set; } = null!;
@@ -26,12 +27,25 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.AddInvestmentPro
             RuleFor(x => x.ValorMinimo).NotEmpty().NotNull();
             RuleFor(x => x.TaxaAdministracao).NotEmpty().NotNull();
             RuleFor(x => x.RiscoProduto).NotEmpty().NotNull();
-            RuleFor(x => x.TipoAtivo).Must(IsValidEnumValue);
+            RuleFor(x => x.TipoAtivo).Must(IsValidActiveTypeValue);
             RuleFor(x => x.CodigoAtivo).NotEmpty().NotNull();
             RuleFor(x => x.PerfilInvestimento).Must(BeValidEnumValue);
         }
 
         private bool BeValidEnumValue(string value) => Enum.TryParse(typeof(InvestorProfile), value, out _);
-        private bool IsValidEnumValue(string value) => Enum.TryParse(typeof(TipoAtivo), value, out _);
+
+        private bool IsValidActiveTypeValue(string value)
+        {
+            return Enum.GetValues(typeof(ActiveType))
+                .Cast<ActiveType>()
+                .Any(e => GetEnumDescription(e).Equals(value, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static string GetEnumDescription(Enum value)
+        {
+            var field = value.GetType().GetField(value.ToString());
+            var attribute = (DescriptionAttribute)field.GetCustomAttribute(typeof(DescriptionAttribute));
+            return attribute?.Description ?? value.ToString();
+        }
     }
 }

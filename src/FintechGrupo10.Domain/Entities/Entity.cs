@@ -2,10 +2,10 @@ namespace FintechGrupo10.Domain.Entities
 {
     public abstract class Entity
     {
-        public Guid Id { get; set; }
-        public DateTime DataInsercao { get; set; }
-        public DateTime DataAtualizacao { get; set; }
-        public bool Ativo { get; set; }
+        public Guid Id { get; private set; }
+        public DateTime DataInsercao { get; private set; }
+        public DateTime DataAtualizacao { get; private set; }
+        public bool Ativo { get; private set; }
 
         protected Entity()
         {
@@ -24,6 +24,16 @@ namespace FintechGrupo10.Domain.Entities
         public void SetDataAtualizacao()
         {
             DataAtualizacao = DateTime.UtcNow;
+        }
+
+        public void SetUsuarioAtivo()
+        {
+            Ativo = true;
+        }
+
+        public void SetUsuarioInativo()
+        {
+            Ativo = false;
         }
     }
 }

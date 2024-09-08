@@ -34,7 +34,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentPro
             {
                 entity = (await _repositorio.GetListByFilterAsync(x =>
                 x.Ativo &&
-                x.PerfilInvestimento == request.InvestorProfile,
+                x.PerfilInvestimento.Equals(request.InvestorProfile.ToString()),
                 cancellationToken)).ToList();
             }
 
