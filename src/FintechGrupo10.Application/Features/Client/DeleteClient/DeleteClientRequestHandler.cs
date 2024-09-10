@@ -27,7 +27,7 @@ namespace FintechGrupo10.Application.Features.Client.DeleteClient
 
             var entity = await _repositorio.GetByFilterAsync(x => x.Id == request.ClientID, cancellationToken);
 
-            entity.Ativo = false;
+            entity.SetUsuarioInativo();
 
             await _repositorio.UpdateAsync(x => x.Id == entity.Id, entity, cancellationToken);
 

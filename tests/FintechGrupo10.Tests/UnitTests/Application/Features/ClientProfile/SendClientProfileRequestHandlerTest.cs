@@ -1,7 +1,6 @@
 using FintechGrupo10.Application.Common.Configurations;
 using FintechGrupo10.Application.Common.Services;
 using FintechGrupo10.Application.Features.ClientProfile.SendClientProfile;
-using FintechGrupo10.Application.Features.ClientProfile.SendClientProfileCommand;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;

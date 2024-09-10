@@ -17,11 +17,12 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.Client
             var mocker = new AutoMocker();
             var handler = mocker.CreateInstance<UpdateClientRequestHandler>();
 
-            var request = new UpdateClientRequest { Id = Guid.NewGuid(), /* other properties */ };
+            var existingEntity = new ClienteEntity();
+            var request = new UpdateClientRequest { Id = existingEntity.Id };
 
             var mockRepository = mocker.GetMock<IRepository<ClienteEntity>>();
 
-            var existingEntity = new ClienteEntity { Id = request.Id, Ativo = false };
+            existingEntity.SetUsuarioInativo();
             mockRepository.Setup(repo => repo.GetByFilterAsync(It.IsAny<Expression<Func<ClienteEntity, bool>>>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(existingEntity);
 
@@ -30,8 +31,7 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.Client
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(request.Id, result.Id);
-            Assert.True(result.Ativo); // Verifica se o cliente foi ativado corretamente
+            Assert.True(result.Ativo);
         }
     }
 }

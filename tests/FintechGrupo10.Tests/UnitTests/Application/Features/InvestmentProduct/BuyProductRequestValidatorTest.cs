@@ -6,16 +6,16 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
 {
     public class BuyProductRequestValidatorTest
     {
-
         [Fact]
         public void Validate_BuyProductRequest_ShouldBeSuccess()
         {
             // Arrange
             var request = new BuyProductRequest
             {
-                ClientId = Guid.NewGuid(),
-                ProductId = Guid.NewGuid(),
-                ApplicationValue = 10
+                IdCliente = Guid.NewGuid(),
+                IdProduto = Guid.NewGuid(),
+                Quantidade = 10,
+                Preco = 100
             };
 
             var validator = new BuyProductRequestValidator();

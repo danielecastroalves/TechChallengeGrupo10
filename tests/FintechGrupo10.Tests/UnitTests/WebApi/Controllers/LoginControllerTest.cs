@@ -1,19 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FintechGrupo10.Application.Features.ClientProfile.SendClientProfile;
+using FintechGrupo10.Application.Features.Login;
 using FintechGrupo10.WebApi.Controllers;
+using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Moq.AutoMock;
 using Moq;
+using Moq.AutoMock;
 using Xunit;
-using FintechGrupo10.Application.Features.Login;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace FintechGrupo10.Tests.UnitTests.WebApi.Controllers
 {
@@ -34,7 +26,7 @@ namespace FintechGrupo10.Tests.UnitTests.WebApi.Controllers
         public async Task LoginControlle_Login()
         {
             // Arrange
-            var request = new LoginRequest() { Login = "user", Password = "123"};
+            var request = new LoginRequest() { Login = "user", Password = "123" };
 
             _mediator
                 .Setup(x => x.Send(It.IsAny<LoginRequest>(), It.IsAny<CancellationToken>()))

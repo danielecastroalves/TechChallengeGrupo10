@@ -1,20 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FintechGrupo10.Application.Features.ClientProfile.SendClientProfile;
 using FintechGrupo10.Application.Features.InvestmentQuestion.AddInvestmentQuestion;
+using FintechGrupo10.Application.Features.InvestmentQuestion.DeleteInvestmentQuestion;
+using FintechGrupo10.Application.Features.InvestmentQuestion.GetInvestmentQuestion;
 using FintechGrupo10.WebApi.Controllers;
+using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Moq.AutoMock;
 using Moq;
+using Moq.AutoMock;
 using Xunit;
-using FluentAssertions;
-using FintechGrupo10.Application.Features.InvestmentQuestion.GetInvestmentQuestion;
-using FintechGrupo10.Domain.Entities;
-using FintechGrupo10.Application.Features.InvestmentQuestion.DeleteInvestmentQuestion;
 
 namespace FintechGrupo10.Tests.UnitTests.WebApi.Controllers
 {
@@ -52,11 +45,9 @@ namespace FintechGrupo10.Tests.UnitTests.WebApi.Controllers
         public async Task InvestmentQuestion_GetQuestionsAsync_Ok()
         {
             // Arrange
-            var request = new GetInvestmentQuestionRequest();
-
             _mediator
                 .Setup(x => x.Send(It.IsAny<GetInvestmentQuestionRequest>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new GetInvestmentQuestionsResponse(new List<QuestionEntity>()));
+                .ReturnsAsync(new GetInvestmentQuestionsResponse([]));
 
             // Act
             var result = await _sut.GetQuestionsAsync();

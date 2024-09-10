@@ -7,8 +7,18 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
     public class AddInvestmentProductRequestValidatorTest
     {
         [Theory]
-        [InlineData(null, "Some Description", "1000", "1%", "Low", "Conservative")]
-        public void Validate_InvalidInput_ShouldFail(string titulo, string descricao, string valorMinimo, string taxaAdministracao, string riscoProduto, string perfilInvestimento)
+        [InlineData(null, "Some Description", 1000, "1%", "Low", "Criptomoedas", "BTC", "Conservative")]
+        public void Validate_InvalidInput_ShouldFail
+        (
+            string titulo,
+            string descricao,
+            decimal valorMinimo,
+            string taxaAdministracao,
+            string riscoProduto,
+            string tipoAtivo,
+            string codigoAtivo,
+            string perfilInvestimento
+        )
         {
             // Arrange
             var request = new AddInvestmentProductRequest
@@ -18,6 +28,8 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentProduct
                 ValorMinimo = valorMinimo,
                 TaxaAdministracao = taxaAdministracao,
                 RiscoProduto = riscoProduto,
+                TipoAtivo = tipoAtivo,
+                CodigoAtivo = codigoAtivo,
                 PerfilInvestimento = perfilInvestimento
             };
 

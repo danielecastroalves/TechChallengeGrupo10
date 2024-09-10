@@ -6,7 +6,7 @@ Bem-vindo à documentação da API FintechGrupo10, uma plataforma desenvolvida p
 
 Este guia visa oferecer uma compreensão abrangente da aplicação, permitindo que os todos possam entender e executar a solução sem dificuldades.
 
-Com uma arquitetura robusta e modular, esta aplicação busca atender às necessidades do setor financeiro, proporcionando soluções eficientes para cadastro de clientes, definição de perfis de investimento, e recomendação personalizada de produtos financeiros e agora também com a adição da compra de produtos.
+Com uma arquitetura robusta e modular, esta aplicação busca atender às necessidades do setor financeiro, proporcionando soluções eficientes para cadastro de clientes, definição de perfis de investimento, e recomendação personalizada de produtos financeiros e agora também com a adição da compra e venda de ativos.
 
 Este documento tem como objetivo fornecer uma visão detalhada dos requisitos funcionais e não funcionais do projeto. Desde o cadastro de clientes até a sugestão de produtos adaptados a cada perfil de investidor, a API FintechGrupo10 busca oferecer uma experiência completa e personalizada.
 
@@ -70,26 +70,37 @@ Essa abordagem categoriza os clientes com base em suas respostas, oferecendo uma
 
 ### 3. Produtos para Clientes
 
-A API oferece endpoints para cadastrar novos produtos, bem como para retornar os produtos financeiros recomendados com base no perfil do cliente e também realizar a compra desses produtos.
+A API oferece endpoints para cadastrar novos produtos, bem como para retornar os produtos financeiros recomendados com base no perfil do cliente e também realizar a compra e venda desses produtos. 
+
+Esses produtos são adaptados às preferências de investimento, levando em consideração fatores como risco e retorno.
 
 Exemplos dos tipos de produtos que podem ser oferecidos:
 
 1. **Renda Fixa:**
-    - **CDB Curto Prazo:** Baixo risco, prazo curto.
-    - **Tesouro IPCA+ 2026:** Proteção contra variação de preços, prazo médio.
-    - **Fundo DI:** Baixo risco, investe majoritariamente em ativos de renda fixa.
+    - **CDB (Certificado de Depósito Bancário):** Baixo risco, prazo variável, geralmente oferece rendimento fixo ou atrelado a um indicador.
+    - **LCI (Letra de Crédito Imobiliário):** Isento de imposto de renda, lastreado em financiamentos imobiliários, prazo médio a longo.
+    - **LCA (Letra de Crédito do Agronegócio):** Isento de imposto de renda, lastreado em financiamentos do agronegócio, prazo médio a longo.
+    - **Tesouro IPCA+ 2026:** Proteção contra variação de preços, prazo médio, rendimento atrelado à inflação mais uma taxa fixa.
+    - **Fundo DI:** Baixo risco, investe majoritariamente em ativos de renda fixa, rendimento próximo à taxa Selic.
 2. **Multimercado:**
     - **Fundo Multimercado Moderado:** Diversificação em diferentes classes de ativos, equilíbrio entre risco e retorno.
 3. **Imobiliário:**
-    - **LCI Médio Prazo:** Isento de imposto de renda, lastreado em financiamentos imobiliários.
+    - **Fundo Imobiliário:** Investimento em imóveis ou ativos relacionados ao setor imobiliário, pode incluir renda de aluguel e valorização de imóveis.
 4. **Ações:**
     - **Fundo Ações Setoriais:** Investe em ações de setores específicos, proporcionando diversificação moderada.
     - **Ações Empresas Internacionais:** Investimento direto em ações globais, aproveitando oportunidades internacionais.
 5. **Investimentos Inovadores:**
     - **Fundo Startups:** Investe em empresas emergentes, buscando inovação e alto crescimento.
     - **Criptomoedas Diversificadas:** Investimento em diversas criptomoedas, aproveitando a volatilidade do mercado de criptoativos.
+6. **Commodities:**
+    - **Investimento em Commodities:** Compra de ativos como ouro, prata, petróleo, etc., para diversificação e proteção contra a inflação.
+7. **Títulos Privados:**
+    - **Debêntures:** Títulos de dívida emitidos por empresas, oferecendo rendimento fixo ou variável, com maior risco em comparação a títulos públicos.
+8. **Títulos Públicos:**
+    - **Tesouro Selic:** Título público de renda fixa, rendimento atrelado à taxa Selic, ideal para preservação de capital com liquidez diária.
 
-Após autenticar-se e receber um token de acesso, os clientes podem usar esse token para fazer chamadas ao endpoint de cadastro e compra.
+
+Após autenticar-se e receber um token de acesso, os clientes podem usar esse token para fazer chamadas aos endpoints de cadastro, compra e venda.
 
 Essa abordagem permite uma oferta dinâmica de produtos financeiros, adaptando-se às mudanças no mercado e às preferências dos clientes, proporcionando-lhes uma experiência mais integrada, permitindo que realizem suas transações de investimento de forma rápida e conveniente diretamente pela API. Os endpoints específicos da API possibilitam a gestão eficiente desses produtos, oferecendo aos clientes opções alinhadas ao seu perfil de investimento e objetivos financeiros.
 
@@ -184,7 +195,7 @@ Configure o arquivo `appsettings.json` com as informações necessárias para ca
 
 A API FintechGrupo10 representa o resultado do Tech Challenge do curso de pós-graduação em Arquitetura de Sistemas .Net com Azure, da FIAP.
 
-Este projeto foi concebido para oferecer uma aplicação sobre investimentos financeiros, desde o cadastro de clientes, recomendação personalizada de produtos, até a compra de um produto de investimento. A documentação aqui apresentada visa facilitar a compreensão e execução da aplicação, proporcionando um guia claro e detalhado.
+Este projeto foi concebido para oferecer uma aplicação sobre investimentos financeiros, desde o cadastro de clientes, recomendação personalizada de produtos, até a compra e venda de um produto de investimento. A documentação aqui apresentada visa facilitar a compreensão e execução da aplicação, proporcionando um guia claro e detalhado.
 
 A arquitetura modular, a integração com serviços na nuvem e a utilização estratégica de tecnologias como MongoDB e RabbitMQ contribuem para a robustez e eficiência da API. Cada seção deste documento foi elaborada para oferecer insights detalhados, abordando desde a lógica de cadastro até os requisitos não funcionais, como autenticação, segurança e a estratégia de testes.
 

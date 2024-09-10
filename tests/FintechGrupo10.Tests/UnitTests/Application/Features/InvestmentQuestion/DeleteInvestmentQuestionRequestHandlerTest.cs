@@ -5,7 +5,7 @@ using Moq;
 using Moq.AutoMock;
 using Xunit;
 
-namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.PerguntasInvestmento
+namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentQuestion
 {
     public class DeleteInvestmentQuestionRequestHandlerTest
     {

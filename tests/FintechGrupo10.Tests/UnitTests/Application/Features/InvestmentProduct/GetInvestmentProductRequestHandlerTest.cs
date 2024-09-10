@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
 using FintechGrupo10.Application.Common.Repositories;
 using FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct;
-using FintechGrupo10.Application.Features.InvestmentQuestion.GetInvestmentQuestion;
 using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Domain.Enums;
 using Microsoft.Extensions.Logging;
