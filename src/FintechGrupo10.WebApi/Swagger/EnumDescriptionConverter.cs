@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 
 namespace FintechGrupo10.WebApi.Swagger
 {
-    [ExcludeFromCodeCoverage]
     /// <summary>
     /// EnumDescriptionConverter
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class EnumDescriptionConverter : JsonConverter
     {
         /// <inheritdoc/>

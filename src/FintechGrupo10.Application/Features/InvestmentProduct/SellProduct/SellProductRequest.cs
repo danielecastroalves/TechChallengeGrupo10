@@ -1,10 +1,9 @@
-using FintechGrupo10.Domain.Enums;
 using FluentValidation;
 using MediatR;
 
-namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
+namespace FintechGrupo10.Application.Features.InvestmentProduct.SellProduct
 {
-    public class BuyProductRequest : IRequest<bool>
+    public class SellProductRequest : IRequest<bool>
     {
         public Guid IdProduto { get; set; }
         public Guid IdCliente { get; set; }
@@ -12,7 +11,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
         public decimal Preco { get; set; }
     }
 
-    public class BuyProductRequestValidator : AbstractValidator<BuyProductRequest>
+    public class BuyProductRequestValidator : AbstractValidator<SellProductRequest>
     {
         public BuyProductRequestValidator()
         {

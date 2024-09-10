@@ -1,12 +1,11 @@
-using FintechGrupo10.WebApi.Controllers;
-using MediatR;
-using Moq.AutoMock;
-using Moq;
-using Xunit;
 using FintechGrupo10.Application.Features.ClientProfile.SendClientProfile;
-using System.Net;
+using FintechGrupo10.WebApi.Controllers;
 using FluentAssertions;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
+using Moq.AutoMock;
+using Xunit;
 
 namespace FintechGrupo10.Tests.UnitTests.WebApi.Controllers
 {

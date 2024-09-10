@@ -1,6 +1,5 @@
 using System.Text.Json;
 using FintechGrupo10.Application.Common.Repositories;
-using FintechGrupo10.Application.Features.InvestmentQuestion.GetInvestmentQuestion;
 using FintechGrupo10.Domain.Entities;
 using FintechGrupo10.Domain.Enums;
 using MediatR;
@@ -8,20 +7,14 @@ using Microsoft.Extensions.Logging;
 
 namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentProduct
 {
-    public class GetInvestmentProductRequestHandler : IRequestHandler<GetInvestmentProductRequest, GetInvestmentProductResponse>
+    public class GetInvestmentProductRequestHandler
+    (
+        IRepository<ProductEntity> repositorio,
+        ILogger<GetInvestmentProductRequestHandler> logger
+    ) : IRequestHandler<GetInvestmentProductRequest, GetInvestmentProductResponse>
     {
-        private readonly IRepository<ProductEntity> _repositorio;
-        private readonly ILogger<GetInvestmentProductRequestHandler> _logger;
-
-        public GetInvestmentProductRequestHandler
-        (
-            IRepository<ProductEntity> repositorio,
-            ILogger<GetInvestmentProductRequestHandler> logger
-        )
-        {
-            _repositorio = repositorio;
-            _logger = logger;
-        }
+        private readonly IRepository<ProductEntity> _repositorio = repositorio;
+        private readonly ILogger<GetInvestmentProductRequestHandler> _logger = logger;
 
         public async Task<GetInvestmentProductResponse> Handle
         (
@@ -41,7 +34,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.GetInvestmentPro
             {
                 entity = (await _repositorio.GetListByFilterAsync(x =>
                 x.Ativo &&
-                x.PerfilInvestimento == request.InvestorProfile,
+                x.PerfilInvestimento.Equals(request.InvestorProfile.ToString()),
                 cancellationToken)).ToList();
             }
 

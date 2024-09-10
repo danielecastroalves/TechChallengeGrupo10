@@ -7,22 +7,22 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
+namespace FintechGrupo10.Application.Features.InvestmentProduct.SellProduct
 {
-    public class BuyProductRequestHandler
+    public class SellProductRequestHandler
     (
-        ILogger<BuyProductRequestHandler> logger,
+        ILogger<SellProductRequestHandler> logger,
         IMessagePublisherService messagePublisherService,
         IOptions<RabbitMqConfig> options,
         IRepository<ClienteEntity> repository
-    ) : IRequestHandler<BuyProductRequest, bool>
+    ) : IRequestHandler<SellProductRequest, bool>
     {
-        private readonly ILogger<BuyProductRequestHandler> _logger = logger;
+        private readonly ILogger<SellProductRequestHandler> _logger = logger;
         private readonly IMessagePublisherService _messagePublisherService = messagePublisherService;
         private readonly RabbitMqConfig _rabbitMqConfig = options.Value;
         private readonly IRepository<ClienteEntity> _clientRepository = repository;
 
-        public async Task<bool> Handle(BuyProductRequest request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(SellProductRequest request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -33,7 +33,7 @@ namespace FintechGrupo10.Application.Features.InvestmentProduct.BuyProduct
 
             var message = JsonSerializer.Serialize(request);
 
-            _messagePublisherService.PublishMessage(message, _rabbitMqConfig.BuyProductQueue, true);
+            _messagePublisherService.PublishMessage(message, _rabbitMqConfig.SellProductQueue, true);
 
             _logger.LogInformation(
                 "[SendOrderForProduct] " +

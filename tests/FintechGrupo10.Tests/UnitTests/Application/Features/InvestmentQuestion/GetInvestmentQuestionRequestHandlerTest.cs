@@ -5,7 +5,7 @@ using Moq;
 using Moq.AutoMock;
 using Xunit;
 
-namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.PerguntasInvestmento
+namespace FintechGrupo10.Tests.UnitTests.Application.Features.InvestmentQuestion
 {
     public class GetInvestmentQuestionRequestHandlerTest
     {
@@ -40,21 +40,21 @@ namespace FintechGrupo10.Tests.UnitTests.Application.Recursos.PerguntasInvestmen
 
         private static List<QuestionEntity> QuestionList()
         {
-            return new List<QuestionEntity>
-            {
+            return
+            [
                 new()
                 {
                     Titulo = "Pergunta 1",
-                    Resposta = new List<Answer>
-                    {
+                    Resposta =
+                    [
                         new()
                         {
                             Descricao = "Resposta 1",
                             Pontuacao = 10
                         }
-                    }
+                    ]
                 }
-            };
+            ];
         }
     }
 }
